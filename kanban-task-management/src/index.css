@@ -27,8 +27,10 @@
 	--text-body-m: 12px;
 	--font-body-l: 500;
 	--leading-body-m: 15px;
+	--radius-4: 4px;
 	--radius-8: 8px;
 	--radius-12: 12px;
+	--radius-16: 16px;
 }
 html,
 body {
@@ -36,3 +38,9 @@ body {
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+@layer components {
+	.input-text {
+		@apply py-2 pl-4 rounded-4 outline-none border border-[#828FA3]/25 text-body-l leading-body-l font-medium text-black  focus:border-[#828FA3]/50
+        dark:text-white;
+	}
+}

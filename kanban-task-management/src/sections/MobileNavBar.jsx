@@ -9,11 +9,14 @@ import ThemeToggle from "../components/ThemeToggle";
 import DeleteBoardModal from "../components/DeleteBoardModal";
 import { useRef } from "react";
 import { useEffect } from "react";
+import EditBoardModal from "../components/EditBoardModal";
 
 const MobileNavbar = () => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
 	const [openAllBoards, setOpenAllBoards] = useState(false);
 	const [deleteEditBoardOpen, setdeleteEditBoardOpen] = useState(false);
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+	const [editBoardOpen, setEditBoardOpen] = useState(false);
 	const settingsRef = useRef();
 	const boardsRef = useRef();
 	const boardsToggleRef = useRef();
@@ -38,7 +41,6 @@ const MobileNavbar = () => {
 		};
 	}, []);
 
-	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 	return (
 		<header className="flex px-4 py-5 relative md:hidden justify-between">
 			{/* Logo and ToggleActiveBlog */}
@@ -147,7 +149,7 @@ const MobileNavbar = () => {
 				>
 					<button className="flex items-center justify-center h-4">
 						<ReactSVG
-							src="../../public/assets/icon-vertical-ellipsis.svg"
+							src="/assets/icon-vertical-ellipsis.svg"
 							onClick={() => setdeleteEditBoardOpen((prev) => !prev)}
 						/>
 					</button>
@@ -170,7 +172,13 @@ const MobileNavbar = () => {
 							duration: 0.5,
 						}}
 					>
-						<motion.button className="bg-white dark:bg-dark-grey text-s leading-m text-dark-grey/80 dark:text-white/80 hover:bg-purple hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-dark-grey/50 rounded-sm hover:shadow-none">
+						<motion.button
+							className="bg-white dark:bg-dark-grey text-s leading-m text-dark-grey/80 dark:text-white/80 hover:bg-purple hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-dark-grey/50 rounded-sm hover:shadow-none"
+							onClick={() => {
+								setEditBoardOpen(true);
+								setdeleteEditBoardOpen(false);
+							}}
+						>
 							Edit Board
 						</motion.button>
 						<motion.button
@@ -190,6 +198,7 @@ const MobileNavbar = () => {
 				board={activeBoard}
 				modal={deleteModalOpen}
 			/>
+			<EditBoardModal modal={editBoardOpen} close={setEditBoardOpen} board={activeBoard} />
 		</header>
 	);
 };
