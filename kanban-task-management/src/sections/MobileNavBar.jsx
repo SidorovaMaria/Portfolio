@@ -6,11 +6,13 @@ import { ChevronDown } from "lucide-react";
 import { ReactSVG } from "react-svg";
 import BoardOption from "../components/BoardOption";
 import ThemeToggle from "../components/ThemeToggle";
+import DeleteBoardModal from "../components/DeleteBoardModal";
 
 const MobileNavbar = () => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
 	const [openAllBoards, setOpenAllBoards] = useState(false);
 	const [deleteEditBoardOpen, setdeleteEditBoardOpen] = useState(false);
+	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 	return (
 		<header className="flex px-4 py-5 relative md:hidden justify-between">
 			{/* Logo and ToggleActiveBlog */}
@@ -22,10 +24,11 @@ const MobileNavbar = () => {
 						onClick={() => setOpenAllBoards((prev) => !prev)}
 						className="text-l leading-l flex items-center gap-2"
 					>
-						{activeBoard.name}
+						{activeBoard ? `${activeBoard.name}` : ""}
 						<motion.span
 							variants={ChevronVariant}
 							initial="closed"
+							className="text-purple"
 							animate={openAllBoards ? "open" : "closed"}
 						>
 							<ChevronDown size={16} />
@@ -140,7 +143,7 @@ const MobileNavbar = () => {
 							Edit Board
 						</motion.button>
 						<motion.button
-							onClick={() => setdeleteEditBoardOpen(true)}
+							onClick={() => setDeleteModalOpen(true)}
 							className=" bg-white dark:bg-dark-grey text-s leading-m text-red hover:bg-red hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-red/50 rounded-sm hover:shadow-none"
 						>
 							Delete Board
@@ -148,11 +151,18 @@ const MobileNavbar = () => {
 					</motion.div>
 				</motion.div>
 			</div>
+			<DeleteBoardModal
+				close={setDeleteModalOpen}
+				board={activeBoard}
+				modal={deleteModalOpen}
+			/>
 		</header>
 	);
 };
 
 export default MobileNavbar;
+
+// ------------------ Animation Variants ------------------
 const ChevronVariant = { open: { rotate: 180 }, closed: { rotate: 0 } };
 const boardsOption = {
 	hidden: {

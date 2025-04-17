@@ -23,9 +23,12 @@ const boardsSlice = createSlice({
 			localStorage.setItem("kanbanBoards", JSON.stringify(state));
 		},
 		deleteBoard: (state, action) => {
-			const updatedBoards = state.filter((board) => board.slug !== action.payload);
-			localStorage.setItem("kanbanBoards", JSON.stringify(updatedBoards));
-			return updatedBoards;
+			state.boards = state.boards.filter((board) => board.slug !== action.payload);
+			localStorage.setItem("kanbanBoards", JSON.stringify(state.boards));
+
+			// Since the deleted board is the active one,swap it
+
+			state.activeBoard = state.boards[0] || null;
 		},
 		setActiveBoard: (state, action) => {
 			const found = state.boards.find((board) => board.slug === action.payload);
