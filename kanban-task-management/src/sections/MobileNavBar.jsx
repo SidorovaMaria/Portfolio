@@ -7,11 +7,37 @@ import { ReactSVG } from "react-svg";
 import BoardOption from "../components/BoardOption";
 import ThemeToggle from "../components/ThemeToggle";
 import DeleteBoardModal from "../components/DeleteBoardModal";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 const MobileNavbar = () => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
 	const [openAllBoards, setOpenAllBoards] = useState(false);
 	const [deleteEditBoardOpen, setdeleteEditBoardOpen] = useState(false);
+	const settingsRef = useRef();
+	const boardsRef = useRef();
+	const boardsToggleRef = useRef();
+	useEffect(() => {
+		const handleClickOutside = (e) => {
+			if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+				setdeleteEditBoardOpen(false);
+			}
+			if (
+				boardsRef.current &&
+				!boardsRef.current.contains(e.target) &&
+				boardsToggleRef.current &&
+				!boardsToggleRef.current.contains(e.target)
+			) {
+				setOpenAllBoards(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, []);
+
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 	return (
 		<header className="flex px-4 py-5 relative md:hidden justify-between">
@@ -26,6 +52,7 @@ const MobileNavbar = () => {
 					>
 						{activeBoard ? `${activeBoard.name}` : ""}
 						<motion.span
+							ref={boardsToggleRef}
 							variants={ChevronVariant}
 							initial="closed"
 							className="text-purple"
@@ -52,6 +79,7 @@ const MobileNavbar = () => {
 								></motion.div>
 								{/* DropDown Panel */}
 								<motion.div
+									ref={boardsRef}
 									initial="hidden"
 									animate="show"
 									exit="exit"
@@ -113,7 +141,10 @@ const MobileNavbar = () => {
 					<ReactSVG src="/assets/icon-add-task-mobile.svg" className="fill-white " />
 				</button>
 				{/* Edit & Delete Board */}
-				<motion.div animate={deleteEditBoardOpen ? "openSetting" : "closeSetting"}>
+				<motion.div
+					ref={settingsRef}
+					animate={deleteEditBoardOpen ? "openSetting" : "closeSetting"}
+				>
 					<button className="flex items-center justify-center h-4">
 						<ReactSVG
 							src="../../public/assets/icon-vertical-ellipsis.svg"
@@ -143,7 +174,10 @@ const MobileNavbar = () => {
 							Edit Board
 						</motion.button>
 						<motion.button
-							onClick={() => setDeleteModalOpen(true)}
+							onClick={() => {
+								setDeleteModalOpen(true);
+								setdeleteEditBoardOpen(false);
+							}}
 							className=" bg-white dark:bg-dark-grey text-s leading-m text-red hover:bg-red hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-red/50 rounded-sm hover:shadow-none"
 						>
 							Delete Board
