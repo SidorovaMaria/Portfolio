@@ -9,14 +9,8 @@ const MovingText = ({ children }) => {
 			</ParallalText>
 			<ParallalText baseVelocity={3}>
 				<h1 className="text-accent group uppercase text-stroke-1 font-teko-bold text-4xl mr-2 cursor-pointer">
-					<span className="group-hover:text-secondary">
-						{" "}
-						{children}
-					</span>
-					<span className="ml-2 divider shadow-0! hover:text-accent">
-						{" "}
-						|
-					</span>
+					<span className="group-hover:text-secondary"> {children}</span>
+					<span className="ml-2 divider shadow-0! hover:text-accent"> |</span>
 				</h1>
 			</ParallalText>
 			<ParallalText baseVelocity={-1}>

@@ -38,10 +38,7 @@ const AnimatedText = ({ text, el, className, once = false, repeatDelay }) => {
 				}}
 			>
 				{textArray.map((line, index) => (
-					<span
-						className="block cursor-pointer"
-						key={`${index}-line`}
-					>
+					<span className="block cursor-pointer" key={`${index}-line`}>
 						{line.split(" ").map((word, index) => (
 							<span
 								className="inline-block hover:-translate-y-2 hover:text-accent! transition-all under-line"

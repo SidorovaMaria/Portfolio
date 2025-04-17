@@ -23,7 +23,7 @@ const Intro = () => {
 		<motion.div
 			onMouseMove={handleMouse}
 			onMouseLeave={handleMouseLeave}
-			className="grid lg:grid-cols-[2fr_3fr] gap-x-20 md:grid-cols-1"
+			className="grid lg:grid-cols-[2fr_3fr] gap-x-20 md:grid-cols-1 my-20 mx-10"
 		>
 			<motion.div
 				className="relative p-6"
@@ -69,12 +69,10 @@ const Intro = () => {
 					</h1>
 					<hr className="border-text dark:border-dark-text border-2 rounded-full" />
 					<p className="text-[26px] tracking-wide leading-8 font-teko-light">
-						I’m passionate about transforming visual ideas into
-						seamless, interactive web experiences. I love front-end
-						development because it lets me combine logic and
-						creativity — especially when it comes to building
-						polished UIs with creative animations and smooth
-						interactions.
+						I’m passionate about transforming visual ideas into seamless, interactive
+						web experiences. I love front-end development because it lets me combine
+						logic and creativity — especially when it comes to building polished UIs
+						with creative animations and smooth interactions.
 					</p>
 				</article>
 			</motion.div>

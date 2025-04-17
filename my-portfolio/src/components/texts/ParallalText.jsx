@@ -38,10 +38,7 @@ const ParallalText = ({ baseVelocity = 100, children }) => {
 	});
 	return (
 		<div className="overflow-hidden tracking-widest m-0 flex flex-nowrap ">
-			<motion.div
-				className="whitespace-nowrap flex-nowrap flex gap-0"
-				style={{ x }}
-			>
+			<motion.div className="whitespace-nowrap flex-nowrap flex gap-0" style={{ x }}>
 				<span>{children} </span>
 				<span>{children} </span>
 				<span>{children} </span>
