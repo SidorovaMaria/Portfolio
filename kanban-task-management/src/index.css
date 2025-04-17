@@ -23,12 +23,16 @@
 	--leading-s: 15px;
 	--tracking-s: 2.4px;
 	--text-body-l: 13px;
-	--leading-text-l: 23px;
+	--leading-body-l: 23px;
 	--text-body-m: 12px;
 	--font-body-l: 500;
 	--leading-body-m: 15px;
+	--radius-8: 8px;
+	--radius-12: 12px;
 }
 html,
 body {
-	@apply bg-very-light-grey dark:bg-very-dark-grey;
+	@apply bg-very-light-grey text-black dark:text-white dark:bg-very-dark-grey font-bold font-jakarta;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
