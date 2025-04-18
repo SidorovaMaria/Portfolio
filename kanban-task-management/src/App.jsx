@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadBoards } from "./redux/boardsSlice";
 import BoardTasks from "./sections/BoardTasks";
 import MobileNavbar from "./sections/MobileNavbar";
+import DesktopNavbar from "./sections/DesktopNavbar";
 
 function App() {
 	const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
 	return (
 		<div className="flex flex-col md:flex-row">
 			<MobileNavbar />
+			<DesktopNavbar />
 			<BoardTasks />
 		</div>
 	);

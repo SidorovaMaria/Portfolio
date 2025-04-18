@@ -50,11 +50,11 @@ const MobileNavbar = () => {
 				<div>
 					<button
 						onClick={() => setOpenAllBoards((prev) => !prev)}
+						ref={boardsToggleRef}
 						className="text-l leading-l flex items-center gap-2"
 					>
 						{activeBoard ? `${activeBoard.name}` : ""}
 						<motion.span
-							ref={boardsToggleRef}
 							variants={ChevronVariant}
 							initial="closed"
 							className="text-purple"
@@ -102,9 +102,9 @@ const MobileNavbar = () => {
 														<BoardOption
 															variant={mobileMenuSelectItem}
 															board={board}
-															key={board.slug}
+															key={board.id}
 															close={setOpenAllBoards}
-															active={board.slug === activeBoard.slug}
+															active={board.id === activeBoard.id}
 														/>
 													))}
 												</>
@@ -139,15 +139,16 @@ const MobileNavbar = () => {
 			{/* Add Task & Edit & Delete Board */}
 			<div className="flex items-center gap-4">
 				{/* Add new Task */}
-				<button className="bg-purple px-4.5 py-2.5 rounded-full hover:bg-purple-hover group ">
+				<button className="bg-purple px-4.5 py-2.5 rounded-full hover:bg-purple-hover group cursor-pointer">
 					<ReactSVG src="/assets/icon-add-task-mobile.svg" className="fill-white " />
 				</button>
 				{/* Edit & Delete Board */}
 				<motion.div
+					className=""
 					ref={settingsRef}
 					animate={deleteEditBoardOpen ? "openSetting" : "closeSetting"}
 				>
-					<button className="flex items-center justify-center h-4">
+					<button className="flex items-center justify-center h-4 cursor-pointer">
 						<ReactSVG
 							src="/assets/icon-vertical-ellipsis.svg"
 							onClick={() => setdeleteEditBoardOpen((prev) => !prev)}

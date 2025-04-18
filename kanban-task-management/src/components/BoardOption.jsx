@@ -6,7 +6,7 @@ import { setActiveBoard } from "../redux/boardsSlice";
 const BoardOption = ({ active, close, board, variant }) => {
 	const dispatch = useDispatch();
 	const changeBoard = () => {
-		dispatch(setActiveBoard(board.slug));
+		dispatch(setActiveBoard(board.id));
 		close(false);
 	};
 	return (

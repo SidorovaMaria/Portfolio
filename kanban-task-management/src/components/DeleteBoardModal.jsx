@@ -5,7 +5,7 @@ import { deleteBoard } from "../redux/boardsSlice";
 const DeleteBoardModal = ({ board, close, modal }) => {
 	const dispatch = useDispatch();
 	const handleDelete = () => {
-		dispatch(deleteBoard(board.slug));
+		dispatch(deleteBoard(board.id));
 		close(false);
 	};
 	return (

@@ -11,7 +11,7 @@ const ThemeToggle = () => {
 	const theme = useSelector((state) => state.theme);
 	const isDark = theme.value === "dark";
 	return (
-		<div className="flex items-center justify-center dark:bg-very-dark-grey ml-4 py-4 gap-6 ">
+		<div className="flex items-center justify-center dark:bg-very-dark-grey ml-4 py-4 gap-6 rounded-[6px] ">
 			<div>
 				<ReactSVG
 					src="/assets/icon-light-theme.svg"
