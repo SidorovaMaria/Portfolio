@@ -9,17 +9,28 @@ import ThemeToggle from "../components/ThemeToggle";
 import DeleteBoardModal from "../components/DeleteBoardModal";
 import { useRef } from "react";
 import { useEffect } from "react";
-import EditBoardModal from "../components/EditBoardModal";
+
+import AddEditBoardModal from "../components/AddEditBoardModal";
 
 const MobileNavbar = () => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
 	const [openAllBoards, setOpenAllBoards] = useState(false);
 	const [deleteEditBoardOpen, setdeleteEditBoardOpen] = useState(false);
 	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-	const [editBoardOpen, setEditBoardOpen] = useState(false);
+	const [editAddBoardOpen, setEditAddBoardOpen] = useState({
+		open: false,
+		mode: null,
+	});
 	const settingsRef = useRef();
 	const boardsRef = useRef();
 	const boardsToggleRef = useRef();
+	const closeEditAddModal = () => {
+		setEditAddBoardOpen((prev) => ({
+			...prev,
+			mode: null,
+			open: false,
+		}));
+	};
 	useEffect(() => {
 		const handleClickOutside = (e) => {
 			if (settingsRef.current && !settingsRef.current.contains(e.target)) {
@@ -112,6 +123,14 @@ const MobileNavbar = () => {
 											<motion.li
 												variants={mobileMenuSelectItem}
 												className={`flex items-center gap-3 pl-6 rounded-r-full py-4 cursor-pointer group text-purple`}
+												onClick={() => {
+													setEditAddBoardOpen((prev) => ({
+														...prev,
+														mode: "add",
+														open: true,
+													}));
+													setOpenAllBoards(false);
+												}}
 											>
 												<motion.span variants={""}>
 													<ReactSVG
@@ -176,7 +195,11 @@ const MobileNavbar = () => {
 						<motion.button
 							className="bg-white dark:bg-dark-grey text-s leading-m text-dark-grey/80 dark:text-white/80 hover:bg-purple hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-dark-grey/50 rounded-sm hover:shadow-none"
 							onClick={() => {
-								setEditBoardOpen(true);
+								setEditAddBoardOpen((prev) => ({
+									...prev,
+									mode: "edit",
+									open: true,
+								}));
 								setdeleteEditBoardOpen(false);
 							}}
 						>
@@ -199,7 +222,12 @@ const MobileNavbar = () => {
 				board={activeBoard}
 				modal={deleteModalOpen}
 			/>
-			<EditBoardModal modal={editBoardOpen} close={setEditBoardOpen} board={activeBoard} />
+			<AddEditBoardModal
+				modal={editAddBoardOpen.open}
+				board={activeBoard}
+				mode={editAddBoardOpen.mode}
+				close={closeEditAddModal}
+			/>
 		</header>
 	);
 };

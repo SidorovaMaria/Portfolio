@@ -45,6 +45,7 @@ const boardsSlice = createSlice({
 		addBoard: (state, action) => {
 			state.boards.push(action.payload);
 			localStorage.setItem("kanbanBoards", JSON.stringify(state.boards));
+			state.activeBoard = action.payload;
 		},
 		deleteBoard: (state, action) => {
 			state.boards = state.boards.filter((board) => board.id !== action.payload);

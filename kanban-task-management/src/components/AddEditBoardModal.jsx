@@ -1,14 +1,13 @@
 import React from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, delay, motion } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { ReactSVG } from "react-svg";
 import { useDispatch } from "react-redux";
-import { editBoard } from "../redux/boardsSlice";
+import { addBoard, editBoard } from "../redux/boardsSlice";
 
-// Define the validation schema before using it
-const EditBoardSchema = Yup.object().shape({
+const EditAddBoardSchema = Yup.object().shape({
 	boardName: Yup.string().required("Can't be empty!"),
 	columns: Yup.array().of(
 		Yup.object().shape({
@@ -23,27 +22,51 @@ const EditBoardSchema = Yup.object().shape({
 	),
 });
 
-const EditBoardModal = ({ close, board, modal }) => {
+const AddEditBoardModal = ({ close, modal, board, mode }) => {
 	const dispatch = useDispatch();
+
+	const initialValues = React.useMemo(() => {
+		if (mode === "edit") {
+			return {
+				boardName: board.name,
+				columns: board.columns,
+			};
+		} else {
+			return {
+				boardName: "",
+				columns: [
+					{ name: "Todo", id: uuidv4() },
+					{ name: "Doing", id: uuidv4() },
+				],
+			};
+		}
+	}, [mode, board]);
+
 	const formik = useFormik({
-		initialValues: {
-			boardName: board.name,
-			columns: board.columns,
+		initialValues,
+		validationSchema: EditAddBoardSchema,
+		onSubmit: (values) => {
+			if (mode === "edit") {
+				const updatedBoard = {
+					...board,
+					name: values.boardName,
+					columns: values.columns,
+				};
+				dispatch(editBoard(updatedBoard));
+			} else {
+				const newBoard = {
+					name: values.boardName,
+					columns: values.columns,
+					id: uuidv4(),
+					tasks: [],
+				};
+				dispatch(addBoard(newBoard));
+			}
+			close();
 		},
 		enableReinitialize: true,
-		validationSchema: EditBoardSchema,
-		onSubmit: (values) => {
-			const updatedBoard = {
-				...board,
-				name: values.boardName,
-				columns: values.columns,
-			};
-			dispatch(editBoard(updatedBoard));
-			close(false);
-		},
-		context: { columns: board.columns }, // Pass columns into context here
+		context: { columns: initialValues.columns },
 	});
-
 	return (
 		<AnimatePresence>
 			{modal && (
@@ -53,8 +76,7 @@ const EditBoardModal = ({ close, board, modal }) => {
 					animate="show"
 					exit="exit"
 					transition={{
-						type: "spring",
-						duration: 1.5,
+						duration: 0.7,
 					}}
 					onClick={() => close(false)}
 					variants={backdropVariant}
@@ -64,9 +86,12 @@ const EditBoardModal = ({ close, board, modal }) => {
 						onClick={(e) => e.stopPropagation()}
 						onSubmit={formik.handleSubmit}
 						variants={modalBlock}
+						transition={{ delay: 0.5 }}
 						className="bg-white dark:bg-dark-grey w-full p-6 pb-8 rounded-[6px] flex flex-col gap-6"
 					>
-						<h3 className="text-l leading-l">Edit Board</h3>
+						<h3 className="text-l leading-l">
+							{mode === "edit" ? "Edit Board" : "Add New Board"}
+						</h3>
 						<div className="flex flex-col gap-2">
 							<label
 								htmlFor="boardName"
@@ -185,7 +210,7 @@ const EditBoardModal = ({ close, board, modal }) => {
 	);
 };
 
-export default EditBoardModal;
+export default AddEditBoardModal;
 
 const backdropVariant = {
 	hidden: {
@@ -210,6 +235,7 @@ const modalBlock = {
 		transition: {
 			type: "spring",
 			duration: 1,
+			delay: 0.7, //So it updates first before showing
 		},
 	},
 	exit: {
