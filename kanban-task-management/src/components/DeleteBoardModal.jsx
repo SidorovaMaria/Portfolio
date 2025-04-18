@@ -18,8 +18,9 @@ const DeleteBoardModal = ({ board, close, modal }) => {
 					exit="exit"
 					transition={{
 						type: "spring",
-						duration: 1.5,
+						duration: 0.2,
 					}}
+					onClick={() => close(false)}
 					variants={backdropVariant}
 					className="inset-0 absolute w-screen h-screen bg-black/50 px-4 flex items-center gap-6"
 				>

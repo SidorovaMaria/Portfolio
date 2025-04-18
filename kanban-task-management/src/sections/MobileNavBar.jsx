@@ -6,36 +6,23 @@ import { ChevronDown } from "lucide-react";
 import { ReactSVG } from "react-svg";
 import BoardOption from "../components/BoardOption";
 import ThemeToggle from "../components/ThemeToggle";
-import DeleteBoardModal from "../components/DeleteBoardModal";
 import { useRef } from "react";
 import { useEffect } from "react";
 
+import AddNewTaskButton from "../components/AddNewTaskButton";
+import EditDeletBoardBtn from "../components/EditDeletBoardBtn";
 import AddEditBoardModal from "../components/AddEditBoardModal";
 
 const MobileNavbar = () => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
+	const [openCreateBoardModal, setOpenCreateBoardModal] = useState(false);
 	const [openAllBoards, setOpenAllBoards] = useState(false);
-	const [deleteEditBoardOpen, setdeleteEditBoardOpen] = useState(false);
-	const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-	const [editAddBoardOpen, setEditAddBoardOpen] = useState({
-		open: false,
-		mode: null,
-	});
-	const settingsRef = useRef();
+
 	const boardsRef = useRef();
 	const boardsToggleRef = useRef();
-	const closeEditAddModal = () => {
-		setEditAddBoardOpen((prev) => ({
-			...prev,
-			mode: null,
-			open: false,
-		}));
-	};
+
 	useEffect(() => {
 		const handleClickOutside = (e) => {
-			if (settingsRef.current && !settingsRef.current.contains(e.target)) {
-				setdeleteEditBoardOpen(false);
-			}
 			if (
 				boardsRef.current &&
 				!boardsRef.current.contains(e.target) &&
@@ -53,7 +40,7 @@ const MobileNavbar = () => {
 	}, []);
 
 	return (
-		<header className="flex px-4 py-5 relative md:hidden justify-between">
+		<header className="flex relative px-4 py-5  md:hidden justify-between">
 			{/* Logo and ToggleActiveBlog */}
 			<div className="flex items-center gap-4">
 				<img src="/assets/logo-mobile.svg" />
@@ -97,7 +84,7 @@ const MobileNavbar = () => {
 									animate="show"
 									exit="exit"
 									variants={boardsOption}
-									className="origin-top absolute z-20 top-[120%] left-1/2 -translate-x-1/2 w-2/3 bg-white dark:bg-dark-grey p-4 pl-0 rounded-8 overflow-hidden"
+									className="origin-top absolute z-20 top-[150%] left-1/2 -translate-x-1/2 w-2/3 bg-white dark:bg-dark-grey p-4 pl-0 rounded-8 overflow-hidden"
 								>
 									<div className="flex flex-col gap-5">
 										<motion.h2
@@ -124,11 +111,7 @@ const MobileNavbar = () => {
 												variants={mobileMenuSelectItem}
 												className={`flex items-center gap-3 pl-6 rounded-r-full py-4 cursor-pointer group text-purple`}
 												onClick={() => {
-													setEditAddBoardOpen((prev) => ({
-														...prev,
-														mode: "add",
-														open: true,
-													}));
+													setOpenCreateBoardModal(true);
 													setOpenAllBoards(false);
 												}}
 											>
@@ -158,75 +141,14 @@ const MobileNavbar = () => {
 			{/* Add Task & Edit & Delete Board */}
 			<div className="flex items-center gap-4">
 				{/* Add new Task */}
-				<button className="bg-purple px-4.5 py-2.5 rounded-full hover:bg-purple-hover group cursor-pointer">
-					<ReactSVG src="/assets/icon-add-task-mobile.svg" className="fill-white " />
-				</button>
+				<AddNewTaskButton />
 				{/* Edit & Delete Board */}
-				<motion.div
-					className=""
-					ref={settingsRef}
-					animate={deleteEditBoardOpen ? "openSetting" : "closeSetting"}
-				>
-					<button className="flex items-center justify-center h-4 cursor-pointer">
-						<ReactSVG
-							src="/assets/icon-vertical-ellipsis.svg"
-							onClick={() => setdeleteEditBoardOpen((prev) => !prev)}
-						/>
-					</button>
-					<motion.div
-						className="absolute top-[120%] right-[2%] flex flex-col gap-1 cursor-pointer"
-						variants={{
-							openSetting: {
-								y: 0,
-								scaleY: 1,
-								opacity: 1,
-							},
-							closeSetting: {
-								y: -50,
-								scaleY: 0,
-								opacity: 0,
-							},
-						}}
-						transition={{
-							type: "spring",
-							duration: 0.5,
-						}}
-					>
-						<motion.button
-							className="bg-white dark:bg-dark-grey text-s leading-m text-dark-grey/80 dark:text-white/80 hover:bg-purple hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-dark-grey/50 rounded-sm hover:shadow-none"
-							onClick={() => {
-								setEditAddBoardOpen((prev) => ({
-									...prev,
-									mode: "edit",
-									open: true,
-								}));
-								setdeleteEditBoardOpen(false);
-							}}
-						>
-							Edit Board
-						</motion.button>
-						<motion.button
-							onClick={() => {
-								setDeleteModalOpen(true);
-								setdeleteEditBoardOpen(false);
-							}}
-							className=" bg-white dark:bg-dark-grey text-s leading-m text-red hover:bg-red hover:text-white py-2 px-4 w-full text-left shadow-[2px_2px_2px_2px] border shadow-red/50 rounded-sm hover:shadow-none"
-						>
-							Delete Board
-						</motion.button>
-					</motion.div>
-				</motion.div>
+				<EditDeletBoardBtn />
 			</div>
-			<DeleteBoardModal
-				close={setDeleteModalOpen}
-				board={activeBoard}
-				modal={deleteModalOpen}
-			/>
 			<AddEditBoardModal
-				modal={editAddBoardOpen.open}
-				board={activeBoard}
-				mode={editAddBoardOpen.mode}
-				close={closeEditAddModal}
+				modal={openCreateBoardModal}
+				mode={"add"}
+				close={setOpenCreateBoardModal}
 			/>
 		</header>
 	);

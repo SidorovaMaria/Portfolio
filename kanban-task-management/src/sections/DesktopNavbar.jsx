@@ -5,10 +5,22 @@ import BoardOption from "../components/BoardOption";
 import { Link } from "react-router";
 import { useSelector } from "react-redux";
 import ThemeToggle from "../components/ThemeToggle";
+import AddEditBoardModal from "../components/AddEditBoardModal";
 
 const DesktopNavbar = () => {
 	const [openNavbar, setOpenNavbar] = useState(true);
+	const [editAddBoardOpen, setEditAddBoardOpen] = useState({
+		open: false,
+		mode: null,
+	});
 	const { boards, activeBoard } = useSelector((state) => state.boards);
+	const closeEditAddModal = () => {
+		setEditAddBoardOpen((prev) => ({
+			...prev,
+			mode: null,
+			open: false,
+		}));
+	};
 	return (
 		<>
 			<AnimatePresence>
@@ -24,7 +36,8 @@ const DesktopNavbar = () => {
 								type: "spring",
 								duration: 1,
 							}}
-							className="hidden md:flex w-[260px] py-8 h-screen  flex-col gap-14 overflow-hidden dark:bg-dark-grey pr-5"
+							className="hidden md:flex w-[260px] py-8 h-screen  flex-col gap-14 overflow-hidden dark:bg-dark-grey pr-5
+                            border-r border-light-lines dark:border-dark-lines"
 						>
 							<div className="pl-6">
 								<ReactSVG
@@ -44,17 +57,26 @@ const DesktopNavbar = () => {
 									All Boards ({boards.length})
 								</motion.h2>
 								<motion.ul className="" variants={boardsVariant}>
-									{boards.map((board) => (
-										<BoardOption
-											variant={desktopBoardVarint}
-											board={board}
-											key={board.id}
-											active={board.id === activeBoard.id}
-										/>
-									))}
+									{boards.length > 0 &&
+										boards.map((board) => (
+											<BoardOption
+												variant={desktopBoardVarint}
+												board={board}
+												key={board.id}
+												active={board.id === activeBoard.id}
+											/>
+										))}
+
 									<motion.li
 										className={`flex items-center gap-3 pl-6 rounded-r-full py-4 cursor-pointer group text-purple`}
 										variants={desktopBoardVarint}
+										onClick={() => {
+											setEditAddBoardOpen((prev) => ({
+												...prev,
+												mode: "add",
+												open: true,
+											}));
+										}}
 									>
 										<motion.span variants={""}>
 											<ReactSVG
@@ -108,6 +130,12 @@ const DesktopNavbar = () => {
 					</motion.button>
 				)}
 			</AnimatePresence>
+			<AddEditBoardModal
+				modal={editAddBoardOpen.open}
+				board={activeBoard}
+				mode={editAddBoardOpen.mode}
+				close={closeEditAddModal}
+			/>
 		</>
 	);
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { AnimatePresence, delay, motion } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
+import { createPortal } from "react-dom";
 import { useFormik } from "formik";
 import { ReactSVG } from "react-svg";
 import { useDispatch } from "react-redux";
@@ -67,7 +68,7 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 		enableReinitialize: true,
 		context: { columns: initialValues.columns },
 	});
-	return (
+	return createPortal(
 		<AnimatePresence>
 			{modal && (
 				<motion.aside
@@ -80,14 +81,15 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 					}}
 					onClick={() => close(false)}
 					variants={backdropVariant}
-					className="inset-0 absolute z-0 w-screen h-screen bg-black/50 px-4 flex items-center gap-6"
+					className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
+                   "
 				>
 					<motion.form
 						onClick={(e) => e.stopPropagation()}
 						onSubmit={formik.handleSubmit}
 						variants={modalBlock}
 						transition={{ delay: 0.5 }}
-						className="bg-white dark:bg-dark-grey w-full p-6 pb-8 rounded-[6px] flex flex-col gap-6"
+						className="bg-white dark:bg-dark-grey w-full p-6 md:p-8 pb-8 rounded-[6px] flex flex-col gap-6  md:max-w-[480px] md:mx-auto"
 					>
 						<h3 className="text-l leading-l">
 							{mode === "edit" ? "Edit Board" : "Add New Board"}
@@ -104,10 +106,10 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 							>
 								<input
 									id="boardName"
-									className="outline-none w-full"
+									className="outline-none w-full placeholder:text-white/25"
 									name="boardName"
 									type="text"
-									placeholder="E.g Web Design"
+									placeholder="e.g. Web Design"
 									value={formik.values.boardName}
 									onChange={formik.handleChange}
 								/>
@@ -150,7 +152,7 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 												} `}
 											>
 												<input
-													className="w-full outline-none"
+													className="w-full outline-none placeholder:text-white/25"
 													type="text"
 													name={`columns[${index}].name`}
 													value={column.name}
@@ -206,7 +208,8 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 					</motion.form>
 				</motion.aside>
 			)}
-		</AnimatePresence>
+		</AnimatePresence>,
+		document.body
 	);
 };
 
