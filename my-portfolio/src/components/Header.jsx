@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import ThemeToggle from "./themetoggle/ThemeToggle";
+import FlipLink from "./texts/FlipLink";
 
 const Header = () => {
 	const { scrollY } = useScroll();
@@ -17,19 +18,19 @@ const Header = () => {
 			className="flex w-full h-1/12  justify-between items-center fixed top-0 left-0 px-10 z-50 bg-background/80 dark:bg-dark-background/80"
 		>
 			<h1 className="uppercase font-teko-bold tracking-widest text-5xl">
-				<a href="#">Maria Sidorova</a>
+				<FlipLink href="#">Maria Sidorova</FlipLink>
 			</h1>
 			<div className="flex items-center gap-8">
 				<nav>
 					<ul className="uppercase text-3xl flex items-center gap-8 tracking-wider font-teko-semibold ">
 						<li className="hover:text-accent ">
-							<a href="#aboutme">About me</a>
+							<FlipLink href="#aboutme">About Me</FlipLink>
 						</li>
 						<li className="hover:text-accent ">
-							<a href="#projects">Projects</a>
+							<FlipLink href="#projects">Projects</FlipLink>
 						</li>
 						<li className="hover:text-accent ">
-							<a href="#contactme">Contact me</a>
+							<FlipLink href="#contactme">Contact me</FlipLink>
 						</li>
 					</ul>
 				</nav>

@@ -1,60 +1,45 @@
 @import "tailwindcss";
 @font-face {
 	font-family: "Teko-Light";
-	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.woff2")
-			format("woff2"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.woff")
-			format("woff"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.ttf")
-			format("truetype");
+	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.woff2") format("woff2"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.woff") format("woff"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Light.ttf") format("truetype");
 	font-weight: 300;
 	font-display: swap;
 	font-style: normal;
 }
 @font-face {
 	font-family: "Teko-Regular";
-	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.woff2")
-			format("woff2"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.woff")
-			format("woff"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.ttf")
-			format("truetype");
+	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.woff2") format("woff2"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.woff") format("woff"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-display: swap;
 	font-style: normal;
 }
 @font-face {
 	font-family: "Teko-Medium";
-	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.woff2")
-			format("woff2"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.woff")
-			format("woff"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.ttf")
-			format("truetype");
+	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.woff2") format("woff2"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.woff") format("woff"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Medium.ttf") format("truetype");
 	font-weight: 500;
 	font-display: swap;
 	font-style: normal;
 }
 @font-face {
 	font-family: "Teko-SemiBold";
-	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.woff2")
-			format("woff2"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.woff")
-			format("woff"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.ttf")
-			format("truetype");
+	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.woff2") format("woff2"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.woff") format("woff"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-SemiBold.ttf") format("truetype");
 	font-weight: 600;
 	font-display: swap;
 	font-style: normal;
 }
 @font-face {
 	font-family: "Teko-Bold";
-	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.woff2")
-			format("woff2"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.woff")
-			format("woff"),
-		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.ttf")
-			format("truetype");
+	src: url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.woff2") format("woff2"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.woff") format("woff"),
+		url("/fonts/Teko_Complete/Fonts/WEB/fonts/Teko-Bold.ttf") format("truetype");
 	font-weight: 700;
 	font-display: swap;
 	font-style: normal;
@@ -78,7 +63,7 @@
 }
 body,
 html {
-	@apply text-text bg-background dark:text-dark-text dark:bg-dark-background font-teko-regular;
+	@apply text-text bg-background dark:text-dark-text dark:bg-dark-background font-teko-regular scroll-smooth;
 }
 @layer utilities {
 	.text-stroke {

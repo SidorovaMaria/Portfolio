@@ -25,8 +25,9 @@ function App() {
 						<main className="mt-40 ">
 							<MovingText>Portfolio 2025</MovingText>
 							<Intro />
-							<Projects />
+
 							<TechStack />
+							<Projects />
 						</main>
 					</>
 				)}
