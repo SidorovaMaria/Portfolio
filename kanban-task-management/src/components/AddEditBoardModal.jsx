@@ -25,12 +25,16 @@ const EditAddBoardSchema = Yup.object().shape({
 
 const AddEditBoardModal = ({ close, modal, board, mode }) => {
 	const dispatch = useDispatch();
-
 	const initialValues = React.useMemo(() => {
 		if (mode === "edit") {
 			return {
 				boardName: board.name,
 				columns: board.columns,
+			};
+		} else if (mode === "addColumn") {
+			return {
+				boardName: board.name,
+				columns: [...board.columns, { name: "", id: uuidv4() }],
 			};
 		} else {
 			return {
@@ -47,29 +51,31 @@ const AddEditBoardModal = ({ close, modal, board, mode }) => {
 		initialValues,
 		validationSchema: EditAddBoardSchema,
 		onSubmit: (values) => {
-			if (mode === "edit") {
+			if (mode === "add") {
+				const newBoard = {
+					name: values.boardName,
+					columns: values.columns,
+					id: uuidv4(),
+				};
+				dispatch(addBoard(newBoard));
+			} else {
 				const updatedBoard = {
 					...board,
 					name: values.boardName,
 					columns: values.columns,
 				};
 				dispatch(editBoard(updatedBoard));
-			} else {
-				const newBoard = {
-					name: values.boardName,
-					columns: values.columns,
-					id: uuidv4(),
-					tasks: [],
-				};
-				dispatch(addBoard(newBoard));
 			}
 			close();
 		},
 		enableReinitialize: true,
 		context: { columns: initialValues.columns },
 	});
+	if (mode === "add") {
+		console.log(formik.values);
+	}
 	return createPortal(
-		<AnimatePresence>
+		<AnimatePresence mode="wait">
 			{modal && (
 				<motion.aside
 					key="deleteModal"

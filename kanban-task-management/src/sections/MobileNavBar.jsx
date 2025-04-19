@@ -40,7 +40,7 @@ const MobileNavbar = () => {
 	}, []);
 
 	return (
-		<header className="flex relative px-4 py-5  md:hidden justify-between">
+		<header className="flex relative px-4 py-4 md:hidden justify-between">
 			{/* Logo and ToggleActiveBlog */}
 			<div className="flex items-center gap-4">
 				<img src="/assets/logo-mobile.svg" />
@@ -55,10 +55,10 @@ const MobileNavbar = () => {
 						<motion.span
 							variants={ChevronVariant}
 							initial="closed"
-							className="text-purple"
+							className=""
 							animate={openAllBoards ? "open" : "closed"}
 						>
-							<ChevronDown size={16} />
+							<ReactSVG src="../../public/assets/icon-chevron-down.svg" />
 						</motion.span>
 					</button>
 					{/* Modal with Boards */}
@@ -139,15 +139,25 @@ const MobileNavbar = () => {
 				</div>
 			</div>
 			{/* Add Task & Edit & Delete Board */}
-			<div className="flex items-center gap-4">
-				{/* Add new Task */}
-				<AddNewTaskButton />
-				{/* Edit & Delete Board */}
-				<EditDeletBoardBtn />
-			</div>
+			<AnimatePresence mode="wait">
+				{activeBoard && (
+					<motion.div
+						key={"activeBoardShown"}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="flex items-center gap-4"
+					>
+						{/* Add new Task */}
+						<AddNewTaskButton />
+						{/* Edit & Delete Board */}
+						<EditDeletBoardBtn />
+					</motion.div>
+				)}
+			</AnimatePresence>
 			<AddEditBoardModal
 				modal={openCreateBoardModal}
-				mode={"add"}
+				mode={openCreateBoardModal ? "add" : ""}
 				close={setOpenCreateBoardModal}
 			/>
 		</header>

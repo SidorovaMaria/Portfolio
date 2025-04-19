@@ -9,7 +9,7 @@ const DeleteBoardModal = ({ board, close, modal }) => {
 		close(false);
 	};
 	return (
-		<AnimatePresence>
+		<AnimatePresence mode="wait">
 			{modal && (
 				<motion.aside
 					key="deleteModal"
@@ -22,7 +22,7 @@ const DeleteBoardModal = ({ board, close, modal }) => {
 					}}
 					onClick={() => close(false)}
 					variants={backdropVariant}
-					className="inset-0 absolute w-screen h-screen bg-black/50 px-4 flex items-center gap-6"
+					className="inset-0 absolute w-screen h-screen z-40 bg-black/50 px-4 flex items-center gap-6"
 				>
 					<motion.div
 						variants={modalBlock}

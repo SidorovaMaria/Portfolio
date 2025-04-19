@@ -7,7 +7,7 @@ const BoardOption = ({ active, close, board, variant }) => {
 	const dispatch = useDispatch();
 	const changeBoard = () => {
 		dispatch(setActiveBoard(board.id));
-		close(false);
+		close?.(false);
 	};
 	return (
 		<motion.li

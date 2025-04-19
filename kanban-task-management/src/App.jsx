@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadBoards } from "./redux/boardsSlice";
 import BoardTasks from "./sections/BoardTasks";
 import MobileNavbar from "./sections/MobileNavbar";
+import DesktopHeader from "./sections/DesktopHeader";
 import DesktopNavbar from "./sections/DesktopNavbar";
 
 function App() {
@@ -18,10 +19,13 @@ function App() {
 	}
 
 	return (
-		<div className="flex flex-col md:flex-row">
+		<div className="flex flex-col">
 			<MobileNavbar />
-			<DesktopNavbar />
-			<BoardTasks />
+			<DesktopHeader />
+			<div className="flex ">
+				<DesktopNavbar />
+				<BoardTasks />
+			</div>
 		</div>
 	);
 }

@@ -32,23 +32,12 @@ const DesktopNavbar = () => {
 							initial={"hidden"}
 							animate={"show"}
 							exit={"exit"}
-							transition={{
-								type: "spring",
-								duration: 1,
-							}}
-							className="hidden md:flex w-[260px] py-8 h-screen  flex-col gap-14 overflow-hidden dark:bg-dark-grey pr-5
-                            border-r border-light-lines dark:border-dark-lines"
+							className={`hidden md:flex min-w-[260px] min-h-[calc(100vh-80px)] pb-8  flex-col overflow-hidden bg-white dark:bg-dark-grey pr-5
+                            border-r border-light-lines z-20 dark:border-dark-lines`}
 						>
-							<div className="pl-6">
-								<ReactSVG
-									src="/assets/logo-light.svg"
-									className="hidden dark:block"
-								/>
-								<ReactSVG src="/assets/logo-dark.svg" className="dark:hidden" />
-							</div>
 							<motion.div
 								key="boards-container"
-								className="flex gap-5 flex-col "
+								className="flex gap-5 flex-col mt-8"
 								initial="hidden"
 								animate="show"
 								exit="exit"
@@ -120,12 +109,12 @@ const DesktopNavbar = () => {
 							type: "spring",
 							duration: 0.4,
 						}}
-						className="absolute bottom-8 left-0 w-14 h-12 flex items-center justify-center bg-purple rounded-r-full hover:bg-purple-hover"
+						className=" cursor-pointer absolute bottom-8 left-0 w-14 h-12  items-center justify-center bg-purple rounded-r-full hover:bg-purple-hover hidden md:flex"
 						onClick={() => setOpenNavbar((prev) => !prev)}
 					>
 						<ReactSVG
 							src="/assets/icon-show-sidebar.svg"
-							className="fill-medium-grey  dark:fill-white group-hover:fill-black"
+							className="fill-white group-hover:fill-black"
 						/>
 					</motion.button>
 				)}
@@ -151,6 +140,10 @@ const desktopNavBarVariant = {
 	show: {
 		width: 240,
 		opacity: 1,
+		transition: {
+			type: "spring",
+			duration: 1,
+		},
 	},
 	exit: {
 		width: 0,
