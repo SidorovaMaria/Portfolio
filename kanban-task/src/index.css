@@ -46,4 +46,7 @@ body {
 		@apply py-2 pl-4 rounded-4 outline-none border border-[#828FA3]/25 text-body-l leading-body-l font-medium text-black  focus:border-[#828FA3]/50
         dark:text-white focus-within:border-purple!;
 	}
+	.noscroll {
+		overflow: hidden;
+	}
 }

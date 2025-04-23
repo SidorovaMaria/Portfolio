@@ -141,6 +141,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 							id="taskTitle"
 							name="taskTitle"
 							type="text"
+							autoComplete="off"
 							placeholder="e.g. Take coffee break"
 							className="w-full outline-none placeholder:text-black/25 dark:placeholder:text-white/25"
 							value={formik.values.taskTitle}
@@ -164,6 +165,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 					<textarea
 						id="description"
 						name="description"
+						autoComplete="off"
 						placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
 						className="input-text w-full outline-none min-h-[112px] placeholder:text-black/25 dark:placeholder:text-white/25"
 						value={formik.values.description}

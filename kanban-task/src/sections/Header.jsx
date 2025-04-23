@@ -9,7 +9,7 @@ const Header = ({ openModal, openTaskModal }) => {
 	const { boards, activeBoard } = useSelector((state) => state.boards);
 
 	return (
-		<header className="flex h-16 py-5 px-4  bg-white dark:bg-dark-grey md:p-0 md:h-20  lg:h-25 items-center border-b sticky top-0 z-30">
+		<header className="flex h-16 py-5 px-4  bg-white dark:bg-dark-grey md:p-0 md:h-20  lg:h-25 items-center border-b md:sticky md:top-0 z-30">
 			<div className="w-fit flex items-center h-full md:w-[280px] lg:w-[300px] md:border-r md:border-light-lines dark:border-dark-lines md:pl-6">
 				{/* Logo */}
 

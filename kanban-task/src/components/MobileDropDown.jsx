@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useSelector } from "react-redux";
 import BoardOption from "./BoardOption";
@@ -7,6 +7,16 @@ import ThemeToggle from "./ThemeToggle";
 const MobileDropDown = ({ openCreateNew }) => {
 	const { activeBoard, boards } = useSelector((state) => state.boards);
 	const [allBoardsDropdown, setAllBoardsDropdown] = useState(false);
+	// useEffect(() => {
+	// 	if (allBoardsDropdown) {
+	// 		document.body.classList.add("noscroll");
+	// 	} else {
+	// 		document.body.classList.remove("noscroll");
+	// 	}
+
+	// 	// Cleanup on unmount
+	// 	return () => document.body.classList.remove("noscroll");
+	// }, [allBoardsDropdown]);
 
 	return (
 		<motion.div className="md:hidden mx-4">
