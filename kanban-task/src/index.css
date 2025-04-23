@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@theme {
+	--font-jakarta: "Plus Jakarta Sans", sans-serif;
+	--color-black: #000112;
+	--color-very-dark-grey: #20212c;
+	--color-dark-grey: #2b2c37;
+	--color-dark-lines: #3e3f4e;
+	--color-medium-grey: #828fa3;
+	--color-light-lines: #e4ebfa;
+	--color-very-light-grey: #f4f7fd;
+	--color-white: #ffffff;
+	--color-purple: #635fc7;
+	--color-purple-hover: #a8a4ff;
+	--color-red: #ea5555;
+	--color-red-hover: #ff9898;
+	--text-xl: 24px;
+	--leading-xl: 30px;
+	--text-l: 18px;
+	--leading-L: 23px;
+	--text-m: 15px;
+	--leading-m: 19px;
+	--text-s: 12px;
+	--leading-s: 15px;
+	--tracking-s: 2.4px;
+	--text-body-l: 13px;
+	--leading-body-l: 23px;
+	--text-body-m: 12px;
+	--font-body-l: 500;
+	--leading-body-m: 15px;
+	--radius-4: 4px;
+	--radius-8: 8px;
+	--radius-12: 12px;
+	--radius-16: 16px;
+}
+html,
+body {
+	@apply bg-very-light-grey text-black dark:text-white dark:bg-very-dark-grey font-bold font-jakarta;
+}
+* {
+	@apply border-light-lines dark:border-dark-lines;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+@layer components {
+	.input-text {
+		@apply py-2 pl-4 rounded-4 outline-none border border-[#828FA3]/25 text-body-l leading-body-l font-medium text-black  focus:border-[#828FA3]/50
+        dark:text-white focus-within:border-purple!;
+	}
+}
