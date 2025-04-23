@@ -4,13 +4,17 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 ## Screenshots
 
-![App Screenshot - Desktop Dark]('./public/screenshots/desktop-dark.png')
+![App Screenshot - Desktop Dark](./public/screenshots/desktop-dark.png)
+{ width=50% }
 
-![App Screenshot - Desktop Light]('./public/screenshots/desktop-light.png)
+![App Screenshot - Desktop Light](./public/screenshots/desktop-light.png)
+{ width=50% }
 
 ![App Screenshot - Mobile Dark](./public/screenshots/mobile-dark.png)
+{ width=50% }
 
 ![App Screenshot - Mobile Light](./public/screenshots/mobile-light.png)
+{ width=50% }
 
 ## Links
 
