@@ -4,17 +4,21 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 ## Screenshots
 
-<div style="display: grid; grid-template-columns: auto auto auto; width:80%; justify-content: start; align-items:start; gap: 20px; margin-bottom: 20px; ">
-    <img src="./public/screenshots/desktop-light.png" alt="App Screenshot - Desktop Light" style=" object-fit: contain;" />
-     <img src="./public/screenshots/desktop-dark.png" alt="App Screenshot - Desktop Dark" style=" object-fit: contain;" />
-    <img src="./public/screenshots/desktop-task.png" alt="App Screenshot - Desktop Task" style=" object-fit: contain;" />
-   
-</div>
-<div style="display: grid; grid-template-columns: auto auto auto; width:50%; gap: 20px; margin-bottom: 20px; ">
-      <img src="./public/screenshots/mobile-light.png" alt="App Screenshot - Mobile Light" style="object-fit: contain;" />
-       <img src="./public/screenshots/mobile-dark.png" alt="App Screenshot - Mobile Dark" style=" object-fit: contain;" />
-      <img src="./public/screenshots/mobile-delete.png" alt="App Screenshot - Mobile Delete" style="object-fit: contain;" />
-</div>
+<table>
+  <tr>
+    <td><img src="./public/screenshots/desktop-light.png" width="400"/></td>
+    <td><img src="./public/screenshots/desktop-dark.png" width="400"/></td>
+    <td><img src="./public/screenshots/desktop-task.png" width="400"/></td>
+  </tr>
+	
+</table>
+<table>
+	<tr> 
+    <td><img src="./public/screenshots/mobile-light.png" width="200"/></td>
+    <td><img src="./public/screenshots/mobile-dark.png" width="200"/></td>
+    <td><img src="./public/screenshots/mobile-delete.png" width="200"/></td>
+</tr>
+</table>
 
 ## Links
 
