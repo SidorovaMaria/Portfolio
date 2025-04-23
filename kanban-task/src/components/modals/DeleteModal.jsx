@@ -23,7 +23,7 @@ const DeleteModal = ({ mode, component, close }) => {
 				duration: 0.7,
 			}}
 			onClick={() => close()}
-			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
+			className="inset-0 fixed z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
                            "
 		>
 			<motion.div
@@ -48,8 +48,10 @@ const DeleteModal = ({ mode, component, close }) => {
 					) : (
 						<>
 							Are you sure you want to delete the ‘
-							<span className="brightness-150">{component.title}</span>’ task and its
-							subtasks? This action cannot be reversed.
+							<span className=" brightness-50 dark:brightness-150">
+								{component.title}
+							</span>
+							’ task and its subtasks? This action cannot be reversed.
 						</>
 					)}
 				</p>

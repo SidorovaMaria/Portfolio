@@ -75,7 +75,7 @@ const BoardTasks = ({ openModal, openTaskModal }) => {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.3 }}
-					className="flex min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-100px)] overflow-x-auto w-full space-x-6 py-6 px-4 "
+					className="flex min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-100px)] overflow-x-auto w-full space-x-6 py-6 px-4 md:px-6"
 				>
 					{activeBoard.columns.map((column) => (
 						<BoardColumns

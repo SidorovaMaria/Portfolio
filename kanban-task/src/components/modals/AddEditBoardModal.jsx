@@ -92,7 +92,7 @@ const AddEditBoardModal = ({ close, mode = null, board }) => {
 			onClick={() => {
 				close();
 			}}
-			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
+			className="inset-0 fixed z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
                    "
 		>
 			<motion.form

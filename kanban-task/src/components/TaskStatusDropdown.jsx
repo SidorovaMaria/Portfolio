@@ -27,7 +27,7 @@ const TaskStatusDropdown = ({ task, formikFunction }) => {
 				type="button"
 				aria-label="Open Status Dropdown"
 				onClick={() => setOpenStatusDropDown((prev) => !prev)}
-				className="w-full border py-2 px-4 text-body-l leading-body-l font-medium rounded-4 border-purple flex items-center cursor-pointer"
+				className="w-full border py-2 px-4 text-body-l text-left leading-body-l font-medium rounded-4 border-purple flex items-center cursor-pointer"
 			>
 				<p className="flex-1">{task.status ? task.status : task}</p>
 				<motion.div
@@ -52,11 +52,11 @@ const TaskStatusDropdown = ({ task, formikFunction }) => {
 						{BoardsStatusesNames.map((colName) => (
 							<motion.li key={`${colName}-${task.id}`}>
 								<button
-									aria-label="Change Task Status"
+									// aria-label="Change Task Status"
 									type="button"
 									className={`hover:bg-purple-hover text-body-l leading-body-l font-medium px-4 rounded-4 py-2 w-full text-left ${
 										(task.status === colName || task === colName) &&
-										"font-bold bg-purple-hover/50 cursor-not-allowed pointer-events-none"
+										"font-bold bg-purple-hover/50 cursor-not-allowed pointer-events-none "
 									}`}
 									onClick={() => handleStatusChange(colName)}
 								>

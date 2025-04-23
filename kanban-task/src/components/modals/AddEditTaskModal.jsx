@@ -117,7 +117,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 			a
 			aria-label="Close Modal"
 			onClick={close}
-			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
+			className="inset-0 fixed z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
                        "
 		>
 			<motion.form

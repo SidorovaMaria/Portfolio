@@ -31,7 +31,7 @@ const TaskDetails = ({ taskId, close, openModalEdit }) => {
 			onClick={() => {
 				close();
 			}}
-			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
+			className="inset-0 fixed z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
            "
 		>
 			<motion.div
@@ -59,7 +59,7 @@ const TaskDetails = ({ taskId, close, openModalEdit }) => {
 						<h3>
 							Subtasks ({completedSubTasks.length} of {task.subtasks.length})
 						</h3>
-						<div className="flex flex-col gap-2">
+						<div className="flex flex-col gap-2 max-h-[200px] overflow-y-auto">
 							{task.subtasks.map((sub) => (
 								<div
 									key={sub.id}

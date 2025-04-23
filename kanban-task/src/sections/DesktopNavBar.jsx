@@ -18,7 +18,6 @@ const DesktopNavBar = ({ openModal }) => {
 					initial={"hidden"}
 					animate={"show"}
 					exit={"exit"}
-					layout
 					style={{ transformOrigin: "left" }}
 					className={`hidden md:flex top-[80px] lg:top-[100px] min-w-[280px] lg:min-w-[300px] sticky md:max-h-[calc(100vh-80px)]  ]pb-8 flex-col  bg-white dark:bg-dark-grey pr-5 lg:pr-6
                     lg:max-h-[calc(100vh-100px)]
@@ -65,7 +64,7 @@ const DesktopNavBar = ({ openModal }) => {
 							</motion.li>
 						</motion.ul>
 					</motion.div>
-					<motion.div className="mt-auto flex flex-col gap-4 ">
+					<motion.div className="mt-auto flex flex-col gap-4 mb-8">
 						<ThemeToggle />
 						<button
 							aria-label="Hide Sidebar"

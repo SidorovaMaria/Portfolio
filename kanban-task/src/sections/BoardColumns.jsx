@@ -41,7 +41,6 @@ const BoardColumns = ({ column, openTask, openTaskModal }) => {
 								}}
 								key={task.id}
 								drag
-								dragMomentum={false}
 								dragSnapToOrigin
 								dragConstraints={{ top: 0, bottom: 0 }}
 								onDragEnd={(e, info) => handleDragEnd(e, info, task)}

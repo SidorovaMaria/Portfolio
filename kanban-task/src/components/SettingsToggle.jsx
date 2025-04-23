@@ -8,7 +8,6 @@ const SettingsToggle = ({ component, mode, open, className }) => {
 		<motion.div>
 			<button className={`flex items-center justify-center h-4 cursor-pointer `}>
 				<img
-					alt="icon-vertical-ellipsis"
 					src="/assets/icon-vertical-ellipsis.svg"
 					onClick={() => setOpenSettings((prev) => !prev)}
 				/>
