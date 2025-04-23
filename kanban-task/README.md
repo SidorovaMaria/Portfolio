@@ -4,18 +4,17 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 ## Screenshots
 
-<div style="display: grid; grid-template-columns: auto auto auto; width:80%; justify-content: start; align-items:start; gap: 20px; margin-bottom: 20px; ">
-    <img src="./public/screenshots/desktop-light.png" alt="App Screenshot - Desktop Light" style=" object-fit: contain;" />
-     <img src="./public/screenshots/desktop-dark.png" alt="App Screenshot - Desktop Dark" style=" object-fit: contain;" />
-    <img src="./public/screenshots/desktop-task.png" alt="App Screenshot - Desktop Task" style=" object-fit: contain;" />
-   
-</div>
-<div style="display: grid; grid-template-columns: auto auto auto; width:50%; gap: 20px; margin-bottom: 20px; ">
-      <img src="./public/screenshots/mobile-light.png" alt="App Screenshot - Mobile Light" style="object-fit: contain;" />
-       <img src="./public/screenshots/mobile-dark.png" alt="App Screenshot - Mobile Dark" style=" object-fit: contain;" />
-      <img src="./public/screenshots/mobile-delete.png" alt="App Screenshot - Mobile Delete" style="object-fit: contain;" />
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); width: 80%; justify-items: start; align-items: start; gap: 20px; margin-bottom: 20px;">
+  <img src="./public/screenshots/desktop-light.png" alt="App Screenshot - Desktop Light" style="width: 100%; object-fit: contain;" />
+  <img src="./public/screenshots/desktop-dark.png" alt="App Screenshot - Desktop Dark" style="width: 100%; object-fit: contain;" />
+  <img src="./public/screenshots/desktop-task.png" alt="App Screenshot - Desktop Task" style="width: 100%; object-fit: contain;" />
 </div>
 
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); width: 50%; justify-items: start; align-items: start; gap: 20px; margin-bottom: 20px;">
+  <img src="./public/screenshots/mobile-light.png" alt="App Screenshot - Mobile Light" style="width: 100%; object-fit: contain;" />
+  <img src="./public/screenshots/mobile-dark.png" alt="App Screenshot - Mobile Dark" style="width: 100%; object-fit: contain;" />
+  <img src="./public/screenshots/mobile-delete.png" alt="App Screenshot - Mobile Delete" style="width: 100%; object-fit: contain;" />
+</div>
 ## Links
 
 -   Live Site URL: [Kanban - Vercel](https://portfolio-flax-pi-68.vercel.app/)
