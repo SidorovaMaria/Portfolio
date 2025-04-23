@@ -4,13 +4,13 @@ This is a solution to the [Kanban task management web app challenge on Frontend 
 
 ## Screenshots
 
-<img src="./public/screenshots/desktop-dark.png" alt="App Screenshot - Desktop Dark" style="width: 50%;"/>
-
-<img src="./public/screenshots/desktop-light.png" alt="App Screenshot - Desktop Light" style="width: 50%;"/>
-
-<img src="./public/screenshots/mobile-dark.png" alt="App Screenshot - Mobile Dark" style="width: 50%;"/>
-
-<img src="./public/screenshots/mobile-light.png" alt="App Screenshot - Mobile Light" style="width: 50%;"/>
+<div style="display: flex; justify-content: start; align-items:start; gap: 20px; margin-bottom: 20px; ">
+    <img src="./public/screenshots/desktop-dark.png" alt="App Screenshot - Desktop Dark" style="width: 20%; object-fit: contain;" />
+    <img src="./public/screenshots/desktop-light.png" alt="App Screenshot - Desktop Light" style="width: 20%; object-fit: contain;" />
+    <img src="./public/screenshots/desktop-task.png" alt="App Screenshot - Desktop Light" style="width: 20%; object-fit: contain;" />
+    <img src="./public/screenshots/mobile-dark.png" alt="App Screenshot - Mobile Dark" style="width: 10%; object-fit: contain;" />
+      <img src="./public/screenshots/mobile-light.png" alt="App Screenshot - Mobile Light" style="width: 10%; object-fit: contain;" />
+</div>
 
 ## Links
 
