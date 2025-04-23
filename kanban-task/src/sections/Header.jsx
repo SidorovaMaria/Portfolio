@@ -13,9 +13,9 @@ const Header = ({ openModal, openTaskModal }) => {
 			<div className="w-fit flex items-center h-full md:w-[280px] lg:w-[300px] md:border-r md:border-light-lines dark:border-dark-lines md:pl-6">
 				{/* Logo */}
 
-				<img src="./assets/logo-mobile.svg" className="md:hidden" />
-				<img src="/assets/logo-light.svg" className="hidden md:dark:block" />
-				<img src="/assets/logo-dark.svg" className="hidden md:not-dark:block" />
+				<img src="./assets/logo-mobile.svg" className="md:hidden" alt="Logo" />
+				<img src="/assets/logo-light.svg" className="hidden md:dark:block" alt="Logo" />
+				<img src="/assets/logo-dark.svg" className="hidden md:not-dark:block" alt="Logo" />
 			</div>
 			{/* ToggleMode */}
 			<div className="flex-1 flex justify-between items-center h-full md:px-6 ">
@@ -25,6 +25,7 @@ const Header = ({ openModal, openTaskModal }) => {
 				{activeBoard && (
 					<div className="flex gap-4 md:gap-6 items-center ">
 						<button
+							aria-label="Add New Task"
 							className="bg-purple px-4.5 py-2.5 rounded-full hover:bg-purple-hover group cursor-pointer text-white "
 							onClick={() => {
 								openTaskModal("add");

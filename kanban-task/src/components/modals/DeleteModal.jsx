@@ -55,6 +55,7 @@ const DeleteModal = ({ mode, component, close }) => {
 				</p>
 				<div className="flex flex-col gap-4 w-full md:flex-row">
 					<button
+						aria-label={`Delete ${mode}`}
 						type="button"
 						className="bg-red text-white w-full rounded-[20px] py-2 text-body-l leading-body-l hover:bg-red-hover cursor-pointer"
 						onClick={handleDelete}
@@ -62,6 +63,7 @@ const DeleteModal = ({ mode, component, close }) => {
 						Delete
 					</button>
 					<button
+						aria-label={`Cancel`}
 						className="bg-purple/10 dark:bg-white text-purple w-full rounded-[20px] py-2 text-body-l leading-body-l cursor-pointer not-dark:hover:bg-[#635FC7]/25"
 						onClick={close}
 						type="button"

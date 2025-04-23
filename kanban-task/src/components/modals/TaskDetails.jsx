@@ -66,6 +66,7 @@ const TaskDetails = ({ taskId, close, openModalEdit }) => {
 									className="flex gap-4 w-full items-center py-3 pl-3 pr-2 dark:bg-very-dark-grey bg-light-grey rounded-[4px]"
 								>
 									<input
+										aria-label="Subtask Checkbox"
 										id={sub.id}
 										type="checkbox"
 										className="peer hidden"

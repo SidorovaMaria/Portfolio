@@ -88,14 +88,15 @@ const AddEditBoardModal = ({ close, mode = null, board }) => {
 			transition={{
 				duration: 0.7,
 			}}
+			aria-label="Close Modal"
 			onClick={() => {
 				close();
-				mode = "null";
 			}}
 			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
                    "
 		>
 			<motion.form
+				aria-label={`${mode} board`}
 				onClick={(e) => e.stopPropagation()}
 				onSubmit={formik.handleSubmit}
 				variants={modalBlock}
@@ -119,6 +120,7 @@ const AddEditBoardModal = ({ close, mode = null, board }) => {
 						}`}
 					>
 						<input
+							aria-label="Board Name"
 							id="boardName"
 							className="outline-none w-full placeholder:text-black/25 dark:placeholder:text-white/25"
 							name="boardName"
@@ -156,6 +158,7 @@ const AddEditBoardModal = ({ close, mode = null, board }) => {
 						</AnimatePresence>
 						{/* Add Column Btn */}
 						<button
+							aria-label="Add New Column"
 							type="button"
 							className="w-full bg-purple/10 text-purple py-2.5 rounded-[20px] dark:bg-white text-body-l leading-body-l cursor-pointer not-dark:hover:bg-[#635FC7]/25"
 							onClick={addNewColumn}
@@ -166,6 +169,7 @@ const AddEditBoardModal = ({ close, mode = null, board }) => {
 				</div>
 				{/* Submit */}
 				<button
+					aria-label="Submit Form"
 					type="submit"
 					className="cursor-pointer w-full bg-purple text-white py-2.5 rounded-[20px] text-body-l leading-body-l hover:bg-purple-hover"
 				>
@@ -231,6 +235,7 @@ const ColumnInput = ({ column, index, formik, onRemove }) => {
 		>
 			<div className={`input-text w-full flex items-center ${error ? "border-red!" : ""}`}>
 				<input
+					aria-label="Column Name"
 					className="w-full outline-none placeholder:text-white/25"
 					type="text"
 					name={`columns[${index}].name`}
@@ -244,7 +249,12 @@ const ColumnInput = ({ column, index, formik, onRemove }) => {
 					</div>
 				)}
 			</div>
-			<button type="button" className="group cursor-pointer" onClick={onRemove}>
+			<button
+				type="button"
+				aria-label="Remove Column"
+				className="group cursor-pointer"
+				onClick={onRemove}
+			>
 				<ReactSVG
 					src="/assets/icon-cross.svg"
 					className="fill-medium-grey group-hover:fill-red"

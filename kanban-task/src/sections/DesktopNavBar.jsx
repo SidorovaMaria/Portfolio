@@ -68,6 +68,7 @@ const DesktopNavBar = ({ openModal }) => {
 					<motion.div className="mt-auto flex flex-col gap-4 ">
 						<ThemeToggle />
 						<button
+							aria-label="Hide Sidebar"
 							className="flex items-center gap-2.5 text-medium-grey hover:text-purple group mr-6 w-full hover:bg-purple/10 py-4 rounded-r-full pl-8 dark:hover:bg-white"
 							onClick={() => setOpenNavbar((prev) => !prev)}
 						>
@@ -81,6 +82,7 @@ const DesktopNavBar = ({ openModal }) => {
 				</motion.nav>
 			) : (
 				<motion.button
+					aria-label="Show Sidebar"
 					key="show-sidebar"
 					initial={{ x: -100, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
@@ -90,6 +92,8 @@ const DesktopNavBar = ({ openModal }) => {
 					onClick={() => setOpenNavbar((prev) => !prev)}
 				>
 					<ReactSVG
+						alt="icon-show-sidebar"
+						aria-label="Show Sidebar"
 						src="/assets/icon-show-sidebar.svg"
 						className="fill-white group-hover:fill-black"
 					/>

@@ -114,11 +114,14 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 			transition={{
 				duration: 0.7,
 			}}
+			a
+			aria-label="Close Modal"
 			onClick={close}
 			className="inset-0 absolute z-30 w-screen h-screen bg-black/50 px-4 flex items-center gap-6
                        "
 		>
 			<motion.form
+				aria-label={`${mode} task`}
 				onClick={(e) => e.stopPropagation()}
 				onSubmit={formik.handleSubmit}
 				variants={modalBlock}
@@ -138,6 +141,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 						}`}
 					>
 						<input
+							aria-label="Task Title"
 							id="taskTitle"
 							name="taskTitle"
 							type="text"
@@ -163,6 +167,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 						Description
 					</label>
 					<textarea
+						aria-label="Task Description"
 						id="description"
 						name="description"
 						autoComplete="off"
@@ -193,6 +198,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 							</AnimatePresence>
 						</div>
 						<button
+							aria-label="Add New Subtask"
 							type="button"
 							onClick={() => addNewSubtask()}
 							className="w-full bg-purple/10 text-purple py-2.5 rounded-[20px] dark:bg-white text-body-l leading-body-l cursor-pointer"
@@ -211,6 +217,7 @@ const AddEditTaskModal = ({ close, mode, task, column }) => {
 					/>
 				</div>
 				<button
+					aria-label="Submit Task"
 					type="submit"
 					className="w-full bg-purple text-white py-2 rounded-[20px] text-body-l leading-body-l"
 				>
@@ -275,6 +282,7 @@ const SubtaskInput = ({ subtask, index, formik, onRemove }) => {
 		>
 			<div className={`input-text w-full flex items-center ${error ? "border-red!" : ""}`}>
 				<input
+					aria-label="Subtask Title"
 					autoComplete="off"
 					className="w-full outline-none placeholder:text-white/25"
 					type="text"
@@ -289,8 +297,15 @@ const SubtaskInput = ({ subtask, index, formik, onRemove }) => {
 					</div>
 				)}
 			</div>
-			<button type="button" className="group cursor-pointer" onClick={onRemove}>
+			<button
+				type="button"
+				aria-label="Remove Subtask"
+				className="group cursor-pointer"
+				onClick={onRemove}
+			>
 				<ReactSVG
+					alt="icon-cross"
+					aria-label="Remove Subtask"
 					src="/assets/icon-cross.svg"
 					className="fill-medium-grey group-hover:fill-red"
 				/>

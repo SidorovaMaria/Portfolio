@@ -12,6 +12,7 @@ const BoardOption = ({ active, close, board, variants }) => {
 	};
 	return (
 		<motion.li
+			aria-label="Board Option"
 			variants={variants}
 			className={`flex items-center gap-3 pl-6 rounded-r-full py-4 cursor-pointer ${
 				active ? "bg-purple" : "hover:bg-purple/10 dark:hover:bg-white"
@@ -20,6 +21,8 @@ const BoardOption = ({ active, close, board, variants }) => {
 		>
 			<motion.span variants={""}>
 				<ReactSVG
+					aria-label="Board Icon"
+					alt="Board Icon"
 					src="/assets/icon-board.svg"
 					className={`fill-medium-grey ${
 						active ? "fill-white" : "group-hover:fill-purple "

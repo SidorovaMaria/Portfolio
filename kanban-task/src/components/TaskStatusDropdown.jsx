@@ -23,7 +23,9 @@ const TaskStatusDropdown = ({ task, formikFunction }) => {
 
 	return (
 		<div className="flex flex-col gap-2 relative">
-			<div
+			<button
+				type="button"
+				aria-label="Open Status Dropdown"
 				onClick={() => setOpenStatusDropDown((prev) => !prev)}
 				className="w-full border py-2 px-4 text-body-l leading-body-l font-medium rounded-4 border-purple flex items-center cursor-pointer"
 			>
@@ -32,9 +34,12 @@ const TaskStatusDropdown = ({ task, formikFunction }) => {
 					animate={{ rotate: openStatusDropDown ? 180 : 0 }}
 					transition={{ duration: 0.2 }}
 				>
-					<ReactSVG src="/assets/icon-chevron-down.svg" />
+					<ReactSVG
+						src="/assets/icon-chevron-down.svg"
+						aria-label="Show Available Statuses"
+					/>
 				</motion.div>
-			</div>
+			</button>
 
 			<AnimatePresence>
 				{openStatusDropDown && (
@@ -47,6 +52,7 @@ const TaskStatusDropdown = ({ task, formikFunction }) => {
 						{BoardsStatusesNames.map((colName) => (
 							<motion.li key={`${colName}-${task.id}`}>
 								<button
+									aria-label="Change Task Status"
 									type="button"
 									className={`hover:bg-purple-hover text-body-l leading-body-l font-medium px-4 rounded-4 py-2 w-full text-left ${
 										(task.status === colName || task === colName) &&

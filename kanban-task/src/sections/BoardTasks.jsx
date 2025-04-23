@@ -41,6 +41,7 @@ const BoardTasks = ({ openModal, openTaskModal }) => {
 						No boards found. Create a new board to get started.
 					</h2>
 					<button
+						aria-label="Add New Board"
 						className="bg-purple text-white rounded-[24px] py-3.5 px-6 text-m leading-m not-dark:hover:bg-purple-hover cursor-pointer text-center"
 						onClick={() => openModal("add")}
 					>
@@ -60,6 +61,7 @@ const BoardTasks = ({ openModal, openTaskModal }) => {
 						This board is empty. Create a new column to get started.
 					</h2>
 					<button
+						aria-label="Add New Column"
 						onClick={() => openModal("addColumn")}
 						className="bg-purple text-white rounded-[24px] py-3.5 px-6 text-m leading-m not-dark:hover:bg-purple-hover cursor-pointer text-center"
 					>
@@ -83,7 +85,8 @@ const BoardTasks = ({ openModal, openTaskModal }) => {
 							openTaskModal={openTaskModal}
 						/>
 					))}
-					<motion.div
+					<motion.button
+						aria-label="Add New Column"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: 20 }}
@@ -94,7 +97,7 @@ const BoardTasks = ({ openModal, openTaskModal }) => {
 						<h1 className="text-xl leading-xl text-transparent group-hover:text-purple">
 							+ New Column
 						</h1>
-					</motion.div>
+					</motion.button>
 					<AnimatePresence>
 						{taskDetails.open && (
 							<TaskDetails

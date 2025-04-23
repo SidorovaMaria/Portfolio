@@ -22,6 +22,7 @@ const MobileDropDown = ({ openCreateNew }) => {
 		<motion.div className="md:hidden mx-4">
 			<button
 				type="button"
+				aria-label="Open Boards Dropdown"
 				className="text-l leading-l flex items-center gap-2"
 				onClick={() => setAllBoardsDropdown((prev) => !prev)}
 			>
@@ -33,7 +34,7 @@ const MobileDropDown = ({ openCreateNew }) => {
 						duration: 0.3,
 					}}
 				>
-					<img src="/assets/icon-chevron-down.svg" />
+					<img src="/assets/icon-chevron-down.svg" alt="Open MobileDropdown" />
 				</motion.span>
 			</button>
 			<AnimatePresence mode="wait">
@@ -73,7 +74,11 @@ const MobileDropDown = ({ openCreateNew }) => {
 										/>
 									))}
 									<motion.li
+										aria-label="Create New Board"
 										variants={itemVariants}
+										onClick={() => {
+											openCreateNew("add"), setAllBoardsDropdown(false);
+										}}
 										className={`flex items-center gap-3 pl-6 rounded-r-full py-4 cursor-pointer group text-purple`}
 									>
 										<motion.span>
@@ -82,12 +87,7 @@ const MobileDropDown = ({ openCreateNew }) => {
 												className={`fill-purple`}
 											/>
 										</motion.span>
-										<h2
-											className={` text-m leading-m whitespace-nowrap`}
-											onClick={() => {
-												openCreateNew("add"), setAllBoardsDropdown(false);
-											}}
-										>
+										<h2 className={` text-m leading-m whitespace-nowrap`}>
 											+ Create New Board
 										</h2>
 									</motion.li>

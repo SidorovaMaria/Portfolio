@@ -7,7 +7,8 @@ const SettingsToggle = ({ component, mode, open, className }) => {
 	return (
 		<motion.div>
 			<button className={`flex items-center justify-center h-4 cursor-pointer `}>
-				<ReactSVG
+				<img
+					alt="icon-vertical-ellipsis"
 					src="/assets/icon-vertical-ellipsis.svg"
 					onClick={() => setOpenSettings((prev) => !prev)}
 				/>
@@ -24,6 +25,7 @@ const SettingsToggle = ({ component, mode, open, className }) => {
 						variants={SettingsDropdownVariant}
 					>
 						<motion.button
+							aria-label={`Edit ${mode}`}
 							type="button"
 							className=" cursor-pointer bg-white dark:bg-dark-grey text-s leading-m text-dark-grey/80 dark:text-white/80 hover:bg-purple hover:text-white py-2 px-4 w-full text-left border shadow-dark-grey/50 rounded-sm hover:shadow-none capitalize"
 							onClick={() => {
@@ -39,6 +41,7 @@ const SettingsToggle = ({ component, mode, open, className }) => {
 							Edit {mode}
 						</motion.button>
 						<motion.button
+							aria-label={`Delete ${mode}`}
 							type="button"
 							className="capitalize cursor-pointer  bg-white dark:bg-dark-grey text-s leading-m text-red hover:bg-red hover:text-white py-2 px-4 w-full text-left border shadow-red/50 rounded-sm hover:shadow-none"
 							onClick={() => {
