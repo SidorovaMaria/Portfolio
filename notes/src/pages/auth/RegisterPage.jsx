@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthModal from "../../layout/AuthModal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormInput from "../../components/FormInput";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../../redux/authSlice";
+import { useNavigate } from "react-router";
 const RegisterPage = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { user } = useSelector((state) => state.auth);
 	const SignUpSchema = Yup.object().shape({
 		email: Yup.string()
 			.email("Please enter a valid email address.")
@@ -17,9 +23,14 @@ const RegisterPage = () => {
 		},
 		validationSchema: SignUpSchema,
 		onSubmit: (values) => {
-			console.log(values);
+			dispatch(register({ email: values.email, password: values.password }));
 		},
 	});
+	useEffect(() => {
+		if (user) {
+			navigate("/");
+		}
+	}, [user]);
 	return (
 		<AuthModal
 			title="Create Your Account"

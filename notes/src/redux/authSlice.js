@@ -11,8 +11,20 @@ const authSlice = createSlice({
 		register: (state, action) => {
 			const { email, password } = action.payload;
 			const users = JSON.parse(localStorage.getItem("users")) || [];
-			users.push({ email, password });
+
+			// Check for duplicate email
+			if (users.some((user) => user.email === email)) {
+				alert("User already exists with this email.");
+				return;
+			}
+
+			const newUser = { email, password };
+			users.push(newUser);
 			localStorage.setItem("users", JSON.stringify(users));
+
+			state.user = newUser;
+			state.isAutnenticated = true;
+			localStorage.setItem("loggedInUser", JSON.stringify(newUser));
 		},
 		login: (state, action) => {
 			const { email, password } = action.payload;

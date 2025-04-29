@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "motion/react";
-
+import LogoIcon from "../assets/images/logo.svg?react";
 const AuthModal = ({ children, title, intro, authAction, account, link, linkText }) => {
 	return (
 		<main className="bg-n-100 dark:bg-n-700 h-screen w-screen flex items-center justify-cnter px-4">
@@ -15,8 +15,7 @@ const AuthModal = ({ children, title, intro, authAction, account, link, linkText
 			>
 				{/* Logo */}
 				<div className="pb-2">
-					<img src="/images/logo.svg" alt="Logo" className="dark:hidden" />
-					<img src="/images/logo-dark.svg" alt="Logo" className="hidden dark:block" />
+					<LogoIcon />
 				</div>
 				{/* Title and Intro */}
 				<div className="flex flex-col gap-2 items-center">

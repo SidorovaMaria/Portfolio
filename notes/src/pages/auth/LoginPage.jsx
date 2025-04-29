@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthModal from "../../layout/AuthModal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
 import FormInput from "../../components/FormInput";
+import { login } from "../../redux/authSlice";
+import { useNavigate } from "react-router";
+
 const LoginPage = () => {
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
+	const navigate = useNavigate();
 	const signInSchema = Yup.object().shape({
 		email: Yup.string()
 			.email("Please enter a valid email address.")
@@ -17,9 +24,15 @@ const LoginPage = () => {
 		},
 		validationSchema: signInSchema,
 		onSubmit: (values) => {
-			console.log(values);
+			dispatch(login({ email: values.email, password: values.password }));
 		},
 	});
+	console.log(user);
+	useEffect(() => {
+		if (user) {
+			navigate("/");
+		}
+	}, [user, dispatch, navigate]);
 	return (
 		<AuthModal
 			title="Welcome to Note"
