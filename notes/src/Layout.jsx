@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation, useOutlet } from "react-router";
 import BottomNavBar from "./components/BottomNavBar";
 import DesktopSideBar from "./components/DesktopSideBar";
 import TopBar from "./components/TopBar";
 import { useDispatch, useSelector } from "react-redux";
 import { loadNotes } from "./redux/notesSlice";
+import { AnimatePresence } from "motion/react";
 
 const Layout = () => {
 	const location = useLocation();
@@ -34,14 +35,17 @@ const Layout = () => {
 		};
 		title = titles[pathname] || "";
 	}
+	const element = useOutlet();
 
 	return (
 		<main className="flex">
 			<DesktopSideBar />
 
-			<div className="flex flex-col w-full">
+			<div className="flex flex-col w-full mt-[54px] md:mt-[74xp lg:mt-[81px] mb-[56px] md:mb-[74px] lg:mb-0 ">
 				<TopBar title={title} />
-				<Outlet />
+				<AnimatePresence mode="wait" initial={true}>
+					{element && React.cloneElement(element, { key: location.pathname })}
+				</AnimatePresence>
 			</div>
 
 			<BottomNavBar />

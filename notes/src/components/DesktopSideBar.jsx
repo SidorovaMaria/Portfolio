@@ -9,7 +9,7 @@ const DesktopSideBar = () => {
 	const { tags } = useSelector((state) => state.notes);
 
 	return (
-		<nav className="hidden lg:flex h-screen min-w-[272px] px-4 py-3 flex-col gap-4 border-r border-r-n-200 dark:border-r-n-800">
+		<nav className="hidden lg:flex h-screen min-w-[272px] px-4 py-3 flex-col gap-4 border-r border-r-n-200 dark:border-r-n-800 sticky top-0">
 			<div className="w-full py-3">
 				<LogoIcon />
 			</div>

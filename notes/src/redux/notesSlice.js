@@ -3,6 +3,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { notes } from "../assets/data/data.json";
+import Archived from "../pages/Archived";
 
 // Helper to generate unique IDs for notes
 const generateIds = (note) => ({
@@ -28,6 +29,8 @@ export const loadNotes = createAsyncThunk("/notes/loadNotes", async () => {
 // Initial state
 const initialState = {
 	allNotes: [],
+	archivedNotes: [],
+
 	activeNote: null,
 	tags: [],
 };
@@ -48,6 +51,7 @@ const notesSlice = createSlice({
 		builder.addCase(loadNotes.fulfilled, (state, action) => {
 			state.allNotes = action.payload;
 			state.activeNote = action.payload.length ? action.payload[0] : null;
+			state.archivedNotes = action.payload.filter((note) => note.isArchived);
 			state.tags = action.payload.reduce((acc, note) => {
 				note.tags.forEach((tag) => {
 					// Check if tag already exists in acc
