@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import NoteControl from "./NoteControl";
 import TagIcon from "../assets/images/icon-tag.svg?react";
 import TimeIcon from "../assets/images/icon-clock.svg?react";
-import { useTime } from "motion/react";
 
 const SelectedNote = ({ note, unselect }) => {
 	const formattedDate = new Date(note.lastEdited).toLocaleDateString("en-GB", {

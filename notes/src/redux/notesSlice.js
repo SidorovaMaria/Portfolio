@@ -29,9 +29,6 @@ export const loadNotes = createAsyncThunk("/notes/loadNotes", async () => {
 // Initial state
 const initialState = {
 	allNotes: [],
-	archivedNotes: [],
-
-	activeNote: null,
 	tags: [],
 };
 
@@ -42,16 +39,25 @@ const notesSlice = createSlice({
 		// (Optional) Example reducer if you want to clear notes later
 		resetNotes: (state) => {
 			state.allNotes = [];
-			state.activeNote = null;
 			state.tags = [];
 			localStorage.removeItem("notes");
+		},
+		deleteNote: (state, action) => {
+			state.allNotes = state.allNotes.filter((note) => note.id !== action.payload);
+			localStorage.setItem("notes", JSON.stringify(state.allNotes));
+		},
+		archiveNote: (state, action) => {
+			const note = state.allNotes.find((note) => note.id === action.payload);
+			if (note) {
+				note.isArchived = !note.isArchived;
+			}
+			localStorage.setItem("notes", JSON.stringify(state.allNotes));
 		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(loadNotes.fulfilled, (state, action) => {
 			state.allNotes = action.payload;
-			state.activeNote = action.payload.length ? action.payload[0] : null;
-			state.archivedNotes = action.payload.filter((note) => note.isArchived);
+
 			state.tags = action.payload.reduce((acc, note) => {
 				note.tags.forEach((tag) => {
 					// Check if tag already exists in acc
@@ -65,5 +71,5 @@ const notesSlice = createSlice({
 	},
 });
 
-export const { resetNotes } = notesSlice.actions;
+export const { resetNotes, deleteNote, archiveNote } = notesSlice.actions;
 export default notesSlice.reducer;

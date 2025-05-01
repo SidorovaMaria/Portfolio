@@ -43,7 +43,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-	@apply bg-n-100 text-n-950 dark:bg-n-950 dark:text-n-0 font-sans;
+	@apply bg-n-100 text-n-950 dark:bg-n-950 dark:text-n-0;
 }
 @layer components {
 	.text-1 {
@@ -73,8 +73,14 @@ body {
 	.primary-btn-blue {
 		@apply cursor-pointer  bg-blue-500 text-n-0 rounded-8 px-4 py-3 hover:bg-blue-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400;
 	}
+	.primary-btn-red {
+		@apply cursor-pointer  bg-red-500 text-n-0 rounded-8 px-4 py-3 hover:bg-red-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400;
+	}
 	.secondary-btn {
 		@apply py-3 px-4 rounded-8 bg-n-100 dark:bg-n-800 text-n-600 dark:text-n-400 border border-transparent hover:border-n-300 dark:hover:border-n-600 hover:bg-white dark:hover:bg-n-800 hover:shadow-[0px_1px_2px_rgba(10,13,20,0.1)] focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400;
+	}
+	.setting-btn {
+		@apply w-full cursor-pointer hover:bg-n-100 dark:hover:bg-n-800  border border-transparent hover:border-n-300 dark:hover:border-n-600;
 	}
 	.border-btn-google {
 		@apply cursor-pointer px-4 py-3 rounded-8 border border-n-300 dark:border-n-600 hover:bg-n-100 dark:hover:bg-n-800

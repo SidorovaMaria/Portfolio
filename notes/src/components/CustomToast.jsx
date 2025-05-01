@@ -1,0 +1,35 @@
+import React from "react";
+import { toast } from "react-hot-toast";
+
+import CrossIcon from "../assets/images/icon-cross.svg?react";
+import CheckIcon from "../assets/images/icon-checkmark.svg?react";
+
+const CustomToast = ({ t, message, linkText, onLinkClick }) => {
+	return (
+		<div
+			className={`${
+				t.visible ? "animate-enter" : "animate-leave"
+			} w-3/4 md:w-1/2 bg-white pointer-events-auto flex rounded-8 gap-2 p-2 ring-1 ring-n-200 items-center`}
+		>
+			<div className="w-4 h-4 flex items-center justify-center">
+				<CheckIcon className="text-green-500" />
+			</div>
+			<div className="text-6 flex-1">{message}</div>
+
+			{linkText && (
+				<button onClick={onLinkClick} className="text-6 underline">
+					{linkText}
+				</button>
+			)}
+
+			<button
+				className="w-4 h-4 flex items-center justify-between"
+				onClick={() => toast.dismiss(t.id)}
+			>
+				<CrossIcon className="text-n-400" />
+			</button>
+		</div>
+	);
+};
+
+export default CustomToast;

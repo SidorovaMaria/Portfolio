@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useIsDesktop } from "../app/hooks";
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "motion/react";
 import LeftSide from "../layout/LeftSide";
 import PlusIcon from "../assets/images/icon-plus.svg?react";
@@ -7,7 +8,8 @@ import { useSelector } from "react-redux";
 import RightSide from "../layout/RightSide";
 import SelectedNote from "../components/SelectedNote";
 const Archived = () => {
-	const { archivedNotes } = useSelector((state) => state.notes);
+	const { allNotes } = useSelector((state) => state.notes);
+	const archivedNotes = allNotes.filter((note) => note.isArchived);
 	const [selectedArchivedNote, setselectedArchivedNote] = useState(null);
 	const isDesktop = useIsDesktop();
 	const hasMounted = useRef(false);

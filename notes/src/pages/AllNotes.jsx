@@ -8,6 +8,8 @@ import { AnimatePresence, motion } from "motion/react";
 import SelectedNote from "../components/SelectedNote";
 import { useIsDesktop } from "../app/hooks";
 
+import DeleteArchiveModal from "../components/modals/DeleteArchiveModal";
+
 const AllNotes = () => {
 	const { allNotes } = useSelector((state) => state.notes);
 	const [selectedNote, setSelectedNote] = useState(null);
@@ -18,7 +20,6 @@ const AllNotes = () => {
 			hasMounted.current = true;
 		}
 	}, []);
-
 	return (
 		<motion.section className="flex ">
 			<AnimatePresence>
@@ -86,8 +87,6 @@ const AllNotes = () => {
 					</RightSide>
 				)}
 			</AnimatePresence>
-
-			{/* <RightSide></RightSide> */}
 		</motion.section>
 	);
 };
