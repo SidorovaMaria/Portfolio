@@ -42,7 +42,7 @@ const LeftSide = ({ children, className, disableInitialAnimation }) => {
 
 	return (
 		<motion.section
-			className={`py-5 px-4 flex flex-col gap-4 md:px-8 md:py-6 lg:py-5 lg:pl-8 lg:pr-4 w-full lg:w-[290px] ${className}`}
+			className={`py-5 px-4 flex flex-col gap-4 md:px-8 md:py-6 lg:py-5 lg:pl-8 lg:pr-4 w-full lg:w-[290px] ${className} lg:border-r lg:border-n-200 dark:lg:border-n-800 lg:min-h-[calc(100vh-81px)]`}
 			initial={
 				isDesktop
 					? "desktopInitial"

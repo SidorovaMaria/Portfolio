@@ -71,13 +71,17 @@ body {
 		@apply dark:filter dark:invert;
 	}
 	.primary-btn-blue {
-		@apply cursor-pointer  bg-blue-500 text-n-0 rounded-8 px-4 py-3 hover:bg-blue-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400;
+		@apply cursor-pointer  bg-blue-500 text-n-0 rounded-8 px-4 py-3 hover:bg-blue-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400
+        disabled:bg-n-100 disabled:text-n-300
+        dark:disabled:bg-n-800 dark:disabled:text-n-600 disabled:cursor-not-allowed;
 	}
 	.primary-btn-red {
 		@apply cursor-pointer  bg-red-500 text-n-0 rounded-8 px-4 py-3 hover:bg-red-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400;
 	}
 	.secondary-btn {
-		@apply py-3 px-4 rounded-8 bg-n-100 dark:bg-n-800 text-n-600 dark:text-n-400 border border-transparent hover:border-n-300 dark:hover:border-n-600 hover:bg-white dark:hover:bg-n-800 hover:shadow-[0px_1px_2px_rgba(10,13,20,0.1)] focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400;
+		@apply cursor-pointer py-3 px-4 rounded-8 bg-n-100 dark:bg-n-800 text-n-600 dark:text-n-400 border border-transparent hover:border-n-300 dark:hover:border-n-600 hover:bg-white dark:hover:bg-n-800 hover:shadow-[0px_1px_2px_rgba(10,13,20,0.1)] focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400
+        disabled:bg-n-50 disabled:text-n-300
+        dark:disabled:bg-n-800 dark:disabled:text-n-600 disabled:hover:border-transparent disabled:cursor-not-allowed;
 	}
 	.setting-btn {
 		@apply w-full cursor-pointer hover:bg-n-100 dark:hover:bg-n-800  border border-transparent hover:border-n-300 dark:hover:border-n-600;

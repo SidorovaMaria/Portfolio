@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import ShowPasswordIcon from "../assets/images/icon-show-password.svg?react";
+import HidePasswordIcon from "../assets/images/icon-hide-password.svg?react";
 
 const FormInput = ({ label, id, type, name, value, formik, placeholder, disabled = false }) => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -26,17 +28,15 @@ const FormInput = ({ label, id, type, name, value, formik, placeholder, disabled
 					/>
 					{name === "password" &&
 						(!showPassword ? (
-							<img
-								src="/images/icon-show-password.svg"
+							<ShowPasswordIcon
 								alt="Show Password"
-								className="cursor-pointer dark-icon"
+								className="cursor-pointer text-n-950 dark:text-n-0"
 								onClick={togglePasswordVisibility}
 							/>
 						) : (
-							<img
-								src="/images/icon-hide-password.svg"
+							<HidePasswordIcon
 								alt="Hide Password"
-								className="cursoir-pointer dark-icon"
+								className="cursor-pointer text-n-950 dark:text-n-0"
 								onClick={togglePasswordVisibility}
 							/>
 						))}

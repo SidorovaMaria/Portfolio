@@ -1,43 +1,178 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import NoteControl from "./NoteControl";
 import TagIcon from "../assets/images/icon-tag.svg?react";
 import TimeIcon from "../assets/images/icon-clock.svg?react";
+import StatusIcon from "../assets/images/icon-status.svg?react";
+import { useFormik } from "formik";
+
+import { useDispatch } from "react-redux";
+import { addNote, editNote } from "../redux/notesSlice";
+import CustomToast from "./CustomToast";
+import toast from "react-hot-toast";
 
 const SelectedNote = ({ note, unselect }) => {
-	const formattedDate = new Date(note.lastEdited).toLocaleDateString("en-GB", {
-		day: "2-digit",
-		month: "short",
-		year: "numeric",
+	const dispatch = useDispatch();
+	const formattedDate = useMemo(() => {
+		return new Date(note.lastEdited).toLocaleDateString("en-GB", {
+			day: "2-digit",
+			month: "short",
+			year: "numeric",
+		});
+	}, [note.lastEdited]);
+
+	const initialValues = useMemo(() => {
+		return {
+			title: note !== "new" ? note.title : "",
+			tags: note !== "new" ? note.tags.join(",") : "",
+			lastEdited: note !== "new" ? formattedDate : "",
+			content: note !== "new" ? note.content : "",
+			status: note !== "new" ? (note.isArchived ? "Archived" : "") : "",
+		};
+	}, [note, formattedDate]);
+
+	const formik = useFormik({
+		initialValues,
+		enableReinitialize: true, // important if note prop can change
+		onSubmit: (values) => {
+			if (note === "new") {
+				const newNote = {
+					title: values.title,
+					tags: values.tags.split(",").map((tag) => tag.trim()),
+					lastEdited: new Date().toISOString(),
+					content: values.content,
+				};
+				dispatch(addNote(newNote));
+				toast.custom((t) => <CustomToast t={t} message="Note saved successfully!" />);
+			} else {
+				const updatedNote = {
+					...note,
+					title: values.title,
+					tags: values.tags.split(",").map((tag) => tag.trim()),
+					lastEdited: new Date().toISOString(),
+					content: values.content,
+				};
+				dispatch(editNote(updatedNote));
+				toast.custom((t) => <CustomToast t={t} message="Note updated successfully!" />);
+			}
+			unselect();
+		},
 	});
-	const [noteContent, setNoteContent] = useState(note.content);
-	const handleChange = (e) => {
-		setNoteContent(e.target.value);
+
+	const noteChanged = useMemo(() => {
+		return Object.keys(initialValues).some((key) => formik.values[key] !== initialValues[key]);
+	}, [formik.values, initialValues]);
+
+	const handleCancel = () => {
+		formik.resetForm({ values: initialValues });
 	};
+
 	return (
-		<React.Fragment>
-			<NoteControl unselect={unselect} note={note} />
-			<h2 className="text-1">{note.title}</h2>
-			{/* Tags  */}
-			<aside className="grid grid-cols-[3fr_5fr] grid-rows-2 row-gap-1 col-gap-2 text-6 md:grid-cols-[2fr_6fr] items-center">
-				<div className="flex items-center gap-1.5 py-1">
-					<TagIcon className="w-4 h-4" />
-					<p className=" text-n-700">Tags</p>
+		<>
+			<NoteControl
+				unselect={unselect}
+				note={note}
+				noDelete={note === "new"}
+				noArchive={note === "new" || note.isArchived}
+				noRestore={note ? !note.isArchived : true}
+				disabled={!noteChanged}
+				handleCancel={handleCancel}
+				handleSave={formik.handleSubmit}
+			/>
+
+			<input
+				type="text"
+				name="title"
+				placeholder="Enter a title..."
+				className="text-2 rounded-4 placeholder:text-n-400 focus:outline-none focus:border-b focus:border-b-n-400 focus:ring-0"
+				value={formik.values.title}
+				onChange={formik.handleChange}
+				onBlur={formik.handleBlur}
+			/>
+
+			<div className="flex flex-col gap-2">
+				<div className="grid grid-cols-[1fr_2fr] items-center min-h-[28px]">
+					<label htmlFor="tags" className="py-1 rounded-[36px] flex items-center gap-1.5">
+						<TagIcon className="w-4 h-4 text-n-700 dark:text-n-300" />
+						<p className="text-n-700 dark:text-n-300 text-6">Tags</p>
+					</label>
+					<input
+						name="tags"
+						id="tags"
+						placeholder="Add tags separated by commas"
+						className="text-6 placeholder:text-n-400 flex-1 w-full h-full px-1 py-0.5 rounded-4 focus:outline-1 focus:outline-offset-2 focus:outline-n-500"
+						value={formik.values.tags}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+					/>
 				</div>
-				<p>{note.tags.join(",")}</p>
-				<div className="flex items-center gap-1.5 py-1">
-					<TimeIcon className="w-4 h-4" />
-					<p className=" text-n-700">Last edited</p>
+				{formik.values.status && (
+					<div className="grid grid-cols-[1fr_2fr] items-center min-h-[28px]">
+						<label
+							htmlFor="status"
+							className="py-1 rounded-[36px] flex items-center gap-1.5"
+						>
+							<StatusIcon className="w-4 h-4 text-n-700 dark:text-n-300" />
+							<p className="text-n-700 dark:text-n-300 text-6">Status</p>
+						</label>
+						<input
+							name="status"
+							id="status"
+							disabled
+							placeholder=""
+							className="text-6 placeholder:text-n-400 flex-1 w-full h-full px-1 py-0.5 rounded-4 focus:outline-1 focus:outline-offset-2 focus:outline-n-500"
+							value={formik.values.status}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+						/>
+					</div>
+				)}
+
+				<div className="grid grid-cols-[1fr_2fr] items-center min-h-[28px]">
+					<label
+						htmlFor="lastEdited"
+						className="py-1 rounded-[36px] flex items-center gap-1.5"
+					>
+						<TimeIcon className="w-4 h-4 text-n-700 dark:text-n-300" />
+						<p className="text-n-700 dark:text-n-300 text-6">Last edited</p>
+					</label>
+					<input
+						name="lastEdited"
+						id="lastEdited"
+						placeholder="Not yet Saved"
+						className="text-6 text-n-600 dark:text-n-300 placeholder:text-n-400 flex-1 w-full h-full p-1"
+						value={formik.values.lastEdited}
+						disabled
+					/>
 				</div>
-				<p className="text-n-700">{formattedDate}</p>
-			</aside>
-			<hr className="border-n-200 dark:border-n-800 " />
-			<textarea value={noteContent} className="min-h-[60vh]" onChange={handleChange} />
-			<hr className="border-n-200 dark:border-n-800 hidden lg:block" />
-			<div className=" items-center gap-4 w-ful hidden lg:flex">
-				<button className="primary-btn-blue py-3 px-4">Save Note</button>
-				<button className="secondary-btn">Cancel</button>
 			</div>
-		</React.Fragment>
+
+			<hr className="border-n-200 dark:border-n-800" />
+
+			<textarea
+				id="content"
+				name="content"
+				value={formik.values.content}
+				onChange={formik.handleChange}
+				placeholder="Start typing your note here…"
+				className="min-h-[50vh] text-6 placeholder:text-n-400 text-5 px-1 py-0.5 rounded-4 focus:outline-1 focus:outline-offset-2 focus:outline-n-500"
+			/>
+
+			<hr className="border-n-200 dark:border-n-800 hidden lg:block" />
+
+			<div className="items-center gap-4 w-full hidden lg:flex">
+				<button
+					className="primary-btn-blue py-3 px-4"
+					onClick={formik.handleSubmit}
+					type="submit"
+					disabled={!noteChanged}
+				>
+					Save Note
+				</button>
+				<button className="secondary-btn" onClick={handleCancel} disabled={!noteChanged}>
+					Cancel
+				</button>
+			</div>
+		</>
 	);
 };
 

@@ -10,10 +10,10 @@ import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import CustomToast from "./CustomToast";
 
-const ColorTheme = () => {
+const ColorTheme = ({ unselect }) => {
 	const { theme } = useSelector((state) => state.theme);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+
 	const setPickedTheme = (newTheme) => {
 		if (theme === newTheme) return;
 		dispatch(setTheme(newTheme));
@@ -22,17 +22,17 @@ const ColorTheme = () => {
 	return (
 		<React.Fragment>
 			<div
-				className="flex gap-1 text-n-600 items-center lg:hidden mb-3"
-				onClick={() => navigate("/")}
+				className="flex gap-1 text-n-600 dark:text-n-300 items-center lg:hidden mb-3"
+				onClick={unselect}
 			>
 				<ArrowLeftIcon className="w-4.5 h-4.5" />
-				<p className="text-5 cursor-pointer">Settings</p>
+				<p className="text-5 cursor-pointer dark:">Settings</p>
 			</div>
 			<div className="flex lg:gap-1 gap-2 flex-col w-full">
 				<h2 className="text-1 lg:text-base lg:tracking-[-0.3px] lg:font-semibold">
 					Color Theme{" "}
 				</h2>
-				<p className="text-5 text-n-700">Choose your color theme:</p>
+				<p className="text-5 text-n-700 dark:text-n-300">Choose your color theme:</p>
 				<SettingsBtn
 					icon={<LightModeIcon />}
 					title="Light Mode "

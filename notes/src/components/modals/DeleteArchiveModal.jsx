@@ -23,7 +23,7 @@ const DeleteArchiveModal = ({ note, mode, close, deleted }) => {
 				deleted();
 			}, 500);
 		} else {
-			dispatch(archiveNote(note.id));
+			close();
 			toast.custom((t) => (
 				<CustomToast
 					t={t}
@@ -32,6 +32,10 @@ const DeleteArchiveModal = ({ note, mode, close, deleted }) => {
 					onLinkClick={() => navigate("/archived")}
 				/>
 			));
+			setTimeout(() => {
+				dispatch(archiveNote(note.id));
+				deleted();
+			}, 500);
 		}
 	};
 	return (

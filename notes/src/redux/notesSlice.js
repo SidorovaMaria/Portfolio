@@ -3,7 +3,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { notes } from "../assets/data/data.json";
-import Archived from "../pages/Archived";
 
 // Helper to generate unique IDs for notes
 const generateIds = (note) => ({
@@ -30,6 +29,8 @@ export const loadNotes = createAsyncThunk("/notes/loadNotes", async () => {
 const initialState = {
 	allNotes: [],
 	tags: [],
+	searchQuery: "",
+	filteredNotes: [],
 };
 
 const notesSlice = createSlice({
@@ -53,6 +54,47 @@ const notesSlice = createSlice({
 			}
 			localStorage.setItem("notes", JSON.stringify(state.allNotes));
 		},
+		addNote: (state, action) => {
+			const newNote = { ...action.payload, id: uuidv4(), isArchived: false };
+			state.allNotes.push(newNote);
+			newNote.tags.forEach((tag) => {
+				if (!state.tags.some((t) => t.name === tag)) {
+					state.tags.push({ id: tag.toLowerCase(), name: tag });
+				}
+			});
+			localStorage.setItem("notes", JSON.stringify(state.allNotes));
+		},
+		editNote: (state, action) => {
+			const noteIndex = state.allNotes.findIndex((note) => note.id === action.payload.id);
+			if (noteIndex !== -1) {
+				const updatedNote = { ...state.allNotes[noteIndex], ...action.payload };
+				state.allNotes[noteIndex] = updatedNote;
+
+				// Check updated note tags for any new ones
+				updatedNote.tags.forEach((tag) => {
+					if (!state.tags.some((t) => t.name === tag)) {
+						state.tags.push({ id: tag.toLowerCase(), name: tag });
+					}
+				});
+
+				localStorage.setItem("notes", JSON.stringify(state.allNotes));
+			}
+		},
+		setSearchQuery: (state, action) => {
+			state.searchQuery = action.payload;
+
+			const lowerQuery = action.payload.toLowerCase();
+			state.filteredNotes = state.allNotes.filter(
+				(note) =>
+					note.title.toLowerCase().includes(lowerQuery) ||
+					note.content.toLowerCase().includes(lowerQuery) ||
+					note.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
+			);
+		},
+		clearSearch: (state) => {
+			state.searchQuery = "";
+			state.filteredNotes = [];
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(loadNotes.fulfilled, (state, action) => {
@@ -71,5 +113,13 @@ const notesSlice = createSlice({
 	},
 });
 
-export const { resetNotes, deleteNote, archiveNote } = notesSlice.actions;
+export const {
+	resetNotes,
+	deleteNote,
+	archiveNote,
+	addNote,
+	editNote,
+	setSearchQuery,
+	clearSearch,
+} = notesSlice.actions;
 export default notesSlice.reducer;

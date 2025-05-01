@@ -10,7 +10,10 @@ import LockIcon from "../assets/images/icon-lock.svg?react";
 import LogoutIcon from "../assets/images/icon-logout.svg?react";
 import ColorTheme from "../components/ColorTheme";
 import FontTheme from "../components/FontTheme";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/authSlice";
 const Settings = () => {
+	const dispatch = useDispatch();
 	const [selectedSetting, setSelectedSetting] = useState(null);
 	const isDesktop = useIsDesktop();
 	const hasMounted = useRef(false);
@@ -22,10 +25,10 @@ const Settings = () => {
 	const renderSettings = (setting) => {
 		switch (setting) {
 			case "color":
-				return <ColorTheme />;
+				return <ColorTheme unselect={() => setSelectedSetting(null)} />;
 
 			case "font":
-				return <FontTheme />;
+				return <FontTheme unselect={() => setSelectedSetting(null)} />;
 
 			default:
 				return null;
@@ -61,7 +64,12 @@ const Settings = () => {
 								<p className="text-4">Change Password</p>
 							</button>
 							<hr className="border-n-200 dark:border-n-800" />
-							<button className="flex items-center gap-2 rounded-4 py-2 setting-btn arrow-right">
+							<button
+								className="flex items-center gap-2 rounded-4 py-2 setting-btn arrow-right"
+								onClick={() => {
+									dispatch(logout());
+								}}
+							>
 								<LogoutIcon />
 								<p className="text-4">Logout </p>
 							</button>

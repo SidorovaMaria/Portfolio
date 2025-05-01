@@ -41,7 +41,7 @@ const Layout = () => {
 		<main className="flex">
 			<DesktopSideBar />
 
-			<div className="flex flex-col w-full mt-[54px] md:mt-[74xp lg:mt-[81px] mb-[56px] md:mb-[74px] lg:mb-0 ">
+			<div className="flex flex-col w-full mt-[54px] md:mt-[74px] lg:mt-[81px] mb-[56px] md:mb-[74px] lg:mb-0 ">
 				<TopBar title={title} />
 				<AnimatePresence mode="wait" initial={true}>
 					{element && React.cloneElement(element, { key: location.pathname })}
