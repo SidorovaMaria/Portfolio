@@ -22,6 +22,7 @@ const Tag = () => {
 			notes={notesByTag}
 			disableInitialAnimation={hasMounted.current}
 			tag={true}
+			noNotesText={`No notes found with the "${selectedTag.name}" tag.`}
 		/>
 	);
 };

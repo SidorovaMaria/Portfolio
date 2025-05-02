@@ -6,7 +6,7 @@ import ArrowLeftIcon from "../assets/images/icon-arrow-left.svg?react";
 import SystemThemeIcon from "../assets/images/icon-system-theme.svg?react";
 import { setTheme } from "../redux/themeSlice";
 import SettingsBtn from "./SettingsBtn";
-import { useNavigate } from "react-router";
+
 import toast from "react-hot-toast";
 import CustomToast from "./CustomToast";
 

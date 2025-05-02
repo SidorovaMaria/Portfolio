@@ -9,7 +9,7 @@ const CustomToast = ({ t, message, linkText, onLinkClick }) => {
 		<div
 			className={`${
 				t.visible ? "animate-enter" : "animate-leave"
-			} w-3/4 md:w-1/2 bg-white pointer-events-auto flex rounded-8 gap-2 p-2 ring-1 ring-n-200 items-center`}
+			} w-3/4 md:w-1/2 bg-white dark:bg-n-800 pointer-events-auto flex rounded-8 gap-2 p-2 ring-1 ring-n-200 dark:ring-n-700 items-center`}
 		>
 			<div className="w-4 h-4 flex items-center justify-center">
 				<CheckIcon className="text-green-500" />

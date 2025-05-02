@@ -93,7 +93,9 @@ const PageLayout = ({
 									return (
 										<React.Fragment key={note.id}>
 											<article
-												className={` rounded-6 p-2 flex flex-col gap-3 cursor-pointer ${
+												className={` rounded-6 p-2 flex flex-col gap-3 cursor-pointer 
+                                                hover:bg-n-200
+                                                dark:hover:bg-n-700 group ${
 													note.id === selectedNote?.id &&
 													"bg-n-100 dark:bg-n-800"
 												}`}
@@ -106,7 +108,10 @@ const PageLayout = ({
 												<div className="flex gap-1 w-fit">
 													{note.tags.map((tag) => (
 														<div
-															className={`px-1.5 py-0.5 rounded-4 bg-n-200 text-6 dark:bg-n-700 dark:text-n-0 ${
+															className={`px-1.5 py-0.5 rounded-4 bg-n-200 text-6 dark:bg-n-700 
+                                                            dark:group-hover:bg-n-600
+                                                             group-hover:bg-n-300
+                                                            dark:text-n-0 ${
 																note.id === selectedNote?.id &&
 																"dark:bg-n-600!"
 															}`}
@@ -132,7 +137,7 @@ const PageLayout = ({
 								})}
 							</ul>
 						) : (
-							<div className="bg-n-100 border border-n-200 text-5 rounded-8 p-2">
+							<div className="bg-n-100 dark:bg-n-800 border border-n-200 dark:border-n-700 text-5 rounded-8 p-2">
 								<p>{noNotesText}</p>
 							</div>
 						)}

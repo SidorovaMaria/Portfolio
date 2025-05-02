@@ -5,34 +5,47 @@ import TimeIcon from "../assets/images/icon-clock.svg?react";
 import StatusIcon from "../assets/images/icon-status.svg?react";
 import { useFormik } from "formik";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addNote, editNote } from "../redux/notesSlice";
 import CustomToast from "./CustomToast";
 import toast from "react-hot-toast";
 
 const SelectedNote = ({ note, unselect }) => {
 	const dispatch = useDispatch();
+	const updatedNote = useSelector((state) => state.notes.allNotes.find((n) => n.id === note.id));
+
 	const formattedDate = useMemo(() => {
-		return new Date(note.lastEdited).toLocaleDateString("en-GB", {
+		return new Date(updatedNote.lastEdited).toLocaleDateString("en-GB", {
 			day: "2-digit",
 			month: "short",
 			year: "numeric",
 		});
-	}, [note.lastEdited]);
+	}, [updatedNote]);
 
 	const initialValues = useMemo(() => {
-		return {
-			title: note !== "new" ? note.title : "",
-			tags: note !== "new" ? note.tags.join(",") : "",
-			lastEdited: note !== "new" ? formattedDate : "",
-			content: note !== "new" ? note.content : "",
-			status: note !== "new" ? (note.isArchived ? "Archived" : "") : "",
-		};
-	}, [note, formattedDate]);
+		if (note === "new") {
+			return {
+				title: "",
+				tags: "",
+				lastEdited: "Not yet saved",
+				content: "",
+				status: "",
+			};
+		} else {
+			const noteToUse = updatedNote || note;
+			return {
+				title: noteToUse.title || "",
+				tags: noteToUse.tags ? noteToUse.tags.join(",") : "",
+				lastEdited: noteToUse.lastEdited ? formattedDate : "",
+				content: noteToUse.content || "",
+				status: noteToUse.isArchived ? "Archived" : "",
+			};
+		}
+	}, [note, updatedNote, formattedDate]);
 
 	const formik = useFormik({
 		initialValues,
-		enableReinitialize: true, // important if note prop can change
+		enableReinitialize: true,
 		onSubmit: (values) => {
 			if (note === "new") {
 				const newNote = {
@@ -54,7 +67,6 @@ const SelectedNote = ({ note, unselect }) => {
 				dispatch(editNote(updatedNote));
 				toast.custom((t) => <CustomToast t={t} message="Note updated successfully!" />);
 			}
-			unselect();
 		},
 	});
 
@@ -77,6 +89,7 @@ const SelectedNote = ({ note, unselect }) => {
 				disabled={!noteChanged}
 				handleCancel={handleCancel}
 				handleSave={formik.handleSubmit}
+				hasUnsavedChanges={noteChanged}
 			/>
 
 			<input

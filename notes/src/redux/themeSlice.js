@@ -12,7 +12,6 @@ const applyTheme = (theme) => {
 	root.classList.remove("light", "dark");
 
 	const resolvedTheme = theme === "system" ? getSystemTheme() : theme;
-	console.log(resolvedTheme);
 	root.classList.add(resolvedTheme);
 	localStorage.setItem(THEME_KEY, theme);
 };
