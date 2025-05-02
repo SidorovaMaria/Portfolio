@@ -12,9 +12,8 @@ This is a solution to the [Note-taking web app challenge on Frontend Mentor](htt
     -   [Built with](#built-with)
     -   [What I learned](#what-i-learned)
     -   [Continued development](#continued-development)
-    -   [Useful resources](#useful-resources)
 -   [Author](#author)
--   [Acknowledgments](#acknowledgments)
+
 
 ## Overview
 
@@ -52,7 +51,7 @@ Users should be able to:
 
 ### Links
 
--   Live Site URL: [Add live site URL here](https://notes-delta-blue.vercel.app/login)
+-   Live Site URL: [[Notes App](https://notes-delta-blue.vercel.app/login)](https://notes-delta-blue.vercel.app/)
 
 ## My process
 
