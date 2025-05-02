@@ -15,11 +15,13 @@ const SelectedNote = ({ note, unselect }) => {
 	const updatedNote = useSelector((state) => state.notes.allNotes.find((n) => n.id === note.id));
 
 	const formattedDate = useMemo(() => {
-		return new Date(updatedNote.lastEdited).toLocaleDateString("en-GB", {
-			day: "2-digit",
-			month: "short",
-			year: "numeric",
-		});
+		if (note !== "new") {
+			return new Date(updatedNote.lastEdited).toLocaleDateString("en-GB", {
+				day: "2-digit",
+				month: "short",
+				year: "numeric",
+			});
+		}
 	}, [updatedNote]);
 
 	const initialValues = useMemo(() => {
@@ -56,6 +58,7 @@ const SelectedNote = ({ note, unselect }) => {
 				};
 				dispatch(addNote(newNote));
 				toast.custom((t) => <CustomToast t={t} message="Note saved successfully!" />);
+				unselect();
 			} else {
 				const updatedNote = {
 					...note,
