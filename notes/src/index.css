@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+	--color-n-950: #0e121b;
+	--color-n-900: #191b25;
+	--color-n-800: #232530;
+	--color-n-700: #2b303b;
+	--color-n-600: #525866;
+	--color-n-500: #717784;
+	--color-n-400: #99a0ae;
+	--color-n-300: #cacfd8;
+	--color-n-200: #e0e4ea;
+	--color-n-100: #f3f5f8;
+	--color-n-50: #f5f7fa;
+	--color-n-0: #ffffff;
+	--color-blue-700: #2547d0;
+	--color-blue-500: #335cff;
+	--color-blue-50: #ebf1ff;
+	--color-green-500: #21c16b;
+	--color-green-100: #d1fbe9;
+	--color-red-700: #e63946;
+	--color-red-500: #fb3748;
+	--color-red-100: #ffdbd8;
+	--font-sans: "Inter", sans-serif;
+	--font-serif: "Noto Serif", serif;
+	--font-code: "Source Code Pro", monospace;
+	--leading-120: 120%;
+	--tracking-05: -0.5px;
+	--tracking-03: -0.3px;
+	--tracking-02: -0.2px;
+	--radius-0: 0px;
+	--radius-4: 4px;
+	--radius-6: 6px;
+	--radius-8: 8px;
+	--radius-10: 10px;
+	--radius-12: 12px;
+	--radius-16: 16px;
+	--radius-20: 20px;
+	--radius-24: 24px;
+	--drop-shadow-small: 0px 4px 6px rgba(2240, 240, 240, 0.6);
+	--dro-shadow-large: 0px 8px 12px rgba(2240, 240, 240, 0.6);
+}
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+	@apply bg-n-100 text-n-950 dark:bg-n-950 dark:text-n-0;
+}
+@layer components {
+	.text-1 {
+		@apply font-bold text-2xl leading-120 tracking-05;
+	}
+	.text-2 {
+		@apply font-bold text-xl leading-120 tracking-05;
+	}
+	.text-3 {
+		@apply font-semibold text-base leading-120 tracking-03;
+	}
+	.text-4 {
+		@apply font-medium text-sm leading-120 tracking-02;
+	}
+	.text-5 {
+		@apply font-normal text-sm leading-120 tracking-02;
+	}
+	.text-6 {
+		@apply font-normal text-xs leading-120 tracking-02;
+	}
+	.text-800-300 {
+		@apply text-n-800 dark:text-n-300;
+	}
+	.dark-icon {
+		@apply dark:filter dark:invert;
+	}
+	.primary-btn-blue {
+		@apply cursor-pointer  bg-blue-500 text-n-0 rounded-8 px-4 py-3 hover:bg-blue-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400
+        disabled:bg-n-100 disabled:text-n-300
+        dark:disabled:bg-n-800 dark:disabled:text-n-600 disabled:cursor-not-allowed;
+	}
+	.primary-btn-red {
+		@apply cursor-pointer  bg-red-500 text-n-0 rounded-8 px-4 py-3 hover:bg-red-700 focus:outline-2 focus:outline-offset-2 focus:outline-n-400;
+	}
+	.secondary-btn {
+		@apply cursor-pointer py-3 px-4 rounded-8 bg-n-100 dark:bg-n-500 text-n-600 dark:text-n-200 border border-transparent hover:border-n-300 dark:hover:border-n-600 hover:bg-white dark:hover:bg-n-600 hover:shadow-[0px_1px_2px_rgba(10,13,20,0.1)] focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400
+        disabled:bg-n-50 disabled:text-n-300
+        dark:disabled:bg-n-800 dark:disabled:text-n-600 disabled:hover:border-transparent disabled:cursor-not-allowed;
+	}
+	.setting-btn {
+		@apply w-full cursor-pointer hover:bg-n-100 dark:hover:bg-n-800  border border-transparent hover:border-n-300 dark:hover:border-n-600;
+	}
+	.border-btn-google {
+		@apply cursor-pointer px-4 py-3 rounded-8 border border-n-300 dark:border-n-600 hover:bg-n-100 dark:hover:bg-n-800
+        focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400;
+	}
+
+	.bottom-nav-link {
+		@apply has-[.active]:bg-blue-50 rounded-4
+        dark:has-[.active]:bg-n-700 has-[.active]:text-blue-500 
+        not-has-[.active]:hover:text-n-950   not-has-[.active]:dark:hover:text-n-300 not-has-[.active]:hover:bg-n-200 not-has-[.active]:dark:hover:bg-n-800 cursor-pointer;
+	}
+	.bottom-navlink {
+		@apply w-full py-1 rounded-4  flex items-center justify-center;
+	}
+	.arrow-right {
+		@apply relative;
+	}
+	.arrow-right:hover::before,
+	.arrow-right.active::before {
+		position: absolute;
+		content: "";
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 6px;
+		height: 8px;
+		background-image: url("./assets/images/icon-chevron-right.svg");
+		background-position: center;
+	}
+	.dark .arrow-right:hover::before,
+	.dark .arrow-right.active::before {
+		filter: invert(1);
+	}
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px white inset !important;
+	box-shadow: 0 0 0 1000px white inset !important;
+	-webkit-text-fill-color: #000 !important;
+}
