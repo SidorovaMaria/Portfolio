@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import ArrowLeftIcon from "../assets/images/icon-arrow-left.svg?react";
 import DeletIcon from "../assets/images/icon-delete.svg?react";
 import ArchiveIcon from "../assets/images/icon-archive.svg?react";
-import { AnimatePresence } from "motion/react";
-import DeleteArchiveModal from "./modals/DeleteArchiveModal";
+
 import RestoreIcon from "../assets/images/icon-restore.svg?react";
 import { useDispatch } from "react-redux";
 import { archiveNote } from "../redux/notesSlice";
@@ -20,20 +19,11 @@ const NoteControl = ({
 	handleCancel,
 	noRestore,
 	hasUnsavedChanges,
+	setOpenModal,
 }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [openModal, setOpenModal] = useState({
-		mode: null,
-		note: null,
-	});
-	const closeModal = () => {
-		setOpenModal((prev) => ({
-			...prev,
-			note: null,
-			mode: null,
-		}));
-	};
+
 	const handleGoBack = () => {
 		if (hasUnsavedChanges) {
 			setOpenModal((prev) => ({
@@ -112,18 +102,6 @@ const NoteControl = ({
 					Save Note
 				</button>
 			</div>
-			<AnimatePresence>
-				{openModal.note && (
-					<DeleteArchiveModal
-						note={openModal.note}
-						mode={openModal.mode}
-						close={closeModal}
-						deleted={() => {
-							unselect();
-						}}
-					/>
-				)}
-			</AnimatePresence>
 		</div>
 	);
 };

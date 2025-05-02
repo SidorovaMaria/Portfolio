@@ -10,13 +10,7 @@ createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<Provider store={store}>
 			<App />
-			<Toaster
-				position="bottom-right"
-				containerStyle={{
-					bottom: "5rem",
-				}}
-				reverseOrder={false}
-			/>
+			<Toaster position="bottom-right" reverseOrder={false} />
 		</Provider>
 	</StrictMode>
 );

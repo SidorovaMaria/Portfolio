@@ -90,6 +90,7 @@ body {
 		@apply cursor-pointer px-4 py-3 rounded-8 border border-n-300 dark:border-n-600 hover:bg-n-100 dark:hover:bg-n-800
         focus:outline-2 focus:border-n-950 dark:focus:border-n-500 focus:outline-offset-2 focus:outline-n-400;
 	}
+
 	.bottom-nav-link {
 		@apply has-[.active]:bg-blue-50 rounded-4
         dark:has-[.active]:bg-n-700 has-[.active]:text-blue-500 

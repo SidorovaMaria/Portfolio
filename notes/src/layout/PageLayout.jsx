@@ -9,7 +9,9 @@ import SearchIcon from "../assets/images/icon-search.svg?react";
 import RightSide from "./RightSide";
 import SelectedNote from "../components/SelectedNote";
 import { useNavigate } from "react-router";
-import CreateNewNote from "../components/CreateNewNote";
+import ArchiveIcon from "../assets/images/icon-archive.svg?react";
+import DeleteIcon from "../assets/images/icon-delete.svg?react";
+import DeleteArchiveModal from "../components/modals/DeleteArchiveModal";
 
 const PageLayout = ({
 	title,
@@ -22,6 +24,17 @@ const PageLayout = ({
 	searchValue,
 	onSearchChange,
 }) => {
+	const [openModal, setOpenModal] = useState({
+		mode: null,
+		note: null,
+	});
+	const closeModal = () => {
+		setOpenModal((prev) => ({
+			...prev,
+			note: null,
+			mode: null,
+		}));
+	};
 	const navigate = useNavigate();
 	const isDesktop = useIsDesktop();
 	const [selectedNote, setSelectedNote] = useState(null);
@@ -146,9 +159,56 @@ const PageLayout = ({
 			</AnimatePresence>
 			<AnimatePresence>
 				{selectedNote && (
-					<RightSide keyModal={selectedNote.id || "new"}>
-						<SelectedNote note={selectedNote} unselect={() => setSelectedNote(null)} />
-					</RightSide>
+					<React.Fragment key={selectedNote.id}>
+						<RightSide keyModal={selectedNote.id || "new"}>
+							<SelectedNote
+								openModal={openModal}
+								setOpenModal={setOpenModal}
+								note={selectedNote}
+								unselect={() => setSelectedNote(null)}
+							/>
+						</RightSide>
+						<div className="lg:flex flex-col hidden flex-1 py-5 pl-4 gap-3 max-w-[258px] ml-auto mr-8">
+							<button
+								className="border-btn-google flex items-center gap-2 "
+								onClick={() =>
+									setOpenModal((prev) => ({
+										...prev,
+										note: selectedNote,
+										mode: "archive",
+									}))
+								}
+							>
+								<ArchiveIcon className="w-5 h-5" />
+								<p className="text-4">Archive Note</p>
+							</button>
+							<button
+								className="border-btn-google flex items-center gap-2 "
+								onClick={() =>
+									setOpenModal((prev) => ({
+										...prev,
+										note: selectedNote,
+										mode: "delete",
+									}))
+								}
+							>
+								<DeleteIcon className="w-5 h-5" />
+								<p className="text-4">Delete Note</p>
+							</button>
+						</div>
+					</React.Fragment>
+				)}
+			</AnimatePresence>
+			<AnimatePresence>
+				{openModal.note && (
+					<DeleteArchiveModal
+						note={openModal.note}
+						mode={openModal.mode}
+						close={closeModal}
+						deleted={() => {
+							setSelectedNote(null);
+						}}
+					/>
 				)}
 			</AnimatePresence>
 		</motion.section>

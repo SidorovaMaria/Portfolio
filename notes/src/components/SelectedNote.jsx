@@ -10,7 +10,7 @@ import { addNote, editNote } from "../redux/notesSlice";
 import CustomToast from "./CustomToast";
 import toast from "react-hot-toast";
 
-const SelectedNote = ({ note, unselect }) => {
+const SelectedNote = ({ note, unselect, setOpenModal, openModal }) => {
 	const dispatch = useDispatch();
 	const updatedNote = useSelector((state) => state.notes.allNotes.find((n) => n.id === note.id));
 
@@ -93,6 +93,8 @@ const SelectedNote = ({ note, unselect }) => {
 				handleCancel={handleCancel}
 				handleSave={formik.handleSubmit}
 				hasUnsavedChanges={noteChanged}
+				setOpenModal={setOpenModal}
+				openModal={openModal}
 			/>
 
 			<input
