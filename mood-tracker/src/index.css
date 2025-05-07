@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@font-face {
+	font-family: "Reddit Sans";
+	src: url("./assets/fonts/Reddit_Sans/RedditSans-VariableFont_wght.ttf") format("truetype");
+	font-weight: 100 900;
+}
+
+@theme {
+	--color-n-900: #21214d;
+	--color-n-600: #57577b;
+	--color-n-300: #9393b7;
+	--color-n-200: #cbdcd0;
+	--color-n-0: #ffffff;
+	--color-blue-700: #2a4cd5;
+	--color-blue-600: #4865db;
+	--color-blue-200: #c7d3f7;
+	--color-blue-100: #e0e6fa;
+	--color-red-700: #e60013;
+	--color-red-300: #ff9b99;
+	--color-indigo-200: #b8b1ff;
+	--color-blue-300: #89caff;
+	--color-green-300: #89e780;
+	--color-amber-300: #ffc97c;
+	--leading-100: 100%;
+	--leading-110: 110%;
+	--leading-120: 120%;
+	--leading-130: 130%;
+	--leading-140: 140%;
+	--tracking-03: -0.3px;
+	--tracking-2: -2px;
+	--font-redit: "Reddit Sans", sans-serif;
+	--radius-4: 4px;
+	--radius-6: 6px;
+	--radius-8: 8px;
+	--radius-10: 10px;
+	--radius-12: 12px;
+	--radius-16: 16px;
+	--radius-20: 20px;
+	--radius-24: 24px;
+}
+body {
+	@apply font-redit;
+}
+
+@layer components {
+	.gradient {
+		@apply bg-gradient-to-b from-[#f5f5ff] from-[73%] to-[#e0e0ff];
+	}
+	.text-1 {
+		@apply text-[2.875rem] md:text-[3.25rem] leading-120 md:leading-140 tracking-2 font-bold;
+	}
+	.text-2 {
+		@apply text-[2rem] md:text-[2.5rem] leading-120 tracking-03 font-bold;
+	}
+	.text-3 {
+		@apply text-[1.75rem] md:text-[2rem] leading-130 md:leading-140 tracking-03 font-bold;
+	}
+	.text-4 {
+		@apply text-2xl leading-140 font-semibold;
+	}
+	.text-4.regular {
+		@apply font-normal;
+	}
+	.text-5 {
+		@apply text-xl leading-140 font-semibold;
+	}
+	.text-6 {
+		@apply text-lg leading-[120%] font-medium;
+	}
+	.text-6.italic {
+		@apply italic;
+	}
+	.text-6.regular {
+		@apply font-normal;
+	}
+	.text-7 {
+		@apply font-normal text-[15px] leading-140 tracking-03;
+	}
+	.text-8 {
+		@apply text-[13px] leading-100 font-semibold;
+	}
+	.text-9 {
+		@apply text-xs leading-110 font-normal;
+	}
+	.input {
+		@apply rounded-10 px-4 py-3 border border-n-300 bg-n-0 placeholder:text-n-600 text-n-900 hover:border-n-600 focus:border-n-300 focus:outline-2 focus:outline-offset-3 focus:outline-blue-600 active:border-n-600;
+	}
+	.input.error {
+		@apply border-red-700! outline-none;
+	}
+	.btn {
+		@apply cursor-pointer rounded-10 px-8 py-3 bg-blue-600 text-n-0 hover:bg-blue-700 focus:bg-blue-600 focus:outline-2 focus:outline-offset-3 focus:outline-blue-600 disabled:bg-blue-200;
+	}
+	.secondary-btn {
+		@apply cursor-pointer rounded-8 px-4 py-2 border border-n-300 text-n-900
+        hover:border-n-900 focus:border-n-600 focus:outline-2 focus:outline-offset-3 focus:outline-blue-600;
+	}
+}
