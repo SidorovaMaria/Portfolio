@@ -49,15 +49,15 @@ const Projects = () => {
 					style={{ x: projectTwoX, scale: projectTwoScale }}
 					className="absolute  will-change-transform"
 				>
-					<Project project={projects[0]} />
+					<Project project={projects[1]} />
 				</motion.div>
-				<motion.div
+				{/* <motion.div
 					ref={snapRefs[2]}
 					style={{ x: projectThreeX, scale: projectThreeScale }}
 					className="absolute will-change-transform"
 				>
 					<Project project={projects[0]} />
-				</motion.div>
+				</motion.div> */}
 			</motion.div>
 		</section>
 	);

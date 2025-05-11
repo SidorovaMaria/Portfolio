@@ -25,11 +25,7 @@ const TechStack = () => {
 					className="flex gap-20 h-[90%] items-center justify-start "
 				>
 					{TechStackCards.map((card) => (
-						<TechStackCard
-							iconSrc={card.iconSrc}
-							title={card.title}
-							key={card.title}
-						/>
+						<TechStackCard iconSrc={card.iconSrc} title={card.title} key={card.title} />
 					))}
 				</motion.div>
 				<div className="relative bottom-1/15 ">
@@ -44,35 +40,35 @@ export default TechStack;
 
 const TechStackCards = [
 	{
-		iconSrc: "../../public/icons/html.svg",
+		iconSrc: "/icons/html.svg",
 		title: "HTML",
 	},
 	{
-		iconSrc: "../../public/icons/css.svg",
+		iconSrc: "/icons/css.svg",
 		title: "CSS",
 	},
 	{
-		iconSrc: "../../public/icons/js.svg",
+		iconSrc: "/icons/js.svg",
 		title: "JavaScript",
 	},
 	{
-		iconSrc: "../../public/icons/react.svg",
+		iconSrc: "/icons/react.svg",
 		title: "React",
 	},
 	{
-		iconSrc: "../../public/icons/redux.svg",
+		iconSrc: "/icons/redux.svg",
 		title: "Redux",
 	},
 	{
-		iconSrc: "../../public/icons/tailwind.svg",
+		iconSrc: "/icons/tailwind.svg",
 		title: "TailwindCSS",
 	},
 	{
-		iconSrc: "../../public/icons/motiondev.svg",
+		iconSrc: "/icons/motiondev.svg",
 		title: "motion.dev",
 	},
 	{
-		iconSrc: "../../public/icons/shadcn.svg",
+		iconSrc: "/icons/shadcn.svg",
 		title: "Shadcn",
 	},
 ];

@@ -39,7 +39,7 @@ const Intro = () => {
 							rotateY,
 						}}
 					>
-						<ReactSVG src="../../public/images/profile-img.svg" />
+						<ReactSVG src="/images/profile-img.svg" />
 					</motion.div>
 					<motion.div
 						className="absolute"
@@ -49,7 +49,7 @@ const Intro = () => {
 						}}
 					>
 						<ReactSVG
-							src="../../public/images/profile-outline.svg"
+							src="/images/profile-outline.svg"
 							className="fill-text dark:fill-dark-text "
 						/>
 					</motion.div>
