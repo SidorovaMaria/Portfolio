@@ -9,12 +9,8 @@ import { useEffect } from "react";
 
 function App() {
 	const { token, user } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		if (token && !user) {
-			dispatch(fetchUser()); // Fetch user if token exists
-		}
-	}, [dispatch, token, user]);
+
+
 	const ProtectedRoute = ({ children }) => {
 		if (!token) {
 			return <Navigate to="/signIn" />;
