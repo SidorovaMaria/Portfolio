@@ -33,10 +33,15 @@ const Projects = () => {
 			id="projects"
 			ref={targetRef}
 			className="relative h-[300vh] bg-[url('/images/background-projects.jpg')] bg-center bg-no-repeat "
+			aria-labelledby="projects"
+			aria-describedby="projects-all"
 		>
 			{/* Snap zones */}
 
 			<motion.div className="sticky top-0 left-0 flex flex-col items-center justify-center h-screen overflow-hidden bg-primary/50 backdrop-brightness-150 dark:backdrop-brightness-50 text-background ">
+				<h1 className="text-[80px] uppercase font-teko-bold justify-self-start ">
+					Projects
+				</h1>
 				<motion.div
 					ref={snapRefs[0]}
 					style={{ x: projectOneX, scale: projectOneScale }}

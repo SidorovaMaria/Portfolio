@@ -6,6 +6,7 @@ import FlipLink from "./texts/FlipLink";
 const Header = () => {
 	const { scrollY } = useScroll();
 	const height = useTransform(scrollY, [0, 110], [150, 110]);
+
 	return (
 		<motion.div
 			style={{

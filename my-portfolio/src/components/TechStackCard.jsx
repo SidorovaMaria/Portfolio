@@ -64,19 +64,26 @@ const TechStackCard = ({ iconSrc, title }) => {
 				transformStyle: "preserve-3d",
 				transform,
 			}}
-			initial={"initial"}
+			initial={("initial", { opacity: 0 })}
+			whileInView={{
+				opacity: 1,
+				transition: {
+					duration: 1.0,
+					ease: "easeInOut",
+				},
+			}}
 			whileHover={"hovered"}
 			variants={TechCard}
 			onMouseMove={handleMouseMove}
 			onMouseLeave={handleMouseLeave}
-			className="relative backdrop-blur-sm w-[25vw] h-1/2 rounded-2xl flex flex-col gap-4 items-center justify-center"
+			className="relative backdrop-blur-sm w-[25vw] aspect-square rounded-2xl flex flex-col gap-4 items-center justify-center"
 		>
 			<div
 				style={{
 					transform: "translateZ(75px)",
 					transformStyle: "preserve-3d",
 				}}
-				className="absolute backdrop-blur-3xl flex flex-col gap-4 items-center w-3/4 h-3/4 justify-center rounded-xl shadow-[0px_0px_50px_10px] shadow-background"
+				className="absolute backdrop-blur-3xl flex flex-col gap-4 items-center w-3/4 h-3/4 justify-center rounded-xl shadow-[0px_0px_30px_5px] shadow-background"
 			>
 				<ReactSVG
 					src={iconSrc}

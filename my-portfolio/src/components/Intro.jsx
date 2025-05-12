@@ -21,9 +21,11 @@ const Intro = () => {
 	}
 	return (
 		<motion.div
+			
 			onMouseMove={handleMouse}
 			onMouseLeave={handleMouseLeave}
 			className="grid lg:grid-cols-[2fr_3fr] gap-x-20 md:grid-cols-1 my-20 mx-10"
+			aria-labelledby="intro"
 		>
 			<motion.div
 				className="relative p-6"
@@ -38,8 +40,13 @@ const Intro = () => {
 							rotateX,
 							rotateY,
 						}}
+						aria-hidden="true"
 					>
-						<ReactSVG src="/images/profile-img.svg" />
+						<ReactSVG
+							src="../../public/images/profile-img.svg"
+							aria-label="Profile Image of Maria Sidorova"
+							role="img"
+						/>
 					</motion.div>
 					<motion.div
 						className="absolute"
@@ -47,9 +54,12 @@ const Intro = () => {
 							rotateX: rotateXOutline,
 							rotateY: rotateYOutline,
 						}}
+						aria-hidden="true"
 					>
 						<ReactSVG
-							src="/images/profile-outline.svg"
+							aria-label="Profile Outline of Maria Sidorova"
+							role="img"
+							src="../../public/images/profile-outline.svg"
 							className="fill-text dark:fill-dark-text "
 						/>
 					</motion.div>
@@ -58,7 +68,11 @@ const Intro = () => {
 			</motion.div>
 			<motion.div initial="hidden" animate="visible" variants={IntroText}>
 				<article className="flex flex-col gap-4">
-					<h1 className="text-[64px] leading-18 font-teko-semibold">
+					<h1
+						className="text-[64px] leading-18 font-teko-semibold"
+						id="intro"
+						tabIndex={0}
+					>
 						<AnimatedText text={["HI, I am Maria"]}></AnimatedText>
 						<AnimatedText
 							delay={1.5}
@@ -67,8 +81,14 @@ const Intro = () => {
 						/>
 						<span className="block text-right"></span>
 					</h1>
-					<hr className="border-text dark:border-dark-text border-2 rounded-full" />
-					<p className="text-[26px] tracking-wide leading-8 font-teko-light">
+					<hr
+						className="border-text dark:border-dark-text border-2 rounded-full"
+						aria-hidden="true"
+					/>
+					<p
+						className="text-[26px] tracking-wide leading-8 font-teko-light"
+						aria-describedby="intro-description"
+					>
 						I’m passionate about transforming visual ideas into seamless, interactive
 						web experiences. I love front-end development because it lets me combine
 						logic and creativity — especially when it comes to building polished UIs
