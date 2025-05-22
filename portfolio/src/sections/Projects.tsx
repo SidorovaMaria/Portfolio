@@ -1,6 +1,8 @@
 import { Code } from "lucide-react";
 import React from "react";
 import FlipText from "../motionComponents/FlipText";
+import ProjectPhotoGallery from "../components/ProjectPhotoGallery";
+import { projectImages } from "../constants";
 
 const Projects = () => {
 	return (
@@ -11,6 +13,9 @@ const Projects = () => {
 				</FlipText>
 				<Code className="size-7 lg:size-10 text-coffe-light group-hover:text-secondary transition-all duration-900 ease-linear " />
 			</h2>
+			<div className="grid grid-cols-1 lg:grid-cols-2 ">
+				<ProjectPhotoGallery images={projectImages[0].images} />
+			</div>
 		</section>
 	);
 };
