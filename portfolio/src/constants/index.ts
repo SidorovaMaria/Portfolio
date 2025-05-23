@@ -7,46 +7,106 @@ export const heroTags = [
 	{ text: "Coffee?", icon: Coffee },
 ];
 
-export const projectImages = [
+export const projects = [
 	{
-		project: "KanBan Board",
+		project: "KanBan Board - Visual Task Manager for Projects.",
 		images: [
 			{
 				src: "/images/Project-1/Project-1-dark-main-desktop.png",
 				alt: "Project 1 Dark Main Desktop",
+				device: "desktop",
 			},
 			{
 				src: "/images/Project-1/Project-1-light-main-desktop.png",
 				alt: "Project 1 Light Main Desktop",
+				device: "desktop",
 			},
 			{
 				src: "/images/Project-1/Project-1-dark-overview-desktop.png",
 				alt: "Project 1 Dark Overview Desktop",
+				device: "desktop",
 			},
 			{
 				src: "/images/Project-1/Project-1-light-add-desktop.png",
 				alt: "Project 1 Light Add Desktop",
+				device: "desktop",
 			},
 			{
 				src: "/images/Project-1/Project-1-dark-main-mobile.png",
 				alt: "Project 1 Dark Main Mobile",
+				device: "mobile",
 			},
 			{
 				src: "/images/Project-1/Project-1-dark-edit-mobile.png",
 				alt: "Project 1 Dark Edit Mobile",
+				device: "mobile",
 			},
 			{
 				src: "/images/Project-1/Project-1-light-main-mobile.png",
 				alt: "Project 1 Light Main Mobile",
+				device: "mobile",
 			},
 			{
 				src: "/images/Project-1/Project-1-light-add-mobile.png",
 				alt: "Project 1 Light Add Mobile",
+				device: "mobile",
 			},
 		],
-		description: "Project 1 Description",
-		tags: ["HTML", "CSS", "JavaScript"],
-		link: "https://example.com/project1",
+		description:
+			"A Frontend Mentor challenge implemented using React, TailwindCSS, Redux, and Motion for a seamless user experience.",
+		tags: ["Vte", "React", "Redux", "TailwindCSS", "Motion"],
+		link: "https://portfolio-flax-pi-68.vercel.app",
+		github: "",
+	},
+	{
+		project: "Notes  - A Simple Note Taking Web App.",
+		images: [
+			{
+				src: "/images/Project-2/Project-2-dark-main-desktop.png",
+				alt: "Project 2 Dark Main Desktop",
+				device: "desktop",
+			},
+			{
+				src: "/images/Project-2/Project-2-light-login-desktop.png",
+				alt: "Project 2 Light Login Desktop",
+				device: "desktop",
+			},
+			{
+				src: "/images/Project-2/Project-2-dark-settings-desktop.png",
+				alt: "Project 2 Dark Settings Desktop",
+				device: "desktop",
+			},
+			{
+				src: "/images/Project-2/Project-2-light-main-desktop.png",
+				alt: "Project 2 Light Main Desktop",
+				device: "desktop",
+			},
+
+			{
+				src: "/images/Project-2/Project-2-dark-all-mobile.png",
+				alt: "Project 2 Dark All Mobile",
+				device: "mobile",
+			},
+			{
+				src: "/images/Project-2/Project-2-light-add-mobile.png",
+				alt: "Project 2 Dark Add Mobile",
+				device: "mobile",
+			},
+			{
+				src: "/images/Project-2/Project-2-dark-tag-mobile.png",
+				alt: "Project 2 Dark Tag Mobile",
+				device: "mobile",
+			},
+			{
+				src: "c/images/Project-2/Project-2-light-settings-mobile.png",
+				alt: "Project 2 Light Settings Mobile",
+				device: "mobile",
+			},
+		],
+		description:
+			"A simple note-taking web app built with React, TailwindCSS, and Redux for state management amd local storage as a database.",
+		tags: ["React", "Redux", "TailwindCSS", "Local Storage", "Motion"],
+		link: "https://notes-delta-blue.vercel.app/",
 		github: "",
 	},
 ];

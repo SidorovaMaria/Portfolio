@@ -9,6 +9,7 @@ const swipePower = (offset: number, velocity: number) => {
 interface Image {
 	src: string;
 	alt: string;
+	device: string;
 }
 interface ProjectPhotoGalleryProps {
 	images: Image[];
@@ -29,15 +30,15 @@ const ProjectPhotoGallery = ({ images }: ProjectPhotoGalleryProps) => {
 		<aside className="grid grid-cols-[1fr_2fr_1fr] lg:grid-cols-1 items-center justify-center w-full max-h-[800px] ">
 			<ToolTip text="Previous Image" position="mouse" className="lg:hidden">
 				<ChevronLeft
-					size={60}
+					size={30}
 					className="w-full text-coffe-light opacity-30 hover:opacity-100 hover:text-coffee-brown cursor-pointer hover:scale-110 active:scale-90 transition-all duration-300 ease-linear "
 					onClick={() => paginate(-1)}
 				/>
 			</ToolTip>
 
-			<AnimatePresence initial={false} mode="popLayout" custom={direction}>
+			<AnimatePresence mode="wait" initial={false} custom={direction}>
 				<motion.img
-					layoutId={`image-${imageIndex}`}
+					layoutId={`image-${imageIndex}-${images[imageIndex].alt}`}
 					key={image}
 					src={images[imageIndex].src}
 					alt={images[imageIndex].alt}
@@ -63,40 +64,37 @@ const ProjectPhotoGallery = ({ images }: ProjectPhotoGalleryProps) => {
 						}
 					}}
 					title="Double click to open"
-					className="max-h-[350px] max-w-[600px] mx-auto  cursor-grab lg:order-2"
+					className="max-h-[280px] md:max-h-[320px] max-w-[400px] md:max-w-[550px] mx-auto cursor-grab lg:order-2"
 				/>
 			</AnimatePresence>
 
 			<AnimatePresence>
 				{isOpen && (
 					<motion.div
-						className="fixed inset-0 bg-black/70 flex justify-center items-center z-50"
+						className="fixed inset-0 bg-black/70 flex justify-center items-center z-50 pt-10"
 						onClick={handleClose}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 					>
-						<ToolTip
-							text={images[imageIndex].alt}
-							position="mouse"
-							className="max-w-[90%] max-h-[90%] object-contain text-[8px]"
-							delay={6000}
-						>
-							<motion.img
-								layoutId={`image-${imageIndex}`}
-								src={images[imageIndex].src}
-								alt={images[imageIndex].alt}
-								onDoubleClick={handleClose}
-								className=""
-								onClick={(e) => e.stopPropagation()}
-							/>
-						</ToolTip>
+						<motion.img
+							layoutId={`image-${imageIndex}`}
+							src={images[imageIndex].src}
+							alt={images[imageIndex].alt}
+							onDoubleClick={handleClose}
+							onClick={(e) => e.stopPropagation()}
+							className={`object-contain text-[8px] mx-auto ${
+								images[imageIndex].device === "mobile"
+									? "max-w-[40%]"
+									: "max-w-[90%]"
+							} `}
+						/>
 					</motion.div>
 				)}
 			</AnimatePresence>
 			<ToolTip text="Next Image" position="mouse" className="lg:hidden">
 				<ChevronRight
-					size={60}
+					size={30}
 					className="w-full text-coffe-light opacity-30 hover:opacity-100 hover:text-coffee-brown cursor-pointer hover:scale-110 active:scale-90 transition-all duration-300 ease-linear "
 					onClick={() => paginate(1)}
 				/>
@@ -131,7 +129,7 @@ const gallery = {
 		scale: 0.95,
 		transition: {
 			x: { type: "spring", stiffness: 260, damping: 30 },
-			opacity: { duration: 0.2 },
+			opacity: { duration: 0.3 },
 			scale: { duration: 0.2 },
 		},
 	}),
