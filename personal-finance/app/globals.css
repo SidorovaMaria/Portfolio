@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+	/* Design System Colors */
+	/* Primary Colors */
+	--color-beige-500: #98908b;
+	--color-beige-100: #f8f4f0;
+	--color-grey-900: #201f24;
+	--color-grey-500: #696868;
+	--color-grey-300: #b3b3b3;
+	--color-grey-100: #f2f2f2;
+	--color-white: #ffffff;
+	/* Secondary Colors */
+	--color-secondary-green: #277c78;
+	--color-secondary-yellow: #f2cdac;
+	--color-secondary-cyan: #82c9d7;
+	--color-secondary-navy: #626070;
+	--color-secondary-red: #c94736;
+	--color-secondary-purple: #826cb0;
+	/* Spacing */
+	--spacing-500: 40px;
+	--spacing-400: 32px;
+	--spacing-300: 24px;
+	--spacing-250: 20px;
+	--spacing-200: 16px;
+	--spacing-150: 12px;
+	--spacing-100: 8px;
+	--spacing-50: 4px;
+	/* Typography */
+	/* Font-size */
+	--text-1: 32px;
+	--text-2: 20px;
+	--text-3: 16px;
+	--text-4: 14px;
+	--text-5: 12px;
+	/* Line-Height */
+	--leading-120: 120%;
+	--leading-150: 150%;
+	/* Border-Radius */
+	--radius-8: 8px;
+}
+@layer base {
+	/* Global Style */
+	html,
+	body {
+		font-family: "Public Sans", sans-serif;
+		font-size: 16px;
+	}
+}
+
+@layer components {
+	/* Buttons */
+	.btn {
+		@apply inline-flex items-center p-4 justify-center font-semibold rounded-8 transition-all duration-300;
+	}
+	.btn-primary {
+		@apply bg-grey-900 text-white  hover:bg-grey-500 transition-colors duration-300;
+	}
+	.btn-secondary {
+		@apply bg-beige-100 text-grey-900 border border-transparent hover:border-beige-500 hover:bg-white;
+	}
+	.btn.btn-tertiary {
+		@apply flex items-center justify-start gap-4 text-grey-500
+        hover:text-grey-900 transition-all duration-300;
+	}
+	.btn-destroy {
+		@apply bg-secondary-red text-white hover:bg-secondary-red/80;
+	}
+	.input-state {
+		@apply flex flex-col items-center justify-start gap-4 px-5 py-3 rounded-8 border border-beige-500 bg-white placeholder:text-beige-500 text-grey-900 hover:border-grey-500 has-focus:border-grey-500 transition-all duration-300;
+	}
+}
