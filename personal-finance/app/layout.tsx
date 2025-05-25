@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import NavBar from "@/components/NavBar";
+import DesktopNavBar from "@/components/DesktopNavBar";
 
 export const metadata: Metadata = {
 	title: "Personal Finance App",
@@ -17,7 +19,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body className="flex ">
+				<NavBar />
+				<DesktopNavBar />
+				{children}
+			</body>
 		</html>
 	);
 }

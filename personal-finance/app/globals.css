@@ -38,6 +38,8 @@
 	--leading-150: 150%;
 	/* Border-Radius */
 	--radius-8: 8px;
+	--radius-12: 12px;
+	--radius-16: 16px;
 }
 @layer base {
 	/* Global Style */
@@ -45,13 +47,14 @@
 	body {
 		font-family: "Public Sans", sans-serif;
 		font-size: 16px;
+		@apply bg-beige-100 text-grey-900;
 	}
 }
 
 @layer components {
 	/* Buttons */
 	.btn {
-		@apply inline-flex items-center p-4 justify-center font-semibold rounded-8 transition-all duration-300;
+		@apply inline-flex items-center p-4 justify-center font-semibold rounded-8 transition-all duration-300 cursor-pointer;
 	}
 	.btn-primary {
 		@apply bg-grey-900 text-white  hover:bg-grey-500 transition-colors duration-300;
@@ -61,7 +64,7 @@
 	}
 	.btn.btn-tertiary {
 		@apply flex items-center justify-start gap-4 text-grey-500
-        hover:text-grey-900 transition-all duration-300;
+        hover:text-white transition-all duration-300;
 	}
 	.btn-destroy {
 		@apply bg-secondary-red text-white hover:bg-secondary-red/80;
