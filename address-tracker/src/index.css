@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import "tailwindcss";
+
+body {
+	font-family: "Rubik", sans-serif;
+}
+
+@layer components {
+	.id-data {
+		@apply flex flex-col gap-1.5 items-center text-center w-full md:items-start md:text-left md:gap-4;
+	}
+	.ip-title {
+		@apply text-[#2c2c2c] opacity-50 text-[10px] tracking-[1.46px] uppercase font-bold md:text-xs md:tracking-[1.75px];
+	}
+	.ip-value {
+		@apply text-[20px] font-medium leading-[24px] text-[#2c2c2c] tracking-[-0.18px] lg:text-[26px] lg:leading-[-30px] lg:tracking-[-0.23px];
+	}
+	.divider {
+		@apply h-[75px] w-[1px] bg-black hidden md:block;
+	}
+}
