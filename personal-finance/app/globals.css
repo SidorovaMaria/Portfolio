@@ -49,6 +49,9 @@
 		font-size: 16px;
 		@apply bg-beige-100 text-grey-900;
 	}
+	.layout {
+		@apply flex flex-col items-center justify-center w-full gap-8 px-4 py-6 md:py-8 md:px-10 lg:justify-start;
+	}
 }
 
 @layer components {
@@ -72,4 +75,19 @@
 	.input-state {
 		@apply flex flex-col items-center justify-start gap-4 px-5 py-3 rounded-8 border border-beige-500 bg-white placeholder:text-beige-500 text-grey-900 hover:border-grey-500 has-focus:border-grey-500 transition-all duration-300;
 	}
+	/* Overview */
+	.balance-card {
+		@apply rounded-12 w-full p-5 flex flex-col gap-3 md:p-6 text-grey-500 bg-white;
+	}
+
+	/* Modals */
+	.modal-overlay {
+		@apply fixed inset-0 bg-black/50 flex items-center justify-center;
+	}
+	.modal-content {
+		@apply flex flex-col items-center justify-start bg-white px-5 py-6 rounded-12 gap-5;
+	}
+}
+::-webkit-progress-bar {
+	background-color: #f8f4f0;
 }

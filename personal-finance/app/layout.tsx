@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import DesktopNavBar from "@/components/DesktopNavBar";
+import ReduxProvider from "@/lib/ReduxProvider";
 
 export const metadata: Metadata = {
 	title: "Personal Finance App",
@@ -20,9 +21,12 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className="flex ">
-				<NavBar />
-				<DesktopNavBar />
-				{children}
+				<ReduxProvider>
+					<NavBar />
+
+					<DesktopNavBar />
+					<main className="layout">{children}</main>
+				</ReduxProvider>
 			</body>
 		</html>
 	);

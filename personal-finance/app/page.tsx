@@ -1,7 +1,14 @@
+"use client";
+
+import FinanceBalance from "@/components/overview/FinanceBalance";
+import Title from "@/components/Title";
+import React from "react";
+
 export default function Home() {
 	return (
-		<main className="">
-			<h1>Hello World</h1>
-		</main>
+		<>
+			<Title title="Overview" />
+			<FinanceBalance />
+		</>
 	);
 }

@@ -2,14 +2,14 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { navlinks } from "./constants";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+
 import { AnimatePresence, motion } from "motion/react";
-import { p } from "motion/react-client";
-import IconCaretLeft from "./svg/IconCaretLeft";
+
 import IconMinimizeMenu from "./svg/IconMinimizeMenu";
 
 const DesktopNavBar = () => {
+	const router = useRouter();
 	const pathname = usePathname();
 	const [minimizeNavBar, setMinimizeNavBar] = useState(false);
 	return (
@@ -29,7 +29,7 @@ const DesktopNavBar = () => {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.3 }}
-						className="flex items-center px-8 py-10 gap-2"
+						className="flex items-center px-8 py-10 gap-2 "
 					>
 						<Image
 							src={"/logo-large.svg"}
@@ -69,7 +69,8 @@ const DesktopNavBar = () => {
 							animate={minimizeNavBar ? "hide" : "show"}
 							variants={LinkVariant}
 							key={link.title}
-							className={`w-full rounded-r-12 flex gap-4 items-center justify-start transition-all duration-300 group py-4  ${
+							onClick={() => router.push(link.link)}
+							className={`cursor-pointer w-full rounded-r-12 flex gap-4 items-center justify-start transition-all duration-300 group py-4  ${
 								active && "bg-white"
 							}
                             ${minimizeNavBar ? "px-6 " : "px-8 "}  `}

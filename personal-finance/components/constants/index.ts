@@ -37,3 +37,86 @@ export const navlinks: NavLink[] = [
 		icon: IconRecurringBills,
 	},
 ];
+type ThemeType = {
+	name: string;
+	id: string;
+	value: string;
+};
+
+export const Themes: ThemeType[] = [
+	{
+		name: "Green",
+		id: "green",
+		value: "#277C78",
+	},
+	{
+		name: "Yellow",
+		id: "yellow",
+		value: "#F2CDAC",
+	},
+	{
+		name: "Cyan",
+		id: "cyan",
+		value: "#82C9D7",
+	},
+	{
+		name: "Navy",
+		id: "navy",
+		value: "#626070",
+	},
+	{
+		name: "Red",
+		id: "red",
+		value: "#C94736",
+	},
+	{
+		name: "Purple",
+		id: "purple",
+		value: "#826CB0",
+	},
+	{
+		name: "Light Purple",
+		id: "light-purple",
+		value: "#AF81BA",
+	},
+	{
+		name: "Turquoise",
+		id: "turquoise",
+		value: "#597C7C",
+	},
+	{
+		name: "Brown",
+		id: "brown",
+		value: "#93674F",
+	},
+	{
+		name: "Magenta",
+		id: "magenta",
+		value: "#934F6F",
+	},
+	{
+		name: "Sky Blue",
+		id: "sky-blue",
+		value: "#3F82B2",
+	},
+	{
+		name: "Navy Grey",
+		id: "navy-grey",
+		value: "#97A0AC",
+	},
+	{
+		name: "Army Green",
+		id: "army-green",
+		value: "#7F9161",
+	},
+	{
+		name: "Gold",
+		id: "gold",
+		value: "#CAB361",
+	},
+	{
+		name: "Orange",
+		id: "orange",
+		value: "#BE6C49",
+	},
+];

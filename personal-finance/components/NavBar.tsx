@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 
 const NavBar = () => {
 	const pathname = usePathname();
-	console.log("Current Pathname:", pathname);
 
 	return (
 		<nav className="fixed bottom-0 px-4 pt-2 bg-grey-900 w-full rounded-t-8 flex justify-between items-center md:px-10 lg:hidden ">
