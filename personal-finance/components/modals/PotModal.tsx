@@ -13,10 +13,11 @@ import { modalContentVariant, ModalOverlayVariant } from "../constants/motionVar
 interface PotModalProps {
 	mode: string;
 	potToEdit?: {
+		id?: string;
 		potName: string;
 		potTarget: number;
-		theme: { id: number; name: string; value: string };
-	};
+		theme: { id: string; name: string; value: string };
+	} | null;
 	setOpenModal: React.Dispatch<
 		React.SetStateAction<{
 			open: boolean;
@@ -64,12 +65,22 @@ const PotModal = ({ mode, potToEdit, setOpenModal }: PotModalProps) => {
 		const potData = {
 			name: data.potName,
 			target: data.potTarget,
-			theme: selectedTheme?.value,
+			theme: selectedTheme,
 		};
 		if (mode === "add") {
 			dispath({
 				type: "finance/addPot",
 				payload: potData,
+			});
+		} else if (mode === "edit") {
+			dispath({
+				type: "finance/editPot",
+				payload: {
+					potId: potToEdit?.id,
+					name: data.potName,
+					target: data.potTarget,
+					theme: selectedTheme,
+				},
 			});
 		}
 		closeModal();
@@ -80,11 +91,11 @@ const PotModal = ({ mode, potToEdit, setOpenModal }: PotModalProps) => {
 			animate={"show"}
 			exit={"exit"}
 			variants={ModalOverlayVariant}
-			className="modal-overlay px-5"
+			className="modal-overlay px-5 z-50"
 		>
 			<motion.div
 				variants={modalContentVariant}
-				className="modal-content w-full max-w-[560px] origin-top"
+				className="modal-content w-full max-w-[560px] origin-top "
 			>
 				<div className="flex w-full items-center justify-between ">
 					<h2 className="text-2 leading-120 font-bold">

@@ -12,14 +12,14 @@ export type TransactionType = {
 export type BudgetType = {
 	category: string;
 	maximum: number;
-	theme: string;
+	theme: { id: number; name: string; value: string };
 	id: string;
 };
 export type PotType = {
 	name: string;
 	target: number;
 	total: number;
-	theme: string;
+	theme: { id: string; name: string; value: string };
 	id: string;
 };
 export type BalanceType = {
@@ -37,7 +37,19 @@ interface FinanceState {
 const initialState = {
 	transactions: [],
 	budgets: [],
-	pots: [{ name: "Vacation", target: 2000, total: 159, theme: "#FF5733", id: "1" }],
+	pots: [
+		{
+			name: "Vacation",
+			target: 2000,
+			total: 159,
+			theme: {
+				name: "Magenta",
+				id: "magenta",
+				value: "#934F6F",
+			},
+			id: "1",
+		},
+	],
 	balance: {
 		current: 4836,
 		income: 3814.25,
@@ -61,6 +73,26 @@ const financeSlice = createSlice({
 			};
 			state.pots.push(newPot);
 		},
+		editPot: (state, action) => {
+			const { potId, name, target, theme } = action.payload;
+			const potIndex = state.pots.findIndex((p) => p.id === potId);
+
+			if (potIndex !== -1) {
+				state.pots[potIndex] = {
+					...state.pots[potIndex],
+					name,
+					target,
+					theme,
+				};
+			} else {
+				console.warn(`Pot with id ${potId} not found for editing.`);
+			}
+		},
+		deletePot: (state, action) => {
+			const potId = action.payload;
+			state.pots = state.pots.filter((pot) => pot.id !== potId);
+			console.log(`Pot with id ${potId} deleted.`);
+		},
 		addMoneyToPot: (state, action) => {
 			const { potId, amount } = action.payload;
 			const pot = state.pots.find((p) => p.id === potId);
@@ -79,5 +111,6 @@ const financeSlice = createSlice({
 		},
 	},
 });
-export const { addPot, addMoneyToPot, withdrawMoneyFromPot } = financeSlice.actions;
+export const { addPot, addMoneyToPot, withdrawMoneyFromPot, editPot, deletePot } =
+	financeSlice.actions;
 export const financeReducer = financeSlice.reducer;

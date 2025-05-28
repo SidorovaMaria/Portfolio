@@ -2,6 +2,7 @@
 import PotModal from "@/components/modals/PotModal";
 import Pot from "@/components/Pot";
 import Title from "@/components/Title";
+import { PotType } from "@/lib/features/financeSlice";
 import { RootState } from "@/lib/store";
 import { AnimatePresence } from "motion/react";
 
@@ -13,30 +14,66 @@ export default function Pots() {
 	const [openModal, setOpenModal] = useState<{
 		mode: string;
 		open: boolean;
+		potToEdit?: null | {
+			id?: string;
+			potName: string;
+			potTarget: number;
+			theme: { id: string; name: string; value: string };
+		};
 	}>({
 		mode: "",
 		open: false,
+		potToEdit: null,
 	});
-	console.log(pots);
+	const openEditModal = (pot: PotType) => {
+		setOpenModal({
+			mode: "edit",
+			open: true,
+			potToEdit: {
+				id: pot.id || "",
+				potName: pot.name,
+				potTarget: pot.target,
+				theme: { id: pot.theme.id, name: pot.theme.name, value: pot.theme.value },
+			},
+		});
+	};
+	const addNewPot = () => {
+		setOpenModal((prev) => ({
+			...prev,
+			mode: "add",
+			open: true,
+			potToEdit: null,
+		}));
+	};
+
 	return (
 		<>
-			<Title
-				title="Pots"
-				btn={true}
-				btnText="+ Add New Pot"
-				onClick={() =>
-					setOpenModal((prev) => ({
-						...prev,
-						mode: "add",
-						open: true,
-					}))
-				}
-			/>
+			<Title title="Pots" btn={true} btnText="+ Add New Pot" onClick={addNewPot} />
 			<AnimatePresence>
-				{openModal.open && <PotModal mode={openModal.mode} setOpenModal={setOpenModal} />}
+				{openModal.open && (
+					<PotModal
+						mode={openModal.mode}
+						setOpenModal={setOpenModal}
+						potToEdit={openModal.potToEdit}
+					/>
+				)}
 			</AnimatePresence>
 			<section className="flex flex-col gap-6 items-center justify-start w-full">
-				{pots.length > 0 ? pots.map((pot) => <Pot key={pot.id} pot={pot} />) : null}
+				{pots.length > 0 ? (
+					pots.map((pot) => <Pot key={pot.id} pot={pot} open={openEditModal} />)
+				) : (
+					<div className="w-full flex flex-col gap-6 items-center justify-center">
+						<p className="text-2 font-bold text-grey-500">
+							You don&apos;t have any pots yet!
+						</p>
+						<button
+							onClick={() => addNewPot()}
+							className="btn btn-primary text-4 font-bold "
+						>
+							+ Add New Pot
+						</button>
+					</div>
+				)}
 			</section>
 		</>
 	);
