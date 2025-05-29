@@ -8,8 +8,9 @@ import { Themes } from "../constants";
 import IconCaretLeft from "../svg/IconCaretLeft";
 import { AnimatePresence, motion } from "motion/react";
 import IconWarning from "../svg/IconWarning";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalContentVariant, ModalOverlayVariant } from "../constants/motionVariants";
+import { RootState } from "@/lib/store";
 interface PotModalProps {
 	mode: string;
 	potToEdit?: {
@@ -53,6 +54,7 @@ const PotModal = ({ mode, potToEdit, setOpenModal }: PotModalProps) => {
 		mode === "edit" ? potToEdit?.theme : Themes[0]
 	);
 	const dispath = useDispatch();
+	const { currency } = useSelector((state: RootState) => state.finance);
 
 	const closeModal = () => {
 		setOpenModal((prev) => ({
@@ -157,7 +159,7 @@ const PotModal = ({ mode, potToEdit, setOpenModal }: PotModalProps) => {
 							Target
 						</label>
 						<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-							<span className=" text-grey-500">$</span>
+							<span className=" text-grey-500">{currency}</span>
 							<input
 								type="number"
 								id="potTarget"

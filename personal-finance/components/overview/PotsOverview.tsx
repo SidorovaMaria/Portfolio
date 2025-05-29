@@ -8,7 +8,7 @@ import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 
 const PotsOverview = () => {
 	const router = useRouter();
-	const { pots } = useSelector((state: RootState) => state.finance);
+	const { pots, currency } = useSelector((state: RootState) => state.finance);
 	const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0);
 
 	return (
@@ -31,7 +31,7 @@ const PotsOverview = () => {
 					<div className="flex flex-col gap-2.5 justify-between h-full">
 						<p className="text-4 leading-150 text-grey-500">Total Saved</p>
 						<h5 className="text-1 font-bold leading-120">
-							{toLocaleStringWithCommas(totalSaved, "USD", 0)}
+							{toLocaleStringWithCommas(totalSaved, currency, 0)}
 						</h5>
 					</div>
 				</aside>
@@ -49,7 +49,7 @@ const PotsOverview = () => {
 							></span>
 							<p className="text-5 text-grey-500 leading-150 ">{pot.name}</p>
 							<p className="text-4 font-bold leading-150">
-								{toLocaleStringWithCommas(pot.total, "USD", 0)}
+								{toLocaleStringWithCommas(pot.total, currency, 0)}
 							</p>
 						</section>
 					))}

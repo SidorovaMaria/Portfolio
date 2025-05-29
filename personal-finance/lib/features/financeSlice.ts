@@ -1,6 +1,5 @@
-import { CategoriesType, defaultCategories } from "@/components/constants";
+import { CategoriesType, defaultCategories, defaultTransactions } from "@/components/constants";
 import { createSlice } from "@reduxjs/toolkit";
-import { Apple, Wallet } from "lucide-react";
 
 export type TransactionType = {
 	title: string;
@@ -39,26 +38,7 @@ interface FinanceState {
 	categories: CategoriesType[];
 }
 const initialState = {
-	transactions: [
-		{
-			title: "Salary",
-			category: { name: "Bills", icon: Wallet },
-			date: new Date("2023-10-01"),
-			amount: 3000,
-			type: "income",
-			reccuring: true,
-			id: "1",
-		},
-		{
-			title: "Weekly Grocery Shopping",
-			category: { name: "Food", icon: Apple },
-			date: new Date("2025-05-29"),
-			amount: 30,
-			type: "expense",
-			reccuring: false,
-			id: "2",
-		},
-	],
+	transactions: defaultTransactions,
 	budgets: [],
 	pots: [
 		{
@@ -78,7 +58,7 @@ const initialState = {
 		income: 3814.25,
 		expenses: 1700.5,
 	},
-	currency: "USD",
+	currency: "GBP",
 	categories: defaultCategories,
 } as FinanceState;
 

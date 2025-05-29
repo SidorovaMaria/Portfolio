@@ -10,7 +10,8 @@ import { RootState } from "@/lib/store";
 import IconCaretLeft from "../svg/IconCaretLeft";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CategoriesType } from "../constants";
+import { CategoriesType, iconMap } from "../constants";
+
 interface AddTransactionProps {
 	mode: string;
 	open: boolean;
@@ -19,7 +20,7 @@ interface AddTransactionProps {
 }
 
 const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps) => {
-	const { categories } = useSelector((state: RootState) => state.finance);
+	const { categories, currency } = useSelector((state: RootState) => state.finance);
 	const dispath = useDispatch();
 	const [categoriesToggle, setCategoriesToggle] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState(
@@ -75,7 +76,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 		}
 		close();
 	};
-	console.log(errors);
+
 	useEffect(() => {
 		if (mode === "edit" && transaction) {
 			setSelectedCategory(transaction.category);
@@ -224,7 +225,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 										)}
 									</div>
 									<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-										<span className=" text-grey-500">$</span>
+										<span className=" text-grey-500">{currency}</span>
 										<input
 											type="number"
 											id="potTarget"
@@ -272,7 +273,11 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 							</div>
 							<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900 relative">
 								<div className="flex items-center gap-3 w-full">
-									{selectedCategory?.icon && <selectedCategory.icon />}
+									{selectedCategory?.icon &&
+										(() => {
+											const Icon = iconMap[selectedCategory.icon];
+											return Icon ? <Icon /> : null;
+										})()}
 									<p className="text-grey-900 flex-1">
 										{selectedCategory?.name || "Select Category"}
 									</p>
@@ -298,7 +303,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 											className="absolute  top-full w-full left-0 max-h-[150px] overflow-auto bg-white flex flex-col mt-1 shadow-[0px_4px_24px_rgba(0,0,0,0,0.25)] rounded-8 transition-colors duration-300"
 										>
 											{categories.map((category: CategoriesType) => {
-												const Icon = category.icon;
+												const Icon = iconMap[category.icon];
 												return (
 													<div
 														key={category.name}

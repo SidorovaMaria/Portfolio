@@ -1,12 +1,16 @@
 import { TransactionType } from "@/lib/features/financeSlice";
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import React from "react";
+import { iconMap } from "./constants";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 interface TransactionProps {
 	transaction: TransactionType;
 }
 
 const Transaction = ({ transaction }: TransactionProps) => {
-	const Icon = transaction.category.icon;
+	const Icon = iconMap[transaction.category.icon];
+	const { currency } = useSelector((state: RootState) => state.finance);
 	return (
 		<article className="flex w-full justify-between items-center rounded-8">
 			{/* Icon and Name */}
@@ -32,7 +36,7 @@ const Transaction = ({ transaction }: TransactionProps) => {
 					} `}
 				>
 					{transaction.type === "expense" ? "-" : "+"}
-					{toLocaleStringWithCommas(transaction.amount, "USD", 2)}
+					{toLocaleStringWithCommas(transaction.amount, currency, 2)}
 				</h6>
 				<p className="text-5 text-grey-500 leading-150 capitalize">
 					{new Date(transaction.date).toLocaleDateString("en-US", {

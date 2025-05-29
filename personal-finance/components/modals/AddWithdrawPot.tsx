@@ -8,7 +8,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import IconWarning from "../svg/IconWarning";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 interface AddWithdrawPotProps {
 	pot: PotType;
 	mode: "add" | "withdraw" | "";
@@ -47,6 +48,7 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 		},
 	});
 	const dispatch = useDispatch();
+	const { currency } = useSelector((state: RootState) => state.finance);
 
 	const amount = watch("amount") || 0;
 
@@ -108,7 +110,7 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 									New Amount
 								</p>
 								<p className="text-1 font-bold leading-120 text-grey-900">
-									{toLocaleStringWithCommas(newTotal ?? 0, "USD", 2)}
+									{toLocaleStringWithCommas(newTotal ?? 0, currency, 2)}
 								</p>
 							</div>
 							{/* Progress Bar and Percentage */}
@@ -182,7 +184,7 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 									)}
 								</div>
 								<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-									<span className=" text-grey-500">$</span>
+									<span className=" text-grey-500">{currency}</span>
 									<input
 										type="number"
 										id="potTarget"
