@@ -99,7 +99,7 @@ const DesktopNavBar = () => {
 				variants={LinkVariant}
 				title={`${minimizeNavBar ? "Expand Menu" : "Minimize Menu"}`}
 				onClick={() => setMinimizeNavBar(!minimizeNavBar)}
-				className="btn btn-tertiary w-full px-8 py-4 group "
+				className="btn btn-tertiary w-full px-8 py-4 group rounded-r-12 flex items-center gap-4 justify-start transition-all duration-300"
 			>
 				<motion.span variants={MinimizeIconVariants}>
 					<IconMinimizeMenu className="fill-grey-300 min-w-5 min-h-5 group-hover:fill-grey-100" />

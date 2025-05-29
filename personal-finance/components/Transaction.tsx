@@ -1,18 +1,30 @@
+"use cleint";
 import { TransactionType } from "@/lib/features/financeSlice";
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import React from "react";
 import { iconMap } from "./constants";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
+// import TransactionOverview from "./modals/TransactionOverview";
 interface TransactionProps {
 	transaction: TransactionType;
+	edit: (transaction: TransactionType | null) => void;
 }
 
-const Transaction = ({ transaction }: TransactionProps) => {
+const Transaction = ({ transaction, edit }: TransactionProps) => {
 	const Icon = iconMap[transaction.category.icon];
 	const { currency } = useSelector((state: RootState) => state.finance);
+
 	return (
-		<article className="flex w-full justify-between items-center rounded-8">
+		<article
+			className={`flex w-full justify-between items-center rounded-8 cursor-pointer  p-2 hover:scale-101 hover:shadow-[1px_1px_5px] transition-all duration-100 ${
+				transaction.type === "expense"
+					? "hover:bg-secondary-red/20  shadow-secondary-red"
+					: "hover:bg-secondary-green/20 shadow-secondary-green"
+			}`}
+			title="Learn more"
+			onClick={() => edit(transaction)}
+		>
 			{/* Icon and Name */}
 			<div className="flex items-center gap-3 h-full w-full flex-1">
 				{/*TODO CATEGORY ICON ?*/}

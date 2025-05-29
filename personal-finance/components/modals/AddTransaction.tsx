@@ -21,7 +21,7 @@ interface AddTransactionProps {
 
 const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps) => {
 	const { categories, currency } = useSelector((state: RootState) => state.finance);
-	const dispath = useDispatch();
+	const dispatch = useDispatch();
 	const [categoriesToggle, setCategoriesToggle] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState(
 		mode === "edit" ? transaction?.category : null
@@ -37,7 +37,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 			name: Yup.string().required("Please select a category"),
 			icon: Yup.mixed().required("Please select a category icon"),
 		}),
-		date: Yup.date().required("Please select a date"),
+		date: Yup.string().required("Please select a date"),
 		amount: Yup.number().required("Please enter an amount").positive("Enter amount"),
 		type: Yup.string()
 			.oneOf(["income", "expense"], "Please select a valid transaction type")
@@ -57,7 +57,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 		defaultValues: {
 			title: mode === "edit" ? transaction?.title : "",
 			category: mode === "edit" ? transaction?.category : { name: "", icon: {} },
-			date: mode === "edit" ? transaction?.date : new Date(),
+			date: mode === "edit" ? transaction?.date : new Date().toISOString().split("T")[0],
 			amount: mode === "edit" ? transaction?.amount : 0,
 			type: mode === "edit" ? transaction?.type : "expense",
 			reccuring: mode === "edit" ? transaction?.reccuring : false,
@@ -65,12 +65,24 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 	});
 	const handleSubmitTransaction = (data: TransactionFormData) => {
 		if (mode === "add") {
-			console.log("Adding new transaction:", data);
-			dispath({
+			dispatch({
 				type: "finance/addTransaction",
 				payload: {
 					...data,
-					date: data.date.toISOString(),
+					date: data.date,
+				},
+			});
+		} else if (mode === "edit") {
+			dispatch({
+				type: "finance/editTransaction",
+				payload: {
+					id: transaction?.id || "",
+					title: data.title,
+					category: data.category,
+					date: new Date(data.date).toISOString(),
+					amount: data.amount,
+					type: data.type,
+					reccuring: data.reccuring,
 				},
 			});
 		}
@@ -83,16 +95,31 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 			reset({
 				title: transaction.title,
 				category: transaction.category,
-				date: transaction.date,
+				date: new Date(transaction.date).toISOString().split("T")[0],
 				amount: transaction.amount,
 				type: transaction.type,
 				reccuring: transaction.reccuring,
 			});
-		} else {
+		} else if (mode === "add") {
+			// Safeguard to prevent leftover data
 			setSelectedCategory(null);
-			reset();
+			reset({
+				title: "",
+				category: { name: "", icon: {} },
+				date: new Date().toISOString().split("T")[0],
+				amount: 0,
+				type: "expense",
+				reccuring: false,
+			});
 		}
-	}, [mode, transaction, reset]);
+	}, [mode, transaction, reset, open]);
+	const deleteTransaction = (id: string) => {
+		dispatch({
+			type: "finance/deleteTransaction",
+			payload: id,
+		});
+		close();
+	};
 
 	return (
 		<AnimatePresence mode="wait">
@@ -228,16 +255,17 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 										<span className=" text-grey-500">{currency}</span>
 										<input
 											type="number"
+											step="0.01"
 											id="potTarget"
 											className="outline-none flex-1 w-full"
-											{...register("amount")}
+											{...register("amount", { valueAsNumber: true })}
 										/>
 									</div>
 								</div>
 								{/* Amount */}
 								<div className="flex flex-col gap-1 w-1/3">
 									<label
-										htmlFor="amount"
+										htmlFor="date"
 										className="text-5 font-bold leading-150 text-grey-500"
 									>
 										Date
@@ -246,11 +274,6 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 										<input
 											type="date"
 											id="date"
-											defaultValue={
-												mode === "edit"
-													? transaction?.date?.toISOString().split("T")[0]
-													: undefined
-											}
 											className="outline-none flex-1 w-full"
 											{...register("date")}
 										/>
@@ -309,7 +332,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 														key={category.name}
 														className={`flex items-center text-4 font-medium gap-3 w-full cursor-pointer  px-5 py-2 rounded-8 mx-1
                                                         ${
-															category === selectedCategory
+															category.name === selectedCategory?.name
 																? watch("type") === "expense"
 																	? "bg-gradient-to-l from-white to-secondary-red text-white!"
 																	: "bg-gradient-to-l from-white to-secondary-green text-white!"
@@ -329,7 +352,8 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 														<Icon />
 														<p
 															className={` flex-1 ${
-																category === selectedCategory
+																category.name ===
+																selectedCategory?.name
 																	? "font-semibold "
 																	: ""
 															}`}
@@ -344,13 +368,27 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 								</AnimatePresence>
 							</div>
 						</form>
-						<button
-							type="submit"
-							form="add-transaction-form"
-							className="btn btn-primary w-full py-4"
-						>
-							{mode === "add" ? "Add Transaction" : "Update Transaction"}
-						</button>
+						<div className="flex items-center w-full gap-4">
+							<button
+								type="submit"
+								form="add-transaction-form"
+								className="btn btn-primary w-full py-4"
+							>
+								{mode === "add" ? "Add Transaction" : "Update"}
+							</button>
+							{mode === "edit" && (
+								<button
+									type="button"
+									className="btn btn-secondary w-1/2  "
+									onClick={() => {
+										deleteTransaction(transaction?.id || "");
+										close();
+									}}
+								>
+									Delete
+								</button>
+							)}
+						</div>
 					</motion.div>
 				</motion.div>
 			)}
