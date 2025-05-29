@@ -6,18 +6,21 @@ interface TransactionProps {
 }
 
 const Transaction = ({ transaction }: TransactionProps) => {
+	const Icon = transaction.category.icon;
 	return (
 		<article className="flex w-full justify-between items-center rounded-8">
 			{/* Icon and Name */}
 			<div className="flex items-center gap-3 h-full w-full flex-1">
 				{/*TODO CATEGORY ICON ?*/}
-				<span className="w-8 h-8 bg-red-500 rounded-full"></span>
+				<span className={`flex items-center justify-center w-9 h-9 rounded-full  border`}>
+					<Icon className={`w-5 h-5 `} />
+				</span>
 				<div className="flex flex-col h-full gap-1 items-start justify-center">
 					<h6 className="text-4 font-bold leading-150 text-grey-900">
 						{transaction.title}
 					</h6>
 					<p className="text-5 text-grey-500 leading-150 capitalize">
-						{transaction.category}
+						{transaction.category.name}
 					</p>
 				</div>
 			</div>

@@ -3,6 +3,16 @@ import IconOverview from "../svg/IconOverview";
 import IconPots from "../svg/IconPots";
 import IconRecurringBills from "../svg/IconRecurringBills";
 import IconTransactions from "../svg/IconTransactions";
+import {
+	Activity,
+	Apple,
+	Asterisk,
+	Bus,
+	HeartPlus,
+	LucideIcon,
+	Theater,
+	Wallet,
+} from "lucide-react";
 
 export type NavLink = {
 	title: string;
@@ -119,4 +129,19 @@ export const Themes: ThemeType[] = [
 		id: "orange",
 		value: "#BE6C49",
 	},
+];
+
+export type CategoriesType = {
+	name: string;
+	icon: LucideIcon;
+};
+
+export const defaultCategories: CategoriesType[] = [
+	{ name: "Food", icon: Apple },
+	{ name: "Transport", icon: Bus },
+	{ name: "Entertainment", icon: Theater },
+	{ name: "Health", icon: Activity },
+	{ name: "Shopping", icon: HeartPlus },
+	{ name: "Bills", icon: Wallet },
+	{ name: "Other", icon: Asterisk },
 ];

@@ -8,8 +8,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import IconWarning from "../svg/IconWarning";
 import { RootState } from "@/lib/store";
 import IconCaretLeft from "../svg/IconCaretLeft";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CategoriesType } from "../constants";
 interface AddTransactionProps {
 	mode: string;
 	open: boolean;
@@ -22,7 +23,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 	const dispath = useDispatch();
 	const [categoriesToggle, setCategoriesToggle] = useState(false);
 	const [selectedCategory, setSelectedCategory] = useState(
-		mode === "edit" ? transaction?.category : "Select Category"
+		mode === "edit" ? transaction?.category : null
 	);
 	const toggleCategories = () => {
 		setCategoriesToggle((prev) => !prev);
@@ -31,7 +32,10 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 		title: Yup.string()
 			.required("Please enter a title for the transaction")
 			.max(30, "Title must not exceed 50 characters"),
-		category: Yup.string().required("Please select a category"),
+		category: Yup.object({
+			name: Yup.string().required("Please select a category"),
+			icon: Yup.mixed().required("Please select a category icon"),
+		}),
 		date: Yup.date().required("Please select a date"),
 		amount: Yup.number().required("Please enter an amount").positive("Enter amount"),
 		type: Yup.string()
@@ -45,12 +49,13 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 		handleSubmit,
 		formState: { errors },
 		watch,
+		reset,
 		setValue,
 	} = useForm<TransactionFormData>({
 		resolver: yupResolver(transactionSchema),
 		defaultValues: {
 			title: mode === "edit" ? transaction?.title : "",
-			category: mode === "edit" ? transaction?.category : "",
+			category: mode === "edit" ? transaction?.category : { name: "", icon: {} },
 			date: mode === "edit" ? transaction?.date : new Date(),
 			amount: mode === "edit" ? transaction?.amount : 0,
 			type: mode === "edit" ? transaction?.type : "expense",
@@ -70,6 +75,23 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 		}
 		close();
 	};
+	console.log(errors);
+	useEffect(() => {
+		if (mode === "edit" && transaction) {
+			setSelectedCategory(transaction.category);
+			reset({
+				title: transaction.title,
+				category: transaction.category,
+				date: transaction.date,
+				amount: transaction.amount,
+				type: transaction.type,
+				reccuring: transaction.reccuring,
+			});
+		} else {
+			setSelectedCategory(null);
+			reset();
+		}
+	}, [mode, transaction, reset]);
 
 	return (
 		<AnimatePresence mode="wait">
@@ -250,7 +272,10 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 							</div>
 							<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900 relative">
 								<div className="flex items-center gap-3 w-full">
-									<p className="text-grey-900 flex-1">{selectedCategory} </p>
+									{selectedCategory?.icon && <selectedCategory.icon />}
+									<p className="text-grey-900 flex-1">
+										{selectedCategory?.name || "Select Category"}
+									</p>
 									<button
 										type="button"
 										className="w-4 h-4"
@@ -272,10 +297,12 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 											}}
 											className="absolute  top-full w-full left-0 max-h-[150px] overflow-auto bg-white flex flex-col mt-1 shadow-[0px_4px_24px_rgba(0,0,0,0,0.25)] rounded-8 transition-colors duration-300"
 										>
-											{categories.map((category: string) => (
-												<div
-													key={category}
-													className={`flex items-center text-4 font-medium gap-3 w-full cursor-pointer  px-5 py-2 rounded-8 mx-1
+											{categories.map((category: CategoriesType) => {
+												const Icon = category.icon;
+												return (
+													<div
+														key={category.name}
+														className={`flex items-center text-4 font-medium gap-3 w-full cursor-pointer  px-5 py-2 rounded-8 mx-1
                                                         ${
 															category === selectedCategory
 																? watch("type") === "expense"
@@ -285,23 +312,28 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 																? "hover:bg-secondary-red/20 hover:text-secondary-red"
 																: "hover:bg-secondary-green/20 hover:text-secondary-green"
 														}`}
-													onClick={() => {
-														setSelectedCategory(category);
-														setCategoriesToggle(false);
-														setValue("category", category);
-													}}
-												>
-													<p
-														className={` flex-1 ${
-															category === selectedCategory
-																? "font-semibold "
-																: ""
-														}`}
+														onClick={() => {
+															setSelectedCategory(category);
+															setCategoriesToggle(false);
+															setValue("category", {
+																name: category.name,
+																icon: category.icon,
+															});
+														}}
 													>
-														{category}
-													</p>
-												</div>
-											))}
+														<Icon />
+														<p
+															className={` flex-1 ${
+																category === selectedCategory
+																	? "font-semibold "
+																	: ""
+															}`}
+														>
+															{category.name}
+														</p>
+													</div>
+												);
+											})}
 										</motion.aside>
 									)}
 								</AnimatePresence>
