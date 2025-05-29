@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export type TransactionType = {
-	// avatar: string;
-	// name: string;
-	category: "string";
-	date: "string";
+	title: string;
+	category: string;
+	date: Date;
 	amount: number;
+	type: "income" | "expense";
 	reccuring: boolean;
 	id: string;
 };
@@ -15,6 +15,7 @@ export type BudgetType = {
 	theme: { id: number; name: string; value: string };
 	id: string;
 };
+
 export type PotType = {
 	name: string;
 	target: number;
@@ -33,9 +34,20 @@ interface FinanceState {
 	pots: PotType[];
 	balance: BalanceType;
 	currency: string;
+	categories: string[];
 }
 const initialState = {
-	transactions: [],
+	transactions: [
+		{
+			title: "Salary",
+			category: "income",
+			date: new Date("2023-10-01"),
+			amount: 3000,
+			type: "income",
+			reccuring: true,
+			id: "1",
+		},
+	],
 	budgets: [],
 	pots: [
 		{
@@ -56,6 +68,7 @@ const initialState = {
 		expenses: 1700.5,
 	},
 	currency: "USD",
+	categories: ["Food", "Transport", "Entertainment", "Health", "Shopping", "Bills", "Other"],
 } as FinanceState;
 
 const financeSlice = createSlice({
@@ -109,8 +122,22 @@ const financeSlice = createSlice({
 				state.balance.current += amount; // Update current balance
 			}
 		},
+		addTransaction: (state, action) => {
+			const newTransaction: TransactionType = {
+				...action.payload,
+				id: new Date().getTime().toString(),
+			};
+			state.transactions.push(newTransaction);
+			if (newTransaction.type === "income") {
+				state.balance.income += newTransaction.amount;
+				state.balance.current += newTransaction.amount;
+			} else if (newTransaction.type === "expense") {
+				state.balance.expenses += newTransaction.amount;
+				state.balance.current -= newTransaction.amount;
+			}
+		},
 	},
 });
-export const { addPot, addMoneyToPot, withdrawMoneyFromPot, editPot, deletePot } =
+export const { addPot, addMoneyToPot, withdrawMoneyFromPot, editPot, deletePot, addTransaction } =
 	financeSlice.actions;
 export const financeReducer = financeSlice.reducer;

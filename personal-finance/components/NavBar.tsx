@@ -9,7 +9,7 @@ const NavBar = () => {
 	const pathname = usePathname();
 
 	return (
-		<nav className="fixed bottom-0 px-4 pt-2 bg-grey-900 w-full rounded-t-8 flex justify-between items-center md:px-10 lg:hiddenm z-50 ">
+		<nav className="fixed bottom-0 px-4 pt-2 bg-grey-900 w-full rounded-t-8 flex justify-between items-center md:px-10 lg:hidden z-50 ">
 			{navlinks.map((link) => {
 				const Icon = link.icon;
 				const active = pathname === link.link;
