@@ -12,6 +12,8 @@ import { SearchIcon } from "lucide-react";
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
 import DropDown from "@/components/DropDown";
 import IconCaretLeft from "@/components/svg/IconCaretLeft";
+import IconSortMobile from "@/components/svg/IconSortMobile";
+import IconFilterMobile from "@/components/svg/IconFilterMobile";
 
 export default function Transactions() {
 	const [openTransactionModal, setOpenTransactionModal] = useState({
@@ -48,7 +50,8 @@ export default function Transactions() {
 		return sortTransactionsByFilter(filtered, sortBy.sort);
 	}, [transactions, search, filter.filter, sortBy.sort]);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [itemsPerPage, setItemsPerPage] = useState(8); // You can change this to any number you want
+	const itemsPerPage = 8; // You can change this to any number you want
+	// const [itemsPerPage, setItemsPerPage] = useState(8); //TODO
 	const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage);
 	const paginatedTransactions = useMemo(() => {
 		const start = (currentPage - 1) * itemsPerPage;
@@ -81,10 +84,10 @@ export default function Transactions() {
 			/>
 			<section className="flex flex-col w-full  gap-6 px-5 ">
 				{/* Search and Filter */}
-				<div className="flex items-center justify-between gap-4">
+				<div className="flex items-center justify-between gap-4 ">
 					<label
 						htmlFor="search"
-						className="flex gap-4 border rounded-8 px-5 py-3 flex-1 "
+						className="flex gap-4 border rounded-8 px-5 py-3 flex-1  "
 					>
 						<input
 							id="search"
@@ -97,6 +100,7 @@ export default function Transactions() {
 						<SearchIcon className="w-4 h-4 text-grey-900" />
 					</label>
 					<DropDown
+						icon={<IconSortMobile className="w-5 h-5 fill-grey-900" />}
 						label="Sort By"
 						options={sortByOptions}
 						selected={sortBy.sort}
@@ -110,6 +114,7 @@ export default function Transactions() {
 						setOpen={(val) => setSortBy((prev) => ({ ...prev, open: val }))}
 					/>
 					<DropDown
+						icon={<IconFilterMobile className="w-5 h-5 fill-grey-900" />}
 						minWidth="min-w-[177px]"
 						label="Category"
 						options={["All Transactions", ...categories.map((c) => c.name)]}

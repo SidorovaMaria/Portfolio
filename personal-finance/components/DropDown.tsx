@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { selectDropDownVariant } from "./constants/motionVariants";
 
 interface DropdownProps {
+	icon?: React.ReactNode;
 	minWidth?: string;
 	label: string;
 	options: string[];
@@ -13,6 +14,7 @@ interface DropdownProps {
 	setOpen: (val: boolean) => void;
 }
 const DropDown = ({
+	icon,
 	label,
 	options,
 	selected,
@@ -22,11 +24,11 @@ const DropDown = ({
 	minWidth,
 }: DropdownProps) => {
 	return (
-		<div className=" items-center hidden md:flex gap-2 ">
-			<p className="text-4 leading-150 text-grey-500">{label}</p>
-			<div className={`relative ${minWidth} `}>
+		<div className=" items-center md:flex gap-2 ">
+			<p className="text-4 leading-150 text-grey-500 hidden md:block">{label}</p>
+			<div className={`relative md:${minWidth} `}>
 				<div
-					className="relative flex items-center gap-4 py-3 px-5 border rounded-8"
+					className=" md:flex items-center gap-4 py-3 px-5 border rounded-8 hidden "
 					onClick={() => setOpen(!open)}
 				>
 					<p className="text-5 leading-150 flex-1">{selected}</p>
@@ -34,6 +36,12 @@ const DropDown = ({
 						className={`w-4 h-4 -rotate-90 fill-grey-900
                                     duration-200 ${open && "rotate-90! "} `}
 					/>
+				</div>
+				<div
+					className="md:hidden  flex items-center justify-center w-5 h-5"
+					onClick={() => setOpen(!open)}
+				>
+					{icon}
 				</div>
 				<AnimatePresence>
 					{open && (
@@ -43,7 +51,7 @@ const DropDown = ({
 							exit="exit"
 							variants={selectDropDownVariant}
 							transition={{ duration: 0.3 }}
-							className="absolute top-full right-0 mt-3 rounded-8 bg-white shadow-[0px_4px_24px] shadow-black/25 z-50 flex flex-col w-full"
+							className="absolute top-full right-0 mt-3 rounded-8 bg-white shadow-[0px_4px_24px] min-w-[177px] shadow-black/25 z-50 flex flex-col w-full"
 						>
 							{options.map((option) => (
 								<motion.li
