@@ -4,15 +4,14 @@ import Title from "@/components/Title";
 import Transaction from "@/components/Transaction";
 import { TransactionType } from "@/lib/features/financeSlice";
 import { RootState } from "@/lib/store";
-
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { CategoriesType, sortByOptions } from "@/components/constants";
 import { SearchIcon } from "lucide-react";
-
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
 import DropDown from "@/components/DropDown";
+import IconCaretLeft from "@/components/svg/IconCaretLeft";
 
 export default function Transactions() {
 	const [openTransactionModal, setOpenTransactionModal] = useState({
@@ -48,6 +47,14 @@ export default function Transactions() {
 
 		return sortTransactionsByFilter(filtered, sortBy.sort);
 	}, [transactions, search, filter.filter, sortBy.sort]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [itemsPerPage, setItemsPerPage] = useState(8); // You can change this to any number you want
+	const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage);
+	const paginatedTransactions = useMemo(() => {
+		const start = (currentPage - 1) * itemsPerPage;
+		const end = start + itemsPerPage;
+		return sortedTransactions.slice(start, end);
+	}, [sortedTransactions, currentPage, itemsPerPage]);
 
 	return (
 		<>
@@ -72,7 +79,7 @@ export default function Transactions() {
 				}
 				transaction={openTransactionModal.transaction}
 			/>
-			<section className="flex flex-col w-full gap-6 px-5 py-6md:p-8 rounded-8 bg-white">
+			<section className="flex flex-col w-full  gap-6 px-5 ">
 				{/* Search and Filter */}
 				<div className="flex items-center justify-between gap-4">
 					<label
@@ -112,27 +119,51 @@ export default function Transactions() {
 						setOpen={(val) => setFilter((prev) => ({ ...prev, open: val }))}
 					/>
 				</div>
-				<section className="flex gap-4 flex-col w-full">
+				<section className="flex gap-2 flex-col  w-full ">
 					{transactions.length > 0 ? (
-						sortedTransactions.map((transaction) => (
-							// <AnimatePresence mode="wait" key={transaction.id}>
-							<motion.article
-								key={transaction.id}
-								initial={false}
-								layout={true}
-								transition={{ duration: 0.2 }}
-							>
-								<Transaction
-									transaction={transaction}
-									edit={setTransactionToEdit}
-								/>
-							</motion.article>
-							// </AnimatePresence>
+						paginatedTransactions.map((transaction) => (
+							<AnimatePresence mode="sync" key={transaction.id}>
+								<motion.article
+									key={transaction.id}
+									initial={false}
+									layout={true}
+									transition={{ duration: 0.2 }}
+								>
+									<Transaction
+										transaction={transaction}
+										edit={setTransactionToEdit}
+									/>
+								</motion.article>
+							</AnimatePresence>
 						))
 					) : (
 						<h4>No Trasmactions Yet</h4>
 					)}
 				</section>
+				<div className="flex items-center w-full justify-between ">
+					<button
+						className="btn font-normal flex items-center justify-center p-3 rounded-8 btn-secondary disabled:opacity-50 gap-2 disabled:pointer-events-none"
+						disabled={currentPage === 1}
+						onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+					>
+						<IconCaretLeft className="w-4 h-4 fill-grey-500  not-group-disabled:group-hover:fill-grey-900 " />
+						<span className="hidden md:block text-4 leading-150 ">Previous </span>
+					</button>
+					<div className="flex items-center gap-2">
+						<p className="text-4 leading-150 text-grey-500">
+							Page {currentPage} of {totalPages}
+						</p>
+					</div>
+
+					<button
+						className="btn flex items-center justify-center p-3 rounded-8 btn-secondary disabled:opacity-50 gap-2  font-normal disabled:pointer-events-none"
+						disabled={currentPage === totalPages}
+						onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+					>
+						<span className="hidden md:block text-4 leading-150 ">Next </span>
+						<IconCaretLeft className="-rotate-180 w-4 h-4 fill-grey-500 not-group-disabled:group-hover:fill-grey-900 " />
+					</button>
+				</div>
 			</section>
 		</>
 	);

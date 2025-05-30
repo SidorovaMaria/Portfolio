@@ -25,7 +25,7 @@ export default function RootLayout({
 					<NavBar />
 
 					<DesktopNavBar />
-					<main className="layout mb-[52px] md:mb-[74px] lg:mb-0 max-h-screen overflow-y-auto">
+					<main className="layout mb-[52px] md:mb-[74px] lg:mb-0 max-h-screen overflow-y-auto flex flex-col">
 						{children}
 					</main>
 				</ReduxProvider>

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { selectDropDownVariant } from "./constants/motionVariants";
 
 interface DropdownProps {
-	minWidth: string;
+	minWidth?: string;
 	label: string;
 	options: string[];
 	selected: string;
