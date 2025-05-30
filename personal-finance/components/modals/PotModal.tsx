@@ -9,7 +9,11 @@ import IconCaretLeft from "../svg/IconCaretLeft";
 import { AnimatePresence, motion } from "motion/react";
 import IconWarning from "../svg/IconWarning";
 import { useDispatch, useSelector } from "react-redux";
-import { modalContentVariant, ModalOverlayVariant } from "../constants/motionVariants";
+import {
+	modalContentVariant,
+	ModalOverlayVariant,
+	selectDropDownVariant,
+} from "../constants/motionVariants";
 import { RootState } from "@/lib/store";
 interface PotModalProps {
 	mode: string;
@@ -193,9 +197,10 @@ const PotModal = ({ mode, potToEdit, setOpenModal }: PotModalProps) => {
 							<AnimatePresence>
 								{themesToggle && (
 									<motion.aside
-										initial={{ opacity: 0, scaleY: 0, y: -100 }}
-										animate={{ opacity: 1, scaleY: 1, y: 0 }}
-										exit={{ opacity: 0, scaleY: 0, y: -100 }}
+										initial="hidden"
+										animate="show"
+										exit="exit"
+										variants={selectDropDownVariant}
 										transition={{
 											duration: 0.3,
 											type: "spring",

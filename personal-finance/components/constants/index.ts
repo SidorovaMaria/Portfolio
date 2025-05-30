@@ -339,3 +339,5 @@ export const defaultTransactions: TransactionType[] = [
 		id: "yoga-class-1",
 	},
 ];
+
+export const sortByOptions = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
