@@ -152,7 +152,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Grocery Shopping",
 		category: { name: "Food", icon: "Apple" },
-		date: new Date("2025-06-01").toISOString(),
+		date: new Date("2025-05-01").toISOString(),
 		amount: 150.75,
 		type: "expense",
 		reccuring: false,
@@ -161,7 +161,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Salary",
 		category: { name: "Income", icon: "Wallet" },
-		date: new Date("2025-06-01").toISOString(),
+		date: new Date("2025-05-01").toISOString(),
 		amount: 3000,
 		type: "income",
 		reccuring: true,
@@ -170,7 +170,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Bus Ticket",
 		category: { name: "Transport", icon: "Bus" },
-		date: new Date("2025-06-02").toISOString(),
+		date: new Date("2025-05-02").toISOString(),
 		amount: 2.5,
 		type: "expense",
 		reccuring: false,
@@ -179,7 +179,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Movie Night",
 		category: { name: "Entertainment", icon: "Theater" },
-		date: new Date("2025-06-03").toISOString(),
+		date: new Date("2025-05-03").toISOString(),
 		amount: 12.99,
 		type: "expense",
 		reccuring: false,
@@ -188,7 +188,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Gym Membership",
 		category: { name: "Health", icon: "Activity" },
-		date: new Date("2025-06-04").toISOString(),
+		date: new Date("2025-05-01").toISOString(),
 		amount: 50,
 		type: "expense",
 		reccuring: true,
@@ -197,7 +197,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Online Shopping",
 		category: { name: "Shopping", icon: "HeartPlus" },
-		date: new Date("2025-06-06").toISOString(),
+		date: new Date("2025-05-05").toISOString(),
 		amount: 120.45,
 		type: "expense",
 		reccuring: false,
@@ -206,7 +206,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Electricity Bill",
 		category: { name: "Bills", icon: "Wallet" },
-		date: new Date("2025-06-06").toISOString(),
+		date: new Date("2025-05-03").toISOString(),
 		amount: 75.89,
 		type: "expense",
 		reccuring: true,
@@ -215,7 +215,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Concert Tickets",
 		category: { name: "Entertainment", icon: "Theater" },
-		date: new Date("2025-06-07").toISOString(),
+		date: new Date("2025-05-07").toISOString(),
 		amount: 200,
 		type: "expense",
 		reccuring: false,
@@ -224,7 +224,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Coffee with Friends",
 		category: { name: "Food", icon: "Apple" },
-		date: new Date("2025-06-08").toISOString(),
+		date: new Date("2025-05-08").toISOString(),
 		amount: 15.25,
 		type: "expense",
 		reccuring: false,
@@ -233,7 +233,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Car Maintenance",
 		category: { name: "Transport", icon: "Bus" },
-		date: new Date("2025-06-09").toISOString(),
+		date: new Date("2025-05-09").toISOString(),
 		amount: 300,
 		type: "expense",
 		reccuring: false,
@@ -242,7 +242,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Freelance Project",
 		category: { name: "Income", icon: "Wallet" },
-		date: new Date("2025-06-06").toISOString(),
+		date: new Date("2025-05-05").toISOString(),
 		amount: 500,
 		type: "income",
 		reccuring: false,
@@ -251,7 +251,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Pharmacy Purchase",
 		category: { name: "Health", icon: "Activity" },
-		date: new Date("2025-06-11").toISOString(),
+		date: new Date("2025-05-11").toISOString(),
 		amount: 25.5,
 		type: "expense",
 		reccuring: false,
@@ -260,7 +260,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Streaming Subscription",
 		category: { name: "Entertainment", icon: "Theater" },
-		date: new Date("2025-06-12").toISOString(),
+		date: new Date("2025-05-12").toISOString(),
 		amount: 9.99,
 		type: "expense",
 		reccuring: true,
@@ -269,7 +269,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Lunch at Restaurant",
 		category: { name: "Food", icon: "Apple" },
-		date: new Date("2025-06-13").toISOString(),
+		date: new Date("2025-05-13").toISOString(),
 		amount: 45.75,
 		type: "expense",
 		reccuring: false,
@@ -278,7 +278,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Clothing Purchase",
 		category: { name: "Shopping", icon: "HeartPlus" },
-		date: new Date("2025-06-14").toISOString(),
+		date: new Date("2025-05-14").toISOString(),
 		amount: 150,
 		type: "expense",
 		reccuring: false,
@@ -287,7 +287,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Water Bill",
 		category: { name: "Bills", icon: "Wallet" },
-		date: new Date("2025-06-15").toISOString(),
+		date: new Date("2025-05-15").toISOString(),
 		amount: 30.25,
 		type: "expense",
 		reccuring: true,
@@ -296,16 +296,25 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Book Purchase",
 		category: { name: "Entertainment", icon: "Theater" },
-		date: new Date("2025-06-16").toISOString(),
+		date: new Date("2025-05-16").toISOString(),
 		amount: 20,
 		type: "expense",
 		reccuring: false,
 		id: "book-purchase-1",
 	},
 	{
+		title: "Van Hire",
+		category: { name: "Transport", icon: "Bus" },
+		date: new Date("2025-06-02").toISOString(),
+		amount: 60,
+		type: "expense",
+		reccuring: false,
+		id: "vah-hire-1",
+	},
+	{
 		title: "Dinner with Family",
 		category: { name: "Food", icon: "Apple" },
-		date: new Date("2025-06-17").toISOString(),
+		date: new Date("2025-05-17").toISOString(),
 		amount: 80,
 		type: "expense",
 		reccuring: false,
@@ -314,7 +323,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Pet Supplies",
 		category: { name: "Shopping", icon: "HeartPlus" },
-		date: new Date("2025-06-18").toISOString(),
+		date: new Date("2025-05-18").toISOString(),
 		amount: 60.5,
 		type: "expense",
 		reccuring: false,
@@ -323,7 +332,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Internet Bill",
 		category: { name: "Bills", icon: "Wallet" },
-		date: new Date("2025-06-19").toISOString(),
+		date: new Date("2025-05-19").toISOString(),
 		amount: 50,
 		type: "expense",
 		reccuring: true,
@@ -332,7 +341,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Yoga Class",
 		category: { name: "Health", icon: "Activity" },
-		date: new Date("2025-06-20").toISOString(),
+		date: new Date("2025-05-20").toISOString(),
 		amount: 25,
 		type: "expense",
 		reccuring: false,

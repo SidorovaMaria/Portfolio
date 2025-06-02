@@ -4,7 +4,9 @@ import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
 import { BudgetSummary } from "./SpendingSummary";
-import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
+import { calculateSpendingForBudget, toLocaleStringWithCommas } from "@/lib/helperFunctions";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
 type PieData = {
 	label: string;
 	value: number;
@@ -12,11 +14,20 @@ type PieData = {
 };
 type DonutChartProps = {
 	data: BudgetSummary[];
-	totalSpend: number;
-	totalBudget: number;
 };
 
-const DonutChart = ({ data, totalSpend, totalBudget }: DonutChartProps) => {
+const DonutChart = ({ data }: DonutChartProps) => {
+	const { currency, budgets, transactions } = useSelector((state: RootState) => state.finance);
+	const spending = budgets.map((budget) => {
+		const spending = calculateSpendingForBudget(transactions, budget);
+		return {
+			budget: budget,
+			spent: spending,
+		};
+	});
+	const totalBudget = budgets.reduce((acc, curr) => acc + curr.maximum, 0);
+	const totalSpent = spending.reduce((acc, curr) => acc + curr.spent, 0);
+
 	const ref = useRef<SVGSVGElement | null>(null);
 	const toolTipRef = useRef<HTMLDivElement | null>(null);
 	useEffect(() => {
@@ -87,14 +98,14 @@ const DonutChart = ({ data, totalSpend, totalBudget }: DonutChartProps) => {
 			.style("font-size", "32px")
 			.style("font-family", "Public Sans, sans-serif")
 			.style("font-weight", "bold")
-			.text(`${toLocaleStringWithCommas(totalSpend, "USD", 0)}`);
+			.text(`${toLocaleStringWithCommas(totalSpent, currency, 0)}`);
 		g.append("text")
 			.attr("text-anchor", "middle")
 			.attr("dy", "1.8em")
 			.style("font-size", "14px")
 			.style("font-family", "Public Sans, sans-serif")
 			.style("fill", "#696868")
-			.text(` of ${toLocaleStringWithCommas(totalBudget, "USD", 0)} limit`);
+			.text(` of ${toLocaleStringWithCommas(totalBudget, currency, 0)} limit`);
 	});
 	return (
 		<div className="relative">

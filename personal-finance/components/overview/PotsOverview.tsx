@@ -12,7 +12,7 @@ const PotsOverview = () => {
 	const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0);
 
 	return (
-		<section className="modal-content ">
+		<section className="modal-content">
 			<div className="flex w-full items-center justify-between">
 				<h2 className="text-2 font-bold leading-120">Pots</h2>
 				<button
@@ -25,7 +25,7 @@ const PotsOverview = () => {
 					</span>
 				</button>
 			</div>
-			<div className="flex flex-col items-center justify-start w-full gap-5">
+			<div className="flex flex-col items-center justify-start w-full gap-5 md:flex-row">
 				<aside className="flex gap-4 w-full items-center justify-start">
 					<IconPot className="w-10 h-10" />
 					<div className="flex flex-col gap-2.5 justify-between h-full">
@@ -36,7 +36,7 @@ const PotsOverview = () => {
 					</div>
 				</aside>
 				<div className="grid grid-cols-2 gap-4 w-full">
-					{pots.map((pot) => (
+					{pots.slice(0, 6).map((pot) => (
 						<section
 							key={pot.id}
 							className="flex flex-col gap-1 w-full pl-5 min-h-10 relative"

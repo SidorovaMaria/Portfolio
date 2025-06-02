@@ -8,7 +8,7 @@ import { RootState } from "@/lib/store";
 // import TransactionOverview from "./modals/TransactionOverview";
 interface TransactionProps {
 	transaction: TransactionType;
-	edit: (transaction: TransactionType | null) => void;
+	edit?: (transaction: TransactionType | null) => void;
 }
 
 const Transaction = ({ transaction, edit }: TransactionProps) => {
@@ -23,7 +23,7 @@ const Transaction = ({ transaction, edit }: TransactionProps) => {
 					: "hover:bg-secondary-green/20 shadow-secondary-green"
 			}`}
 			title="Learn more"
-			onClick={() => edit(transaction)}
+			onClick={() => edit && edit(transaction)}
 		>
 			{/* Icon and Name */}
 			<div className="flex items-center gap-3 h-full w-full flex-1">

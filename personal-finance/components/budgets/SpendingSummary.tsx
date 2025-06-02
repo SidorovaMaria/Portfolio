@@ -19,17 +19,12 @@ const SpendingSummary = () => {
 			spent: spending,
 		};
 	});
-	const totalBudgetSpend = budgetSummary.reduce((acc, curr) => acc + curr.spent, 0);
-	const totalBudgeted = budgets.reduce((acc, curr) => acc + curr.maximum, 0);
+
 	return (
 		<div className="flex flex-col gap-8 w-full px-5 py-6">
 			{/* Circle */}
 			<div className="flex items-center justify-center w-full">
-				<DonutChart
-					data={budgetSummary}
-					totalBudget={totalBudgeted}
-					totalSpend={totalBudgetSpend}
-				/>
+				<DonutChart data={budgetSummary} />
 			</div>
 			{/* Summary */}
 			<div className=" flex flex-col gap-6 w-full">

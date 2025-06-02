@@ -86,6 +86,26 @@ const initialState = {
 			},
 			id: "342",
 		},
+		{
+			category: { name: "Utilities", icon: "Lightbulb" },
+			maximum: 300,
+			theme: {
+				name: "Yellow",
+				id: "yellow",
+				value: "#FFD700",
+			},
+			id: "343",
+		},
+		{
+			category: { name: "Education", icon: "Book" },
+			maximum: 250,
+			theme: {
+				name: "Purple",
+				id: "purple",
+				value: "#800080",
+			},
+			id: "344",
+		},
 	],
 	pots: [
 		{
@@ -109,6 +129,50 @@ const initialState = {
 				value: "#4CAF50",
 			},
 			id: "2",
+		},
+		{
+			name: "New Car",
+			target: 15000,
+			total: 3000,
+			theme: {
+				name: "Blue",
+				id: "blue",
+				value: "#3F82B2",
+			},
+			id: "3",
+		},
+		{
+			name: "Wedding",
+			target: 10000,
+			total: 2500,
+			theme: {
+				name: "Purple",
+				id: "purple",
+				value: "#800080",
+			},
+			id: "4",
+		},
+		{
+			name: "Home Renovation",
+			target: 15000,
+			total: 5000,
+			theme: {
+				name: "Orange",
+				id: "orange",
+				value: "#FFA500",
+			},
+			id: "5",
+		},
+		{
+			name: "Education Fund",
+			target: 20000,
+			total: 8000,
+			theme: {
+				name: "Yellow",
+				id: "yellow",
+				value: "#FFD700",
+			},
+			id: "6",
 		},
 	],
 	balance: {

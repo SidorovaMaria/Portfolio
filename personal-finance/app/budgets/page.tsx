@@ -28,10 +28,15 @@ export default function Budgets() {
 			budgetToEdit: budget,
 		}));
 	};
+
 	return (
 		<>
 			<Title
-				title="Budgets"
+				title={`Budgets`}
+				period={new Date().toLocaleString("default", {
+					month: "long",
+					year: "numeric",
+				})}
 				btn={true}
 				btnText="+ Add New Budget"
 				onClick={() =>

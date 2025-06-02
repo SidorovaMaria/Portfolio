@@ -52,6 +52,18 @@
 	.layout {
 		@apply flex flex-col items-center justify-center w-full gap-8 px-4 py-6 md:py-8 md:px-10 lg:justify-start;
 	}
+	.flex-between {
+		@apply flex items-center justify-between w-full;
+	}
+	hr {
+		@apply border-grey-500 opacity-20;
+	}
+	.overview-content {
+		@apply flex flex-col w-full gap-8 px-5 py-6 rounded-12 bg-white md:p-8;
+	}
+	.recurring-card {
+		@apply flex items-center justify-between w-full px-4 py-5 rounded-8 border-l-4 border-secondary-green bg-beige-100 text-4 text-grey-500 leading-150;
+	}
 }
 
 @layer components {
