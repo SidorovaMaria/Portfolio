@@ -6,7 +6,7 @@ import { TransactionType } from "@/lib/features/financeSlice";
 import { RootState } from "@/lib/store";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { AnimatePresence, motion } from "motion/react";
+
 import { CategoriesType, sortByOptions } from "@/components/constants";
 import { SearchIcon } from "lucide-react";
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
@@ -14,7 +14,7 @@ import DropDown from "@/components/DropDown";
 import IconCaretLeft from "@/components/svg/IconCaretLeft";
 import IconSortMobile from "@/components/svg/IconSortMobile";
 import IconFilterMobile from "@/components/svg/IconFilterMobile";
-
+import { useSearchParams } from "next/navigation";
 export default function Transactions() {
 	const [openTransactionModal, setOpenTransactionModal] = useState({
 		isOpen: false,
@@ -34,9 +34,11 @@ export default function Transactions() {
 		open: false,
 		sort: sortByOptions[0],
 	});
+	const searchParams = useSearchParams();
+	const initialCategory = searchParams.get("category") || "All Transactions";
 	const [filter, setFilter] = useState({
 		open: false,
-		filter: "All Transactions" as CategoriesType["name"] | string,
+		filter: initialCategory as CategoriesType["name"] | string,
 	});
 	const [search, setSearch] = useState<string>("");
 
@@ -82,7 +84,7 @@ export default function Transactions() {
 				}
 				transaction={openTransactionModal.transaction}
 			/>
-			<section className="flex flex-col w-full  gap-6 px-5 ">
+			<section className="flex flex-col w-full gap-6 px-5 ">
 				{/* Search and Filter */}
 				<div className="flex items-center justify-between gap-4 ">
 					<label
@@ -119,27 +121,24 @@ export default function Transactions() {
 						label="Category"
 						options={["All Transactions", ...categories.map((c) => c.name)]}
 						selected={filter.filter}
-						setSelected={(val) => setFilter((prev) => ({ ...prev, filter: val }))}
+						setSelected={(val) => {
+							setFilter((prev) => ({ ...prev, filter: val }));
+							setCurrentPage(1);
+						}}
 						open={filter.open}
-						setOpen={(val) => setFilter((prev) => ({ ...prev, open: val }))}
+						setOpen={(val) => {
+							setFilter((prev) => ({ ...prev, open: val }));
+						}}
 					/>
 				</div>
 				<section className="flex gap-2 flex-col  w-full ">
 					{transactions.length > 0 ? (
 						paginatedTransactions.map((transaction) => (
-							<AnimatePresence mode="sync" key={transaction.id}>
-								<motion.article
-									key={transaction.id}
-									initial={false}
-									layout={true}
-									transition={{ duration: 0.2 }}
-								>
-									<Transaction
-										transaction={transaction}
-										edit={setTransactionToEdit}
-									/>
-								</motion.article>
-							</AnimatePresence>
+							<Transaction
+								key={transaction.id}
+								transaction={transaction}
+								edit={setTransactionToEdit}
+							/>
 						))
 					) : (
 						<h4>No Trasmactions Yet</h4>

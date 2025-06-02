@@ -58,7 +58,7 @@ export default function Pots() {
 					/>
 				)}
 			</AnimatePresence>
-			<section className="flex flex-col gap-6 items-center justify-start w-full">
+			<section className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-start w-full">
 				{pots.length > 0 ? (
 					pots.map((pot) => <Pot key={pot.id} pot={pot} open={openEditModal} />)
 				) : (

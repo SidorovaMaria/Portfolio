@@ -1,22 +1,27 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { modalContentVariant, ModalOverlayVariant } from "../constants/motionVariants";
-import { PotType } from "@/lib/features/financeSlice";
+import { BudgetType, PotType } from "@/lib/features/financeSlice";
 import IconCloseModal from "../svg/IconCloseModal";
 import { useDispatch } from "react-redux";
 interface DeleteModalProps {
 	close: () => void;
-	pot: PotType;
+	item: PotType | BudgetType;
 	mode: string;
 	open: boolean;
 }
-const DeleteModal = ({ close, pot, mode, open }: DeleteModalProps) => {
+const DeleteModal = ({ close, item, mode, open }: DeleteModalProps) => {
 	const dispatch = useDispatch();
 	const handleDelete = () => {
 		if (mode === "pot") {
 			dispatch({
 				type: "finance/deletePot",
-				payload: pot.id,
+				payload: item.id,
+			});
+		} else if (mode === "budget") {
+			dispatch({
+				type: "finance/deleteBudget",
+				payload: item.id,
 			});
 		}
 		close();
@@ -39,7 +44,13 @@ const DeleteModal = ({ close, pot, mode, open }: DeleteModalProps) => {
 					>
 						<div className="flex w-full items-center justify-between ">
 							<h2 className="text-2 leading-120 font-bold">
-								Delete &apos;{mode === "pot" ? pot.name : "Transaction"}&apos; ?
+								Delete &apos;
+								{mode === "pot" && "name" in item
+									? item.name
+									: "category" in item
+									? item.category.name
+									: ""}
+								&apos; ?
 							</h2>
 							<IconCloseModal
 								className="cursor-pointer w-8 h-8 fill-grey-500 hover:fill-red-400 transition-colors duration-300"
@@ -55,7 +66,7 @@ const DeleteModal = ({ close, pot, mode, open }: DeleteModalProps) => {
 							onClick={handleDelete}
 							className="btn btn-destroy w-full text-4 font-bold leading-150"
 						>
-							Yes, Confirm Deletionm
+							Yes, Confirm Deletion
 						</button>
 						<button
 							className="btn btn-tertiary w-full text-4 p-0 font-normal"

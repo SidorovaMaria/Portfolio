@@ -1,5 +1,11 @@
-import { CategoriesType, defaultCategories, defaultTransactions } from "@/components/constants";
+import {
+	CategoriesType,
+	defaultCategories,
+	defaultTransactions,
+	ThemeType,
+} from "@/components/constants";
 import { createSlice } from "@reduxjs/toolkit";
+import { calculateMonthlyExpenses, calculateMonthlyIncome } from "../helperFunctions";
 
 export type TransactionType = {
 	title: string;
@@ -11,9 +17,9 @@ export type TransactionType = {
 	id: string;
 };
 export type BudgetType = {
-	category: string;
+	category: CategoriesType;
 	maximum: number;
-	theme: { id: number; name: string; value: string };
+	theme: ThemeType;
 	id: string;
 };
 
@@ -39,7 +45,48 @@ interface FinanceState {
 }
 const initialState = {
 	transactions: defaultTransactions,
-	budgets: [],
+	budgets: [
+		{
+			category: { name: "Food", icon: "Apple" },
+			maximum: 400,
+			theme: {
+				name: "Blue",
+				id: "blue",
+				value: "#3F82B2",
+			},
+			id: "34",
+		},
+		{
+			category: { name: "Transport", icon: "Bus" },
+			maximum: 100,
+			theme: {
+				name: "Green",
+				id: "green",
+				value: "#4CAF50",
+			},
+			id: "340",
+		},
+		{
+			category: { name: "Entertainment", icon: "Theater" },
+			maximum: 200,
+			theme: {
+				name: "Magenta",
+				id: "magenta",
+				value: "#934F6F",
+			},
+			id: "341",
+		},
+		{
+			category: { name: "Health", icon: "Activity" },
+			maximum: 150,
+			theme: {
+				name: "Cyan",
+				id: "cyan",
+				value: "#00BCD4",
+			},
+			id: "342",
+		},
+	],
 	pots: [
 		{
 			name: "Vacation",
@@ -52,11 +99,22 @@ const initialState = {
 			},
 			id: "1",
 		},
+		{
+			name: "Emergency Fund",
+			target: 5000,
+			total: 1200,
+			theme: {
+				name: "Green",
+				id: "green",
+				value: "#4CAF50",
+			},
+			id: "2",
+		},
 	],
 	balance: {
 		current: 4836.0,
-		income: 3814.25,
-		expenses: 1700.5,
+		income: calculateMonthlyIncome(defaultTransactions),
+		expenses: calculateMonthlyExpenses(defaultTransactions),
 	},
 	currency: "GBP",
 	categories: defaultCategories,
@@ -120,12 +178,12 @@ const financeSlice = createSlice({
 			};
 			state.transactions.push(newTransaction);
 			if (newTransaction.type === "income") {
-				state.balance.income += newTransaction.amount;
 				state.balance.current += newTransaction.amount;
 			} else if (newTransaction.type === "expense") {
-				state.balance.expenses += newTransaction.amount;
 				state.balance.current -= newTransaction.amount;
 			}
+			state.balance.income = calculateMonthlyIncome(state.transactions);
+			state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 		},
 		editTransaction: (state, action) => {
 			const { id, title, category, date, amount, type, reccuring } = action.payload;
@@ -145,20 +203,18 @@ const financeSlice = createSlice({
 				};
 				//Rmove old amount from balance
 				if (oldType === "income") {
-					state.balance.income -= oldAmount;
 					state.balance.current -= oldAmount;
 				} else if (oldType === "expense") {
-					state.balance.expenses -= oldAmount;
 					state.balance.current += oldAmount;
 				}
 				//Add new amount to balance
 				if (type === "income") {
-					state.balance.income += amount;
 					state.balance.current += amount;
 				} else if (type === "expense") {
-					state.balance.expenses += amount;
 					state.balance.current -= amount;
 				}
+				state.balance.income = calculateMonthlyIncome(state.transactions);
+				state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 			}
 		},
 		deleteTransaction: (state, action) => {
@@ -168,15 +224,45 @@ const financeSlice = createSlice({
 				const transaction = state.transactions[transactionIndex];
 				// Adjust balance based on transaction type
 				if (transaction.type === "income") {
-					state.balance.income -= transaction.amount;
 					state.balance.current -= transaction.amount;
 				} else if (transaction.type === "expense") {
-					state.balance.expenses -= transaction.amount;
 					state.balance.current += transaction.amount;
 				}
 				// Remove the transaction from the list
 				state.transactions.splice(transactionIndex, 1);
+				state.balance.income = calculateMonthlyIncome(state.transactions);
+				state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 			}
+		},
+		addBudget: (state, action) => {
+			const { category, maximum, theme } = action.payload;
+			const newBudget: BudgetType = {
+				category,
+				maximum,
+				theme,
+				id: new Date().getTime().toString(),
+			};
+			state.budgets.push(newBudget);
+		},
+		editBudget: (state, action) => {
+			const { budgetId, category, maximum, theme } = action.payload;
+			const budgetIndex = state.budgets.findIndex((b) => b.id === budgetId);
+
+			if (budgetIndex !== -1) {
+				state.budgets[budgetIndex] = {
+					...state.budgets[budgetIndex],
+					category,
+					maximum,
+					theme,
+				};
+			} else {
+				console.warn(`Budget with id ${budgetId} not found for editing.`);
+			}
+		},
+		deleteBudget: (state, action) => {
+			const budgetId = action.payload;
+			state.budgets = state.budgets.filter((budget) => budget.id !== budgetId);
+			console.log(`Budget with id ${budgetId} deleted.`);
 		},
 	},
 });
@@ -189,5 +275,8 @@ export const {
 	addTransaction,
 	editTransaction,
 	deleteTransaction,
+	addBudget,
+	editBudget,
+	deleteBudget,
 } = financeSlice.actions;
 export const financeReducer = financeSlice.reducer;

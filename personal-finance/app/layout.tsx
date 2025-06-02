@@ -20,12 +20,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className="flex ">
+			<body className="flex lg:max-h-screen">
 				<ReduxProvider>
 					<NavBar />
 
 					<DesktopNavBar />
-					<main className="layout mb-[52px] md:mb-[74px] lg:mb-0 max-h-screen overflow-y-auto flex flex-col">
+					<main className="layout mb-[52px] md:mb-[74px] lg:mb-0 lg:max-h-screen overflow-auto flex flex-col ">
 						{children}
 					</main>
 				</ReduxProvider>

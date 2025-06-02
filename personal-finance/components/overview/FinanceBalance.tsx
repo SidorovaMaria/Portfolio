@@ -17,15 +17,25 @@ const FinanceBalance = () => {
 					{toLocaleStringWithCommas(balance.current, currency)}
 				</p>
 			</div>
-			<div className="balance-card ">
-				<p className="text-4 leading-150">Income</p>
-				<p className="leading-120 text-1 font-bold text-grey-900">
+			<div className="balance-card bg-gradient-to-b  from-white to-secondary-green text-secondary-green ">
+				<p className="text-4 font-semibold leading-150">
+					Income{" "}
+					<span className="text-3 font-bold ">
+						({new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())})
+					</span>
+				</p>
+				<p className="leading-120 text-1 font-bold text-white">
 					{toLocaleStringWithCommas(balance.income, currency)}
 				</p>
 			</div>
-			<div className="balance-card ">
-				<p className="text-4 leading-150">Expenses</p>
-				<p className="leading-120 text-1 font-bold text-grey-900">
+			<div className="balance-card   bg-gradient-to-b  from-white to-secondary-red text-secondary-red ">
+				<p className="text-4 leading-150">
+					Expenses{" "}
+					<span className="text-3 font-bold">
+						({new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())})
+					</span>
+				</p>
+				<p className="leading-120 text-1 font-bold text-white">
 					{toLocaleStringWithCommas(balance.expenses, currency)}
 				</p>
 			</div>

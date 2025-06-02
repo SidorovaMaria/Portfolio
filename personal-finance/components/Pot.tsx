@@ -17,7 +17,6 @@ const Pot = ({ pot, open }: PotProps) => {
 	const { currency } = useSelector((state: RootState) => state.finance);
 	const [deleteModalOpen, setDeleteModalOpen] = useState({
 		mode: "pot",
-
 		open: false,
 	});
 
@@ -126,7 +125,7 @@ const Pot = ({ pot, open }: PotProps) => {
 				key={"delete-pot-modal"}
 				mode={deleteModalOpen.mode}
 				close={() => setDeleteModalOpen((prev) => ({ ...prev, open: false }))}
-				pot={pot}
+				item={pot}
 			/>
 		</article>
 	);
