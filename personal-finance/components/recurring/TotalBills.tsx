@@ -1,9 +1,10 @@
 "use client";
 import { categorizeBills, toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import { RootState } from "@/lib/store";
-import Image from "next/image";
+
 import React from "react";
 import { useSelector } from "react-redux";
+import IconRecurringBills from "../svg/IconRecurringBills";
 
 const TotalBills = () => {
 	const { transactions, currency } = useSelector((state: RootState) => state.finance);
@@ -19,14 +20,7 @@ const TotalBills = () => {
 				className="flex justify-start gap-5 px-5 py-6 items-center w-full bg-grey-900 rounded-12
             md:flex-col md:gap-8 md:p-6 md:items-start lg:max-h-fit"
 			>
-				<Image
-					src="/icon-recurring-bills.svg"
-					alt="Recurring Bills Icon"
-					width={32}
-					height={32}
-					className="w-8 h-8 flex-shrink-0 md:scale-150 md:mt-4 md:ml-2"
-					loading="lazy"
-				/>
+				<IconRecurringBills className="w-8 h-8 flex-shrink-0 md:scale-150 md:mt-4 md:ml-2 fill-white" />
 				<div className="flex flex-col gap-2.5 w-full md:justify-end">
 					<p className="text-4 leading-150 text-white">Total Bills</p>
 					<p className="text-1 font-bold leading-120 text-white">

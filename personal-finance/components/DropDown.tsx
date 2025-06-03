@@ -53,6 +53,9 @@ const DropDown = ({
 							transition={{ duration: 0.3 }}
 							className="absolute top-full right-0 mt-3 rounded-8 bg-white shadow-[0px_4px_24px] min-w-[177px] shadow-black/25 z-50 flex flex-col w-full"
 						>
+							<li className="text-4 leading-150 pointr-ebent-none px-5 md:hidden w-full py-2">
+								{label}
+							</li>
 							{options.map((option) => (
 								<motion.li
 									key={option}

@@ -13,6 +13,7 @@ const NavBar = () => {
 			{navlinks.map((link) => {
 				const Icon = link.icon;
 				const active = pathname === link.link;
+
 				return (
 					<Link
 						href={link.link}
@@ -23,8 +24,25 @@ const NavBar = () => {
 					>
 						<span className="flex items-center justify-center w-6 h-6 p-0.5">
 							<Icon
-								className={`fill-grey-300 w-full h-auto
-                                ${active ? "fill-secondary-green" : " group-hover:fill-grey-100"}`}
+								className={`
+                                    ${
+										link.title === "Settings"
+											? "text-grey-300 "
+											: "fill-grey-300 "
+									} w-full h-auto
+                                ${
+									active
+										? ` ${
+												link.title === "Settings"
+													? "text-secondary-green fill-none"
+													: "fill-secondary-green"
+										  }`
+										: `${
+												link.title === "Settings"
+													? "group-hover:text-grey-100"
+													: "group-hover:fill-grey-100"
+										  }`
+								}`}
 							/>
 						</span>
 						<p

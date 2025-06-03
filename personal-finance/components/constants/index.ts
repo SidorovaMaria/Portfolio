@@ -4,41 +4,8 @@ import IconPots from "../svg/IconPots";
 import IconRecurringBills from "../svg/IconRecurringBills";
 import IconTransactions from "../svg/IconTransactions";
 import { TransactionType } from "../../lib/features/financeSlice";
-import { Activity, Apple, Asterisk, Bus, HeartPlus, Theater, Wallet } from "lucide-react";
+import { Activity, Apple, Asterisk, Bus, HeartPlus, Settings, Theater, Wallet } from "lucide-react";
 
-export type NavLink = {
-	title: string;
-	link: string;
-	icon: React.FC<React.SVGProps<SVGSVGElement>>;
-};
-
-export const navlinks: NavLink[] = [
-	{
-		title: "Overview",
-		link: "/",
-		icon: IconOverview,
-	},
-	{
-		title: "Transactions",
-		link: "/transactions",
-		icon: IconTransactions,
-	},
-	{
-		title: "Budgets",
-		link: "/budgets",
-		icon: IconBudgets,
-	},
-	{
-		title: "Pots",
-		link: "/pots",
-		icon: IconPots,
-	},
-	{
-		title: "Recurring bills",
-		link: "/recurring-bills",
-		icon: IconRecurringBills,
-	},
-];
 export type ThemeType = {
 	name: string;
 	id: string;
@@ -131,6 +98,7 @@ export const iconMap = {
 	HeartPlus,
 	Wallet,
 	Asterisk,
+	Settings,
 };
 
 export type CategoriesType = {
@@ -350,3 +318,153 @@ export const defaultTransactions: TransactionType[] = [
 ];
 
 export const sortByOptions = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
+
+export type NavLink = {
+	title: string;
+	link: string;
+	icon: React.FC<React.SVGProps<SVGSVGElement>>;
+};
+
+export const navlinks: NavLink[] = [
+	{
+		title: "Overview",
+		link: "/",
+		icon: IconOverview,
+	},
+	{
+		title: "Transactions",
+		link: "/transactions",
+		icon: IconTransactions,
+	},
+	{
+		title: "Budgets",
+		link: "/budgets",
+		icon: IconBudgets,
+	},
+	{
+		title: "Pots",
+		link: "/pots",
+		icon: IconPots,
+	},
+	{
+		title: "Recurring bills",
+		link: "/recurring-bills",
+		icon: IconRecurringBills,
+	},
+	{
+		title: "Settings",
+		link: "/settings",
+		icon: iconMap["Settings"],
+	},
+];
+export type ProfileIconType = {
+	iconSrc: string;
+	alt: string;
+	title: string;
+};
+
+export const profileIcons: ProfileIconType[] = [
+	{
+		iconSrc: "/icons/down-arrow.png",
+		alt: "Person holding a down arrow",
+		title: "Person holding a down arrow",
+	},
+	{
+		iconSrc: "/icons/equilibrium.png",
+		alt: "Person on a balance scale",
+		title: "Person on a balance scale",
+	},
+	{
+		iconSrc: "/icons/formula.png",
+		alt: "Person showing a formula",
+		title: "Person showing a formula",
+	},
+	{
+		iconSrc: "/icons/growMoney.png",
+		alt: "Person watering a money plant",
+		title: "Person watering a money plant",
+	},
+	{
+		iconSrc: "/icons/waitingGrowth.png",
+		alt: "Person waiting for growth",
+		title: "Person waiting for growth",
+	},
+	{
+		iconSrc: "/icons/growth.png",
+		alt: "Person sitting on money with an arrow pointing up",
+		title: "Person sitting on money with an arrow pointing up",
+	},
+	{
+		iconSrc: "/icons/growthWalkUp.png",
+		alt: " Person walking up a growth chart",
+		title: "Person walking up a growth chart",
+	},
+	{
+		iconSrc: "/icons/growthUp.png",
+		alt: "Person showing growth up",
+		title: "Person showing growth up",
+	},
+	{
+		iconSrc: "/icons/growthArrow.png",
+		alt: "Person shoiwng groeth close up",
+		title: "Person showing growth close up",
+	},
+	{
+		iconSrc: "/icons/inflation.png",
+		alt: "Person wondering about inflation",
+		title: "Person wondering about inflation",
+	},
+	{
+		iconSrc: "/icons/investigation.png",
+		alt: "Person investigating chart",
+		title: "Person investigating chart",
+	},
+	{
+		iconSrc: "/icons/money-exchange.png",
+		alt: "Person turning a coin",
+		title: "Person turning a coin",
+	},
+	{
+		iconSrc: "/icons/pie-chart.png",
+		alt: "Person showing a pie chart",
+		title: "Person showing a pie chart",
+	},
+	{
+		iconSrc: "/icons/piggy-bank.png",
+		alt: "Person putting money in a piggy bank",
+		title: "Person putting money in a piggy bank",
+	},
+	{
+		iconSrc: "/icons/piggy-bankHold.png",
+		alt: "Person holding a piggy bank",
+		title: "Person holding a piggy bank",
+	},
+	{
+		iconSrc: "/icons/save-coin.png",
+		alt: "Person holding a coin",
+		title: "Person holding a coin",
+	},
+	{
+		iconSrc: "/icons/save-money.png",
+		alt: "Person balancing a coin on a hand",
+		title: "Person balancing a coin on a hand",
+	},
+
+	{
+		iconSrc: "/icons/stock-chart.png",
+		alt: "Person showing a stock chart",
+		title: "Person showing a stock chart",
+	},
+	{
+		iconSrc: "/icons/tick.png",
+		alt: "Person showing a tick icon",
+		title: "Person showing a tick icon",
+	},
+	{
+		iconSrc: "/icons/wallet.png",
+		alt: "Person showing off a wallet",
+		title: "Person showing off a wallet",
+	},
+];
+
+export const updatedProfileIcons = [];
