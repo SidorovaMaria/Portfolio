@@ -23,6 +23,8 @@ const ModalDropDown = ({
 }: ModalDropDownProps) => {
 	const [open, setOpen] = useState(false);
 	const categoryIcon = optionType === "categories" && "icon" in selected ? selected.icon : null;
+	console.log(categoryIcon, "categoryIcon");
+
 	return (
 		<div className="flex flex-col gap-1 w-full">
 			<div className="flex items-center justify-between">
@@ -104,12 +106,11 @@ const ModalDropDown = ({
 										/>
 									)}
 									{optionType === "categories" &&
-										categoryIcon &&
+										optionType === "categories" &&
+										"icon" in option &&
 										(() => {
 											const Icon =
-												optionType === "categories" && "icon" in option
-													? iconMap[option.icon as keyof typeof iconMap]
-													: null;
+												iconMap[option.icon as keyof typeof iconMap];
 											return Icon ? <Icon /> : null;
 										})()}
 									<p className="text-grey-900 flex-1">{option.name} </p>

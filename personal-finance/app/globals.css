@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+	--secondary-green: #277c78;
 	/* Design System Colors */
 	/* Primary Colors */
 	--color-beige-500: #98908b;
@@ -11,12 +12,13 @@
 	--color-grey-100: #f2f2f2;
 	--color-white: #ffffff;
 	/* Secondary Colors */
-	--color-secondary-green: #277c78;
+
 	--color-secondary-yellow: #f2cdac;
 	--color-secondary-cyan: #82c9d7;
 	--color-secondary-navy: #626070;
 	--color-secondary-red: #c94736;
 	--color-secondary-purple: #826cb0;
+	--color-secondary-green: var(--secondary-green);
 	/* Spacing */
 	--spacing-500: 40px;
 	--spacing-400: 32px;
@@ -100,6 +102,11 @@
 	}
 	.modal-content {
 		@apply flex flex-col items-center justify-start bg-white px-5 py-6 rounded-12 gap-5;
+	}
+
+	/* Settings */
+	.settings-option {
+		@apply flex items-center justify-between gap-3 text-grey-900 transition-all duration-200 px-3 hover:bg-secondary-green/40 py-2 rounded-8 cursor-pointer;
 	}
 }
 ::-webkit-progress-bar {

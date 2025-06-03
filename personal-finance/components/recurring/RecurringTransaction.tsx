@@ -14,7 +14,7 @@ interface RecurringTransactionProps {
 	transaction: TransactionType;
 }
 const RecurringTransaction = ({ transaction }: RecurringTransactionProps) => {
-	const Icon = iconMap[transaction.category.icon];
+	const Icon = iconMap[transaction.category.icon as keyof typeof iconMap] || (() => null);
 	const { currency } = useSelector((state: RootState) => state.finance);
 	const status = RecurringStatusTransaction(transaction);
 	let style = "";
@@ -36,10 +36,8 @@ const RecurringTransaction = ({ transaction }: RecurringTransactionProps) => {
 	return (
 		<aside
 			className={`flex w-full flex-col md:grid md:grid-cols-2 gap-2 p-1 md:py-2 rounded-8 cursor-pointer  hover:scale-101 hover:shadow-[1px_1px_5px] transition-all duration-100 ${hoverStyle}`}
-			
 		>
 			<div className="flex items-center gap-3 h-full w-full flex-1">
-				
 				<span className={`flex items-center justify-center w-8 h-8 rounded-full  border`}>
 					<Icon className={`w-4 h-4 `} />
 				</span>

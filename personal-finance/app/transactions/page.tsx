@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { CategoriesType, sortByOptions } from "@/components/constants";
-import { SearchIcon } from "lucide-react";
+import { Plus, SearchIcon } from "lucide-react";
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
 import DropDown from "@/components/DropDown";
 import IconCaretLeft from "@/components/svg/IconCaretLeft";
@@ -66,7 +66,7 @@ export default function Transactions() {
 			<Title
 				title="Transactions"
 				btn
-				btnText="+ Add "
+				btnText="Add "
 				onClick={() =>
 					setOpenTransactionModal((prev) => ({
 						...prev,
@@ -75,7 +75,9 @@ export default function Transactions() {
 						transaction: null,
 					}))
 				}
-			/>
+			>
+				<Plus className="w-5 h-5 stroke-[4px] fill-white" />
+			</Title>
 			<AddTransaction
 				mode={openTransactionModal.type as "add" | "edit"}
 				open={openTransactionModal.isOpen}

@@ -35,8 +35,8 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 			.required("Please enter a title for the transaction")
 			.max(30, "Title must not exceed 50 characters"),
 		category: Yup.object({
-			name: Yup.string().required("Please select a category"),
-			icon: Yup.mixed().required("Please select a category icon"),
+			name: Yup.string(),
+			icon: Yup.mixed(),
 		}),
 		date: Yup.string().required("Please select a date"),
 		amount: Yup.number().required("Please enter an amount").positive("Enter amount"),
@@ -71,6 +71,10 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 				payload: {
 					...data,
 					date: data.date,
+					category: {
+						name: "Other",
+						icon: "",
+					},
 				},
 			});
 		} else if (mode === "edit") {
@@ -309,7 +313,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 								className="absolute  top-full w-full left-0 max-h-[150px] overflow-auto bg-white flex flex-col mt-1 shadow-[0px_4px_24px_rgba(0,0,0,0,0.25)] rounded-8 transition-colors duration-300"
 							>
 								{categories.map((category: CategoriesType) => {
-									const Icon = iconMap[category.icon];
+									const Icon = iconMap[category.icon as keyof typeof iconMap];
 									return (
 										<div
 											key={category.name}
@@ -332,7 +336,7 @@ const AddTransaction = ({ mode, open, close, transaction }: AddTransactionProps)
 												});
 											}}
 										>
-											<Icon />
+											{category.icon && <Icon />}
 											<p
 												className={` flex-1 ${
 													category.name === selectedCategory?.name

@@ -12,7 +12,7 @@ interface TransactionProps {
 }
 
 const Transaction = ({ transaction, edit }: TransactionProps) => {
-	const Icon = iconMap[transaction.category.icon];
+	const Icon = iconMap[transaction.category.icon as keyof typeof iconMap] || (() => null);
 	const { currency } = useSelector((state: RootState) => state.finance);
 
 	return (

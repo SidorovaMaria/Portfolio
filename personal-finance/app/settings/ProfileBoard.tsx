@@ -1,5 +1,5 @@
 "use client";
-import { User } from "lucide-react";
+
 import React from "react";
 import { AnimatePresence } from "motion/react";
 import IconPicker from "./IconPicker";

@@ -86,26 +86,6 @@ const initialState = {
 			},
 			id: "342",
 		},
-		{
-			category: { name: "Utilities", icon: "Lightbulb" },
-			maximum: 300,
-			theme: {
-				name: "Yellow",
-				id: "yellow",
-				value: "#FFD700",
-			},
-			id: "343",
-		},
-		{
-			category: { name: "Education", icon: "Book" },
-			maximum: 250,
-			theme: {
-				name: "Purple",
-				id: "purple",
-				value: "#800080",
-			},
-			id: "344",
-		},
 	],
 	pots: [
 		{
@@ -328,6 +308,56 @@ const financeSlice = createSlice({
 			state.budgets = state.budgets.filter((budget) => budget.id !== budgetId);
 			console.log(`Budget with id ${budgetId} deleted.`);
 		},
+		updateCategory: (state, action) => {
+			const { oldCategory, newCategory } = action.payload;
+			const catgeoryIndex = state.categories.findIndex(
+				(c) => c.name === oldCategory.name && c.icon === oldCategory.icon
+			);
+			if (catgeoryIndex !== -1) {
+				state.categories[catgeoryIndex] = newCategory;
+			} else {
+				console.warn(`Category ${oldCategory.name} not found for updating.`);
+			}
+			// Update category in budgets
+			state.budgets = state.budgets.map((budget) =>
+				budget.category.name === oldCategory.name &&
+				budget.category.icon === oldCategory.icon
+					? { ...budget, category: newCategory }
+					: budget
+			);
+			// Update category in transactions
+			state.transactions = state.transactions.map((transaction) =>
+				transaction.category.name === oldCategory.name &&
+				transaction.category.icon === oldCategory.icon
+					? { ...transaction, category: newCategory }
+					: transaction
+			);
+		},
+		addCategory: (state, action) => {
+			const newCategory: CategoriesType = action.payload;
+			state.categories.unshift(newCategory);
+		},
+		deleteCategory: (state, action) => {
+			const categoryToDelete = action.payload;
+			state.categories = state.categories.filter(
+				(category) =>
+					category.name !== categoryToDelete.name ||
+					category.icon !== categoryToDelete.icon
+			);
+			// Remove category from budgets
+			state.budgets = state.budgets.filter(
+				(budget) =>
+					budget.category.name !== categoryToDelete.name ||
+					budget.category.icon !== categoryToDelete.icon
+			);
+			// Remove category from transactions
+			state.transactions = state.transactions.map((transaction) =>
+				transaction.category.name === categoryToDelete.name &&
+				transaction.category.icon === categoryToDelete.icon
+					? { ...transaction, category: { name: "Other", icon: "" } }
+					: transaction
+			);
+		},
 	},
 });
 export const {
@@ -342,5 +372,8 @@ export const {
 	addBudget,
 	editBudget,
 	deleteBudget,
+	updateCategory,
+	addCategory,
+	deleteCategory,
 } = financeSlice.actions;
 export const financeReducer = financeSlice.reducer;

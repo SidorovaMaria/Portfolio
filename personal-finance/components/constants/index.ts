@@ -4,7 +4,30 @@ import IconPots from "../svg/IconPots";
 import IconRecurringBills from "../svg/IconRecurringBills";
 import IconTransactions from "../svg/IconTransactions";
 import { TransactionType } from "../../lib/features/financeSlice";
-import { Activity, Apple, Asterisk, Bus, HeartPlus, Settings, Theater, Wallet } from "lucide-react";
+import {
+	Activity,
+	Apple,
+	Briefcase,
+	Bus,
+	CircleDollarSign,
+	Coffee,
+	Dog,
+	Dumbbell,
+	Gift,
+	Heart,
+	HeartPlus,
+	Hexagon,
+	Lightbulb,
+	Phone,
+	Plane,
+	Settings,
+	ShoppingCart,
+	Star,
+	TentTree,
+	Theater,
+	Wallet,
+} from "lucide-react";
+import Home from "@/app/page";
 
 export type ThemeType = {
 	name: string;
@@ -97,13 +120,49 @@ export const iconMap = {
 	Activity,
 	HeartPlus,
 	Wallet,
-	Asterisk,
 	Settings,
+	Dog,
+	Hexagon,
+	Phone,
+	Heart,
+	CircleDollarSign,
+	Coffee,
+	Star,
+	ShoppingCart,
+	Plane,
+	Home,
+	Briefcase,
+	Lightbulb,
+	Gift,
+	Dumbbell,
+	TentTree,
 };
+export const CategoryIcons: (keyof typeof iconMap)[] = [
+	"Apple",
+	"Bus",
+	"Theater",
+	"Activity",
+	"HeartPlus",
+	"Wallet",
+	"Dog",
+	"Hexagon",
+	"Phone",
+	"Heart",
+	"CircleDollarSign",
+	"Coffee",
+	"Star",
+	"ShoppingCart",
+	"Plane",
+	"Briefcase",
+	"Lightbulb",
+	"Gift",
+	"Dumbbell",
+	"TentTree",
+] as (keyof typeof iconMap)[];
 
 export type CategoriesType = {
 	name: string;
-	icon: keyof typeof iconMap;
+	icon: keyof typeof iconMap | "";
 };
 
 export const defaultCategories: CategoriesType[] = [
@@ -113,7 +172,7 @@ export const defaultCategories: CategoriesType[] = [
 	{ name: "Health", icon: "Activity" },
 	{ name: "Shopping", icon: "HeartPlus" },
 	{ name: "Bills", icon: "Wallet" },
-	{ name: "Other", icon: "Asterisk" },
+	{ name: "Other", icon: "" },
 ];
 
 export const defaultTransactions: TransactionType[] = [
@@ -219,7 +278,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Pharmacy Purchase",
 		category: { name: "Health", icon: "Activity" },
-		date: new Date("2025-05-11").toISOString(),
+		date: new Date("2025-06-11").toISOString(),
 		amount: 25.5,
 		type: "expense",
 		reccuring: false,
@@ -264,7 +323,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Book Purchase",
 		category: { name: "Entertainment", icon: "Theater" },
-		date: new Date("2025-05-16").toISOString(),
+		date: new Date("2025-06-16").toISOString(),
 		amount: 20,
 		type: "expense",
 		reccuring: false,
@@ -291,7 +350,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Pet Supplies",
 		category: { name: "Shopping", icon: "HeartPlus" },
-		date: new Date("2025-05-18").toISOString(),
+		date: new Date("2025-06-18").toISOString(),
 		amount: 60.5,
 		type: "expense",
 		reccuring: false,
@@ -309,7 +368,7 @@ export const defaultTransactions: TransactionType[] = [
 	{
 		title: "Yoga Class",
 		category: { name: "Health", icon: "Activity" },
-		date: new Date("2025-05-20").toISOString(),
+		date: new Date("2025-06-20").toISOString(),
 		amount: 25,
 		type: "expense",
 		reccuring: false,

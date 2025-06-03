@@ -8,6 +8,7 @@ import AddEditBudget from "@/components/modals/AddEditBudget";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import Budget from "@/components/budgets/Budget";
+import { Plus } from "lucide-react";
 
 export default function Budgets() {
 	const { budgets } = useSelector((state: RootState) => state.finance);
@@ -38,7 +39,7 @@ export default function Budgets() {
 					year: "numeric",
 				})}
 				btn={true}
-				btnText="+ Add New Budget"
+				btnText="Add New Budget"
 				onClick={() =>
 					setAddEditBudgetModal((prev) => ({
 						...prev,
@@ -47,7 +48,9 @@ export default function Budgets() {
 						budgetToEdit: null,
 					}))
 				}
-			/>
+			>
+				<Plus className="w-5 h-5 stroke-[4px] fill-white" />
+			</Title>
 			<section className=" gap-6 w-full ovefllow-y-auto grid grid-cols-1 lg:grid-cols-2 max-h-[calc(100vh-17vh)] ">
 				<SpendingSummary />
 				<section className="flex flex-col gap-6 w-full overflow-auto  lg:max-h-[calc(100vh-15vh)] lg:px-4">

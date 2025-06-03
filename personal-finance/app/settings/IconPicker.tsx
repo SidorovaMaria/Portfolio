@@ -20,16 +20,16 @@ const IconPicker = ({ close, setIcon }: IconPickerProps) => {
 			<motion.div
 				onClick={(e) => e.stopPropagation()}
 				variants={modalContentVariant}
-				className="modal-content w-full max-w-[660px] origin-top"
+				className="modal-content gap-1 md:gap-3 w-full max-w-[660px] origin-top"
 			>
-				<h4 className="text-1 font-semibold leading-15 capitalize">
+				<h4 className="text-2 md:text-1 text-center font-semibold leading-15 capitalize">
 					Chose your profile Icon
 				</h4>
-				<div className="grid grid-cols-5 gap-5  ">
+				<div className="grid grid-cols-4 md:grid-cols-5 gap-3 md:gap-5  ">
 					{profileIcons.map((icon) => (
 						<button
 							key={icon.title}
-							className="hover:bg-secondary-green/50 p-5 rounded-full cursor-pointer transition-all duration-200 border hover:border-2 hover:scale-110 filter "
+							className="hover:bg-secondary-green/50 size-24 flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 border hover:border-2  group  "
 							title={icon.title}
 							onClick={() => {
 								setIcon(icon.iconSrc);
@@ -39,9 +39,9 @@ const IconPicker = ({ close, setIcon }: IconPickerProps) => {
 							<Image
 								src={icon.iconSrc}
 								alt={icon.alt}
-								width={70}
-								height={70}
-								className="group-hover:filter "
+								width={60}
+								height={60}
+								className="group-hover:filter group-hover:scale-110 duration-300 transition-all"
 							/>
 						</button>
 					))}

@@ -22,9 +22,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 	const budgetSchema = Yup.object({
 		category: Yup.object({
 			name: Yup.string().required("Category name is required"),
-			icon: Yup.mixed<keyof typeof iconMap>()
-				.required("Category icon is required")
-				.oneOf(Object.keys(iconMap) as Array<keyof typeof iconMap>),
+			icon: Yup.mixed<keyof typeof iconMap | "">().required("Category icon is required"),
 		})
 			.required("Category is required")
 			.test(
@@ -65,7 +63,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 					? budget.category
 					: {
 							name: "Choose Category",
-							icon: "Asterisk",
+							icon: "",
 					  },
 			maximum: mode === "edit" && budget ? budget.maximum : 0,
 			theme:
@@ -114,7 +112,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 			reset({
 				category: {
 					name: "Choose Category",
-					icon: "Asterisk",
+					icon: "",
 				},
 				maximum: 0,
 				theme: { id: "1", name: "Choose Theme", value: "#000000" },
@@ -154,7 +152,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 							"category",
 							category as {
 								name: string;
-								icon: NonNullable<keyof typeof iconMap>;
+								icon: keyof typeof iconMap;
 							}
 						)
 					}
