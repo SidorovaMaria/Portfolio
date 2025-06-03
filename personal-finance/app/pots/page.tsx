@@ -4,8 +4,7 @@ import Pot from "@/components/Pot";
 import Title from "@/components/Title";
 import { PotType } from "@/lib/features/financeSlice";
 import { RootState } from "@/lib/store";
-import { AnimatePresence } from "motion/react";
-
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -48,16 +47,17 @@ export default function Pots() {
 
 	return (
 		<>
-			<Title title="Pots" btn={true} btnText="+ Add New Pot" onClick={addNewPot} />
-			<AnimatePresence>
-				{openModal.open && (
-					<PotModal
-						mode={openModal.mode}
-						setOpenModal={setOpenModal}
-						potToEdit={openModal.potToEdit}
-					/>
-				)}
-			</AnimatePresence>
+			<Title title="Pots" btn={true} btnText=" Add New Pot" onClick={addNewPot}>
+				<Plus className="w-5 h-5 stroke-[4px] fill-white" />
+			</Title>
+
+			<PotModal
+				open={openModal.open}
+				mode={openModal.mode}
+				setOpenModal={setOpenModal}
+				potToEdit={openModal.potToEdit}
+			/>
+
 			<section className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center justify-start w-full">
 				{pots.length > 0 ? (
 					pots.map((pot) => <Pot key={pot.id} pot={pot} open={openEditModal} />)

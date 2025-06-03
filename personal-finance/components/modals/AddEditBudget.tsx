@@ -4,13 +4,13 @@ import * as Yup from "yup";
 import { BudgetType } from "@/lib/features/financeSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AnimatePresence, motion } from "motion/react";
-import { modalContentVariant, ModalOverlayVariant } from "../constants/motionVariants";
+
 import IconCloseModal from "../svg/IconCloseModal";
 import ModalDropDown from "./ModalDropDown";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import IconWarning from "../svg/IconWarning";
+import Modal from "../Modal";
 interface AddEditBudgetProps {
 	mode: string;
 	open: boolean;
@@ -123,107 +123,90 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 	}, [mode, budget, reset]);
 
 	return (
-		<AnimatePresence>
-			{open && (
-				<motion.div
-					initial={"initial"}
-					animate={"show"}
-					exit={"exit"}
+		<Modal close={closeResetModal} open={open}>
+			<div className="flex w-full items-center justify-between ">
+				<h2 className="text-2 md:text-1 leading-120 font-bold">
+					{mode === "add" ? "Add New Budget" : "Edit Budget"}
+				</h2>
+				<IconCloseModal
+					className="cursor-pointer w-8 h-8 fill-grey-500 hover:fill-red-400 transition-colors duration-300"
 					onClick={closeResetModal}
-					variants={ModalOverlayVariant}
-					className="modal-overlay px-5 z-50"
-				>
-					<motion.div
-						variants={modalContentVariant}
-						onClick={(e) => e.stopPropagation()}
-						className="modal-content w-full max-w-[560px] origin-top "
-					>
-						<div className="flex w-full items-center justify-between ">
-							<h2 className="text-2 md:text-1 leading-120 font-bold">
-								{mode === "add" ? "Add New Budget" : "Edit Budget"}
-							</h2>
-							<IconCloseModal
-								className="cursor-pointer w-8 h-8 fill-grey-500 hover:fill-red-400 transition-colors duration-300"
-								onClick={closeResetModal}
-							/>
-						</div>
-						<p className="text-4 w-full text-grey-500 leading-150">
-							{mode == "add"
-								? "Choose a category to set a spending budget. These categories can help you monitor spending."
-								: "As your budgets change, feel free to update your spending limits."}
-						</p>
-						<form
-							id="budgetForm"
-							onSubmit={handleSubmit(handleSubmitBudget)}
-							className="flex flex-col gap-4 w-full"
+				/>
+			</div>
+			<p className="text-4 w-full text-grey-500 leading-150">
+				{mode == "add"
+					? "Choose a category to set a spending budget. These categories can help you monitor spending."
+					: "As your budgets change, feel free to update your spending limits."}
+			</p>
+			<form
+				id="budgetForm"
+				onSubmit={handleSubmit(handleSubmitBudget)}
+				className="flex flex-col gap-4 w-full"
+			>
+				<ModalDropDown
+					error={errors.category?.message}
+					optionType="categories"
+					label="Budget Category"
+					options={categories}
+					selected={watch("category")}
+					setSelected={(category) =>
+						setValue(
+							"category",
+							category as {
+								name: string;
+								icon: NonNullable<keyof typeof iconMap>;
+							}
+						)
+					}
+				/>
+				<div className="flex flex-col gap-1 w-full">
+					<div className="flex w-full items-center justify-between">
+						<label
+							htmlFor="maximum"
+							className="text-5 font-bold leading-150 text-grey-500"
 						>
-							<ModalDropDown
-								error={errors.category?.message}
-								optionType="categories"
-								label="Budget Category"
-								options={categories}
-								selected={watch("category")}
-								setSelected={(category) =>
-									setValue(
-										"category",
-										category as {
-											name: string;
-											icon: NonNullable<keyof typeof iconMap>;
-										}
-									)
-								}
-							/>
-							<div className="flex flex-col gap-1 w-full">
-								<div className="flex w-full items-center justify-between">
-									<label
-										htmlFor="maximum"
-										className="text-5 font-bold leading-150 text-grey-500"
-									>
-										Maximum Spend
-									</label>
-									{errors.maximum && (
-										<p className="error-message ">
-											<IconWarning className="inline-flex  fill-red-500 " />
+							Maximum Spend
+						</label>
+						{errors.maximum && (
+							<p className="error-message ">
+								<IconWarning className="inline-flex  fill-red-500 " />
 
-											{errors.maximum.message}
-										</p>
-									)}
-								</div>
-								<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-									<span className=" text-grey-500">{currency}</span>
-									<input
-										type="number"
-										id="maximum"
-										className="outline-none flex-1 w-full"
-										{...register("maximum")}
-									/>
-								</div>
-							</div>
-							<ModalDropDown
-								error={errors.theme?.message}
-								optionType="themes"
-								label="Theme"
-								options={Themes}
-								selected={watch("theme")}
-								setSelected={(theme) =>
-									setValue(
-										"theme",
-										theme as {
-											id: string;
-											name: string;
-											value: string;
-										}
-									)
-								}
-							/>
-						</form>
-						<button className="btn btn-primary w-full" type="submit" form="budgetForm">
-							{mode === "add" ? "Add Budget" : "Save Changes"}
-						</button>
-					</motion.div>
-				</motion.div>
-			)}
-		</AnimatePresence>
+								{errors.maximum.message}
+							</p>
+						)}
+					</div>
+					<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
+						<span className=" text-grey-500">{currency}</span>
+						<input
+							type="number"
+							id="maximum"
+							className="outline-none flex-1 w-full"
+							{...register("maximum")}
+						/>
+					</div>
+				</div>
+				<ModalDropDown
+					error={errors.theme?.message}
+					optionType="themes"
+					label="Theme"
+					options={Themes}
+					selected={watch("theme")}
+					setSelected={(theme) =>
+						setValue(
+							"theme",
+							theme as {
+								id: string;
+								name: string;
+								value: string;
+							}
+						)
+					}
+				/>
+			</form>
+			<button className="btn btn-primary w-full" type="submit" form="budgetForm">
+				{mode === "add" ? "Add Budget" : "Save Changes"}
+			</button>
+		</Modal>
 	);
 };
 
