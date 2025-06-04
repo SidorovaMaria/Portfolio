@@ -41,6 +41,7 @@ interface FinanceState {
 	pots: PotType[];
 	balance: BalanceType;
 	currency: string;
+
 	categories: CategoriesType[];
 }
 const initialState = {
@@ -160,6 +161,7 @@ const initialState = {
 		income: calculateMonthlyIncome(defaultTransactions),
 		expenses: calculateMonthlyExpenses(defaultTransactions),
 	},
+
 	currency: "GBP",
 	categories: defaultCategories,
 } as FinanceState;

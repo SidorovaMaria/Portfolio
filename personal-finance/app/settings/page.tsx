@@ -10,6 +10,7 @@ import { RootState } from "@/lib/store";
 
 import CategoriesModal from "./CategoriesModal";
 import CurrencyModal from "./CurrencyModal";
+import ThemeModal from "./ThemeModal";
 
 const Settings = () => {
 	const { currency } = useSelector((state: RootState) => state.finance);
@@ -22,6 +23,7 @@ const Settings = () => {
 	};
 	const [categoriesModal, setCategoriesModal] = React.useState(false);
 	const [currencyModal, setCurrencyModal] = React.useState(false);
+	const [themeModal, setThemeModal] = React.useState(false);
 
 	return (
 		<>
@@ -76,7 +78,7 @@ const Settings = () => {
 						{currency}
 					</p>
 				</div>
-				<div className="settings-option group">
+				<div className="settings-option group" onClick={() => setThemeModal(true)}>
 					<div className="flex items-center gap-3">
 						<Palette className="stroke-2 " />
 						<div className="text-3 leading-150 transition-all duration-200">Theme</div>
@@ -99,6 +101,7 @@ const Settings = () => {
 			</section>
 			<CategoriesModal open={categoriesModal} close={() => setCategoriesModal(false)} />
 			<CurrencyModal open={currencyModal} close={() => setCurrencyModal(false)} />
+			<ThemeModal open={themeModal} close={() => setThemeModal(false)} />
 		</>
 	);
 };
