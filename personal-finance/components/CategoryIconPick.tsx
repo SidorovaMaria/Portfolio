@@ -9,7 +9,7 @@ const CategoryIconPick = ({ open, setIcon }: CategoryIconPickProps) => {
 	return (
 		<AnimatePresence>
 			{open && (
-				<motion.div className="absolute top-full w-[200px] rounded-8 p-3 -left-[80px] bg-white  mt-2 z-40 shadow-xs shadow-black">
+				<motion.div className="absolute top-full w-[200px] rounded-8 p-3 -left-[10px] bg-white  mt-2 z-50 shadow-xs shadow-black">
 					<div className="grid grid-cols-4 gap-1">
 						{CategoryIcons.map((icon, index) => {
 							const Icon = iconMap[icon];
@@ -17,7 +17,7 @@ const CategoryIconPick = ({ open, setIcon }: CategoryIconPickProps) => {
 								<div
 									onClick={() => setIcon(icon)}
 									key={index}
-									className="flex items-center justify-center size-9 p-2 rounded-full hover:bg-secondary-green cursor-pointer  text-grey-900
+									className="flex items-center justify-center size-9 p-2 rounded-full hover:bg-secondary-green cursor-pointer text-grey-900
                                     hover:text-white"
 								>
 									<Icon className="" />

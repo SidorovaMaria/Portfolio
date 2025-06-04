@@ -358,6 +358,10 @@ const financeSlice = createSlice({
 					: transaction
 			);
 		},
+		setCurrency: (state, action) => {
+			const newCurrency = action.payload;
+			state.currency = newCurrency;
+		},
 	},
 });
 export const {
@@ -375,5 +379,6 @@ export const {
 	updateCategory,
 	addCategory,
 	deleteCategory,
+	setCurrency,
 } = financeSlice.actions;
 export const financeReducer = financeSlice.reducer;

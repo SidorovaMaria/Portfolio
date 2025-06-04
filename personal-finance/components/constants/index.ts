@@ -527,3 +527,36 @@ export const profileIcons: ProfileIconType[] = [
 ];
 
 export const updatedProfileIcons = [];
+
+export const currencyOptions = [
+	{ code: "USD", name: "United States Dollar", symbol: "$" },
+	{ code: "EUR", name: "Euro", symbol: "€" },
+	{ code: "GBP", name: "British Pound", symbol: "£" },
+	{ code: "JPY", name: "Japanese Yen", symbol: "¥" },
+	{ code: "CNY", name: "Chinese Yuan", symbol: "¥" },
+	{ code: "AUD", name: "Australian Dollar", symbol: "$" },
+	{ code: "CAD", name: "Canadian Dollar", symbol: "$" },
+	{ code: "CHF", name: "Swiss Franc", symbol: "CHF" },
+	{ code: "INR", name: "Indian Rupee", symbol: "₹" },
+	{ code: "KRW", name: "South Korean Won", symbol: "₩" },
+	{ code: "BRL", name: "Brazilian Real", symbol: "R$" },
+	{ code: "ZAR", name: "South African Rand", symbol: "R" },
+	{ code: "SEK", name: "Swedish Krona", symbol: "kr" },
+	{ code: "NOK", name: "Norwegian Krone", symbol: "kr" },
+	{ code: "DKK", name: "Danish Krone", symbol: "kr" },
+	{ code: "MXN", name: "Mexican Peso", symbol: "$" },
+	{ code: "RUB", name: "Russian Ruble", symbol: "₽" },
+	{ code: "SGD", name: "Singapore Dollar", symbol: "S$" },
+	{ code: "HKD", name: "Hong Kong Dollar", symbol: "HK$" },
+	{ code: "NZD", name: "New Zealand Dollar", symbol: "$" },
+	{ code: "TRY", name: "Turkish Lira", symbol: "₺" },
+	{ code: "AED", name: "United Arab Emirates Dirham", symbol: "د.إ" },
+	{ code: "SAR", name: "Saudi Riyal", symbol: "ر.س" },
+	{ code: "THB", name: "Thai Baht", symbol: "฿" },
+	{ code: "IDR", name: "Indonesian Rupiah", symbol: "Rp" },
+	{ code: "MYR", name: "Malaysian Ringgit", symbol: "RM" },
+	{ code: "PLN", name: "Polish Zloty", symbol: "zł" },
+	{ code: "CZK", name: "Czech Koruna", symbol: "Kč" },
+	{ code: "HUF", name: "Hungarian Forint", symbol: "Ft" },
+	{ code: "ARS", name: "Argentine Peso", symbol: "$" },
+];

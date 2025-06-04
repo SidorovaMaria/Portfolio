@@ -25,7 +25,7 @@ const CategoryEditDelete = ({ category }: { category: CategoriesType }) => {
 			key={category.name}
 			className="settings-option hover:bg-secondary-green/20 group flex items-center py-1 "
 		>
-			<div className={`cursor-default flex items-center gap-3 flex-1 `}>
+			<div className={`cursor-default flex items-center  gap-3 flex-1 `}>
 				{category.icon && (
 					<div
 						onClick={() => {

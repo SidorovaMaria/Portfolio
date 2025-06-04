@@ -1,21 +1,15 @@
 "use client";
 import Title from "@/components/Title";
-import React, { useState } from "react";
+import React from "react";
 import ProfileBoard from "./ProfileBoard";
 import { Blend, Eye, LogOut, PaintBucket, Palette, Receipt, User } from "lucide-react";
 import Link from "next/link";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
-import Modal from "@/components/Modal";
 
-import CategoryEditDelete from "./CategoryEditDelete";
-import { iconMap } from "@/components/constants";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import CategoryIconPick from "@/components/CategoryIconPick";
-import IconWarning from "@/components/svg/IconWarning";
+import { useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+
 import CategoriesModal from "./CategoriesModal";
+import CurrencyModal from "./CurrencyModal";
 
 const Settings = () => {
 	const { currency } = useSelector((state: RootState) => state.finance);
@@ -27,6 +21,7 @@ const Settings = () => {
 		console.log("Accent color changed to #211C6C");
 	};
 	const [categoriesModal, setCategoriesModal] = React.useState(false);
+	const [currencyModal, setCurrencyModal] = React.useState(false);
 
 	return (
 		<>
@@ -69,7 +64,7 @@ const Settings = () => {
 						</div>
 					</div>
 				</div>
-				<div className="settings-option group">
+				<div className="settings-option group" onClick={() => setCurrencyModal(true)}>
 					<div className="flex items-center gap-3">
 						<Receipt className="stroke-2 " />
 						<div className="text-3 leading-150 transition-all duration-200">
@@ -103,6 +98,7 @@ const Settings = () => {
 				</div>
 			</section>
 			<CategoriesModal open={categoriesModal} close={() => setCategoriesModal(false)} />
+			<CurrencyModal open={currencyModal} close={() => setCurrencyModal(false)} />
 		</>
 	);
 };

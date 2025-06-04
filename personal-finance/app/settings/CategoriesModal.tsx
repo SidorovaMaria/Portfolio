@@ -68,39 +68,50 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 					it&apos;s used for uncategorized or fallback transactions.
 				</p>
 			</div>
-			<div className=" flex items-center p-0 w-full">
+			<div className=" flex items-center  w-full">
 				{newCategory.show ? (
 					<form
 						onSubmit={handleSubmit(AddCategory)}
-						className="settings-option  group flex items-center py-1 w-full"
+						className="settings-option hover:bg-transparent group flex items-center py-1 w-full"
 					>
-						<div
-							className="relative"
-							onClick={() => setShowIconPicker(!showIconPicker)}
+						<div className="cursor-default flex items-center gap-3 flex-1 ">
+							<div
+								className="relative flex items-center justify-center rounded-full border shrink-0 size-10 "
+								onClick={() => setShowIconPicker(!showIconPicker)}
+							>
+								{Icon ? <Icon /> : <p>?</p>}
+								<CategoryIconPick
+									open={showIconPicker}
+									setIcon={(i: keyof typeof iconMap) => setValue("icon", i)}
+								/>
+							</div>
+							<div className="text-3 leading-150 text-grey-900 border border-transparent bg-white rounded-md p-1 px-2 transition-all duration-200 has-focus:border-grey-900 w-full flex-between">
+								<input
+									type="text"
+									placeholder="Category Name"
+									className="outline-none flex-1 w-full"
+									{...register("name")}
+								/>
+								{errors.name && (
+									<p className="error-message">
+										<IconWarning className="inline-flex  fill-red-500" />
+										{errors.name.message}
+									</p>
+								)}
+							</div>
+						</div>
+						<button
+							className="btn btn-primary bg-secondary-green py-1 disabled:opacity-50
+                            disbaled:pointer-events-none "
+							type="submit"
+							disabled={!watch("name")}
 						>
-							{Icon ? <Icon /> : <div className="size-8 rounded-full border  "></div>}
-							<CategoryIconPick
-								open={showIconPicker}
-								setIcon={(i: keyof typeof iconMap) => setValue("icon", i)}
-							/>
-						</div>
-						<div className="text-3 leading-150 text-grey-900 border border-transparent bg-white rounded-md p-1 px-2 transition-all duration-200 has-focus:border-grey-900 w-full flex-between">
-							<input
-								type="text"
-								placeholder="Category Name"
-								className="outline-none flex-1 w-full"
-								{...register("name")}
-							/>
-							{errors.name && (
-								<p className="error-message">
-									<IconWarning className="inline-flex  fill-red-500" />
-									{errors.name.message}
-								</p>
-							)}
-						</div>
-						<button type="submit">Add </button>
+							Add{" "}
+						</button>
 						<button
 							type="button"
+							disabled={!newCategory.show}
+							className="btn btn-destroy py-1"
 							onClick={() => {
 								setNewCategory((prev) => ({
 									...prev,
@@ -132,7 +143,7 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 				)}
 			</div>
 
-			<div className="flex flex-col gap-1 w-full p-0.5 max-h-[40vh] overflow-y-auto">
+			<div className="flex flex-col gap-1 w-full p-0.5 max-h-[40vh] overflow-auto ">
 				{categories.length > 0
 					? categories.map((category) => (
 							<CategoryEditDelete key={category.name} category={category} />
