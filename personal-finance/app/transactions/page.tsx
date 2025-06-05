@@ -60,6 +60,7 @@ export default function Transactions() {
 		const end = start + itemsPerPage;
 		return sortedTransactions.slice(start, end);
 	}, [sortedTransactions, currentPage, itemsPerPage]);
+	console.log(transactions);
 
 	return (
 		<>
@@ -76,7 +77,7 @@ export default function Transactions() {
 					}))
 				}
 			>
-				<Plus className="w-5 h-5 stroke-[4px] fill-white" />
+				<Plus className="w-5 h-5 stroke-[4px] fill-fg" />
 			</Title>
 			<AddTransaction
 				mode={openTransactionModal.type as "add" | "edit"}
@@ -86,16 +87,13 @@ export default function Transactions() {
 				}
 				transaction={openTransactionModal.transaction}
 			/>
-			<section className="flex flex-col w-full gap-6 px-5 ">
+			<section className="flex-column gap-6 px-5 min-h-[40vh]">
 				{/* Search and Filter */}
-				<div className="flex items-center justify-between gap-4 ">
-					<label
-						htmlFor="search"
-						className="flex gap-4 border rounded-8 px-5 py-3 flex-1  "
-					>
+				<div className="flex-between gap-4 ">
+					<label htmlFor="search" className="input-container flex-1 lg:max-w-[320px]">
 						<input
 							id="search"
-							className="w-full flex-1 outline-none text-4 leading-150"
+							className="w-full flex-1 outline-none text-p4"
 							type="text"
 							placeholder="Search Transactions"
 							value={search}
@@ -103,71 +101,99 @@ export default function Transactions() {
 						/>
 						<SearchIcon className="w-4 h-4 text-grey-900" />
 					</label>
-					<DropDown
-						icon={<IconSortMobile className="w-5 h-5 fill-grey-900" />}
-						label="Sort By"
-						options={sortByOptions}
-						selected={sortBy.sort}
-						setSelected={(val) => {
-							setSortBy((prev) => ({
-								...prev,
-								sort: val,
-							}));
-						}}
-						open={sortBy.open}
-						setOpen={(val) => setSortBy((prev) => ({ ...prev, open: val }))}
-					/>
-					<DropDown
-						icon={<IconFilterMobile className="w-5 h-5 fill-grey-900" />}
-						minWidth="min-w-[177px]"
-						label="Category"
-						options={["All Transactions", ...categories.map((c) => c.name)]}
-						selected={filter.filter}
-						setSelected={(val) => {
-							setFilter((prev) => ({ ...prev, filter: val }));
-							setCurrentPage(1);
-						}}
-						open={filter.open}
-						setOpen={(val) => {
-							setFilter((prev) => ({ ...prev, open: val }));
-						}}
-					/>
+					<div className="flex gap-6 items-center justify-end">
+						<DropDown
+							icon={
+								<IconSortMobile className="w-5 h-5  fill-muted hover:fill-fg cursor-pointer" />
+							}
+							label="Sort By"
+							options={sortByOptions}
+							selected={sortBy.sort}
+							setSelected={(val) => {
+								setSortBy((prev) => ({
+									...prev,
+									sort: val,
+								}));
+							}}
+							open={sortBy.open}
+							setOpen={(val) => setSortBy((prev) => ({ ...prev, open: val }))}
+						/>
+						<DropDown
+							icon={
+								<IconFilterMobile className="w-5 h-5  fill-muted hover:fill-fg cursor-pointer" />
+							}
+							minWidth="min-w-[177px]"
+							label="Category"
+							options={["All Transactions", ...categories.map((c) => c.name)]}
+							selected={filter.filter}
+							setSelected={(val) => {
+								setFilter((prev) => ({ ...prev, filter: val }));
+								setCurrentPage(1);
+							}}
+							open={filter.open}
+							setOpen={(val) => {
+								setFilter((prev) => ({ ...prev, open: val }));
+							}}
+						/>
+					</div>
 				</div>
 				<section className="flex gap-2 flex-col  w-full ">
 					{transactions.length > 0 ? (
-						paginatedTransactions.map((transaction) => (
-							<Transaction
-								key={transaction.id}
-								transaction={transaction}
-								edit={setTransactionToEdit}
-							/>
-						))
+						paginatedTransactions.length > 0 ? (
+							paginatedTransactions.map((transaction) => (
+								<Transaction
+									key={transaction.id}
+									transaction={transaction}
+									edit={setTransactionToEdit}
+								/>
+							))
+						) : (
+							<p
+								className="text-p4 text-muted text-center"
+								role="status"
+								aria-live="polite"
+							>
+								No transactions found for the selected filter or/and search
+								criteria.
+							</p>
+						)
 					) : (
-						<h4>No Trasmactions Yet</h4>
+						<p
+							className="text-p4 text-muted text-center"
+							role="status"
+							aria-live="polite"
+						>
+							No transactions to show.
+						</p>
 					)}
 				</section>
-				<div className="flex items-center w-full justify-between ">
+				<div className="flex-between ">
 					<button
-						className="btn font-normal flex items-center justify-center p-3 rounded-8 btn-secondary disabled:opacity-50 gap-2 disabled:pointer-events-none"
+						className="btn btn-secondary py-2 disabled:opacity-30 group disabled:pointer-events-none"
 						disabled={currentPage === 1}
 						onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
 					>
-						<IconCaretLeft className="w-4 h-4 fill-grey-500  not-group-disabled:group-hover:fill-grey-900 " />
-						<span className="hidden md:block text-4 leading-150 ">Previous </span>
+						<IconCaretLeft className="size-4 fill-muted mr-2 group-hover:fill-fg " />
+						<span className="hidden md:block text-p4 text-muted  group-hover:text-fg ">
+							Previous{" "}
+						</span>
 					</button>
 					<div className="flex items-center gap-2">
-						<p className="text-4 leading-150 text-grey-500">
-							Page {currentPage} of {totalPages}
+						<p className="text-p4 text-muted">
+							Page <span className="text-fg font-bold">{currentPage}</span> of{" "}
+							{totalPages}
 						</p>
 					</div>
 
 					<button
-						className="btn flex items-center justify-center p-3 rounded-8 btn-secondary disabled:opacity-50 gap-2  font-normal disabled:pointer-events-none"
+						className="btn btn-secondary py-2 disabled:opacity-30 disabled:pointer-events-none group"
 						disabled={currentPage === totalPages}
 						onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
 					>
-						<span className="hidden md:block text-4 leading-150 ">Next </span>
-						<IconCaretLeft className="-rotate-180 w-4 h-4 fill-grey-500 not-group-disabled:group-hover:fill-grey-900 " />
+						<span className="hidden md:block text-p4  text-muted group-hover:text-fg">
+							Next{" "}
+						</span>
+						<IconCaretLeft className="-rotate-180 size-4 fill-muted ml-2 group-hover:fill-fg" />
 					</button>
 				</div>
 			</section>
