@@ -1,24 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-	--secondary-green: #277c78;
-	/* Design System Colors */
-	/* Primary Colors */
-	--color-beige-500: #98908b;
-	--color-beige-100: #f8f4f0;
-	--color-grey-900: #201f24;
-	--color-grey-500: #696868;
-	--color-grey-300: #b3b3b3;
-	--color-grey-100: #f2f2f2;
-	--color-white: #ffffff;
-	/* Secondary Colors */
+	/* Base Colors */
+	--color-bg: #fff; /* bg background */
+	--color-fg: #201f24; /* bg text color (foreground) */
+	--color-muted: #696868; /* Muted text or surface labels */
+	--color-muted-alt: #b3b3b3; /* Even lighter muted text */
+	--color-surface: #f2f2f2; /* Card/section background */
+	--color-border: #98908b; /* Divider lines, borders */
+	--color-surface-alt: #f8f4f0; /* Slightly lighter surface for nesting */
+	--color-accent: #277c78; /* Accent (buttons, highlights) */
+	--color-danger: #ce5a4a; /* For errors, warnings */
 
-	--color-secondary-yellow: #f2cdac;
-	--color-secondary-cyan: #82c9d7;
-	--color-secondary-navy: #626070;
-	--color-secondary-red: #c94736;
-	--color-secondary-purple: #826cb0;
-	--color-secondary-green: var(--secondary-green);
 	/* Spacing */
 	--spacing-500: 40px;
 	--spacing-400: 32px;
@@ -45,23 +38,26 @@
 }
 .dark {
 	/* Dark Mode Colors */
-	--color-beige-500: #98908b;
-	--color-beige-100: #f8f4f0;
-	--color-grey-900: #f2f2f2;
-	--color-grey-500: #888181;
-	--color-grey-300: #696868;
-	--color-grey-100: #201f24;
-	--color-white: #1a1919;
-	/* Secondary Colors */
-	--color-secondary-yellow: #f2cdac;
-	--color-secondary-cyan: #82c9d7;
-	--color-secondary-navy: #626070;
-	--color-secondary-red: #c94736;
-	--color-secondary-purple: #826cb0;
-	--color-secondary-green: var(--secondary-green);
+	--color-bg: #201f24;
+	--color-fg: #f2f2f2;
+	--color-muted: #b3b3b3;
+	--color-muted-alt: #696868;
+	--color-surface: #2b2a30;
+	--color-surface-alt: #37363c;
+	--color-border: #3f3d44;
+	--color-accent: #277c78;
+	--color-danger: #ce5a4a;
+	/* surface Colors */
+	/* --color-surface-yellow: #693a10;
+	--color-surface-cyan: #95d1dd;
+	--color-surface-navy: #626070;
+	--color-danger: #ce5a4a;
+	--color-surface-purple: #907db9;
+	--color-accent: #2d8f8a; */
 }
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
-	/* Global Style */
 	html.sans {
 		font-family: "Public Sans", sans-serif;
 	}
@@ -75,24 +71,61 @@
 	}
 	html,
 	body {
-		/* font-family: "Public Sans", sans-serif; */
 		font-size: 16px;
-		@apply bg-beige-100 text-grey-900;
+		@apply bg-surface  text-fg;
 	}
 	.layout {
 		@apply flex flex-col items-center justify-center w-full gap-8 px-4 py-6 md:py-8 md:px-10 lg:justify-start;
 	}
+	hr {
+		@apply border-muted opacity-20;
+	}
+	.overview-content {
+		@apply flex flex-col w-full gap-8 px-5 py-6 rounded-12 bg-bg md:p-8;
+	}
+	.recurring-card {
+		@apply flex items-center justify-between w-full px-4 py-5 rounded-8 border-l-4 bg-surface text-4 text-muted leading-150;
+	}
+	/* Flexbox Utilities */
+
 	.flex-between {
 		@apply flex items-center justify-between w-full;
 	}
-	hr {
-		@apply border-grey-500 opacity-20;
+	.flex-center {
+		@apply flex items-center justify-center;
 	}
-	.overview-content {
-		@apply flex flex-col w-full gap-8 px-5 py-6 rounded-12 bg-white md:p-8;
+	.flex-center-full {
+		@apply flex items-center w-full;
 	}
-	.recurring-card {
-		@apply flex items-center justify-between w-full px-4 py-5 rounded-8 border-l-4  bg-beige-100 text-4 text-grey-500 leading-150;
+	.flex-column {
+		@apply flex flex-col w-full;
+	}
+	.flex-column-center {
+		@apply flex flex-col items-center justify-center;
+	}
+	.text-h1 {
+		@apply text-1 font-bold leading-120;
+	}
+	.text-h2 {
+		@apply text-2 leading-120 font-bold;
+	}
+	.text-h2-h1 {
+		@apply text-2 leading-120 font-bold md:text-1;
+	}
+	.text-h3 {
+		@apply text-3 leading-150 font-bold;
+	}
+	.text-p4 {
+		@apply text-4 leading-150 font-normal;
+	}
+	.text-p4-bold {
+		@apply text-4 font-bold leading-150;
+	}
+	.text-p5 {
+		@apply text-5 leading-150 font-normal;
+	}
+	.text-p5-bold {
+		@apply text-5 font-bold leading-150;
 	}
 }
 
@@ -101,40 +134,47 @@
 	.btn {
 		@apply inline-flex items-center p-4 justify-center font-semibold rounded-8 transition-all duration-300 cursor-pointer;
 	}
-	.btn-primary {
-		@apply bg-grey-900 text-white  hover:bg-grey-500 transition-colors duration-300;
+	.btn-fg {
+		@apply bg-fg text-bg hover:bg-muted transition-colors duration-300;
 	}
-	.btn-secondary {
-		@apply bg-beige-100 text-grey-900 border border-transparent hover:border-beige-500 hover:bg-white;
+	.btn-surface {
+		@apply bg-surface text-fg border border-transparent hover:border-surface hover:bg-bg;
 	}
 	.btn.btn-tertiary {
-		@apply text-grey-500 hover:text-grey-900 text-4 font-normal leading-150;
+		@apply text-muted hover:text-fg text-4 font-normal leading-150;
 	}
 	.btn-destroy {
-		@apply bg-secondary-red text-white hover:bg-secondary-red/80;
+		@apply bg-danger text-bg hover:bg-danger/80;
 	}
 	.input-state {
-		@apply flex flex-col items-center justify-start gap-4 px-5 py-3 rounded-8 border border-beige-500 bg-white placeholder:text-beige-500 text-grey-900 hover:border-grey-500 has-focus:border-grey-500 transition-all duration-300;
+		@apply flex flex-col items-center justify-start gap-4 px-5 py-3 rounded-8 border border-surface bg-bg placeholder:text-surface text-fg hover:border-muted has-focus:border-muted transition-all duration-300;
 	}
 	.error-message {
 		@apply text-5  text-red-500 font-bold leading-150 flex items-center gap-1;
 	}
 	/* Overview */
 	.balance-card {
-		@apply rounded-12 w-full p-5 flex flex-col gap-3 md:p-6 text-grey-500 bg-white;
+		@apply rounded-12 w-full p-5 flex flex-col gap-3 md:p-6 text-muted bg-bg;
 	}
 
 	/* Modals */
 	.modal-overlay {
-		@apply fixed inset-0 bg-black/50 flex items-center justify-center;
+		@apply fixed inset-0 bg-fg/50 flex items-center justify-center;
 	}
+	.dark .modal-overlay {
+		@apply bg-bg/50;
+	}
+
 	.modal-content {
-		@apply flex flex-col items-center justify-start bg-white px-5 py-6 rounded-12 gap-5;
+		@apply flex flex-col items-center justify-start bg-bg px-5 py-6 rounded-12 gap-5;
+	}
+	.input-container {
+		@apply px-5 text-4 leading-150 py-3 rounded-8 bg-bg border border-surface has-focus-within:border-fg  flex items-center gap-3;
 	}
 
 	/* Settings */
 	.settings-option {
-		@apply flex items-center justify-between gap-3 text-grey-900 transition-all duration-200 px-3 hover:bg-secondary-green/40 py-2 rounded-8 cursor-pointer;
+		@apply flex items-center justify-between gap-3 text-fg transition-all duration-200 px-3 hover:bg-accent/40 py-2 rounded-8 cursor-pointer;
 	}
 }
 ::-webkit-progress-bar {

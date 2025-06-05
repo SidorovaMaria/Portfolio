@@ -1,62 +1,64 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-import IconCaretLeft from "../svg/IconCaretLeft";
+
 import DonutChart from "../budgets/DonutChart";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { BudgetSummary } from "../budgets/SpendingSummary";
 import { calculateSpendingForBudget, toLocaleStringWithCommas } from "@/lib/helperFunctions";
+import OverviewHeader from "./OverviewHeader";
 
 const MyBudget = () => {
 	const router = useRouter();
 	const { budgets, transactions, currency } = useSelector((state: RootState) => state.finance);
-	const budgetSummary: BudgetSummary[] = budgets.map((budget) => {
-		const spending = calculateSpendingForBudget(transactions, budget);
-		return {
-			budget: budget,
-			spent: spending,
-		};
-	});
+
+	const budgetSummary: BudgetSummary[] = budgets.map((budget) => ({
+		budget,
+		spent: calculateSpendingForBudget(transactions, budget),
+	}));
+	const handleNavigation = () => router.push("/budgets");
 
 	return (
-		<aside className="overview-content">
-			<div className="flex w-full items-center justify-between">
-				<h2 className="text-2 font-bold leading-120">Budgets</h2>
-				<button
-					className="btn btn-tertiary group duration-300 transition-all"
-					onClick={() => router.push("/budgets")}
-				>
-					See Details
-					<span className="ml-3 inline-flex">
-						<IconCaretLeft className=" duration-300 transition-all fill-grey-300 rotate-180 group-hover:fill-grey-900" />
-					</span>
-				</button>
-			</div>
-			<div className="flex flex-col items-center w-full gap-4 md:grid md:grid-cols-[2fr_1fr]">
-				<div className="flex items-center justify-center w-full">
+		<aside className="overview-content" aria-labelledby="budgets-overview">
+			<OverviewHeader
+				title="Budgets"
+				handleNavigation={handleNavigation}
+				ariaLabel="Navigate to all budgets page"
+				ariaTitle="View All Budgets"
+				text="See Details"
+			/>
+			<section
+				className="flex-column gap-4 md:grid md:grid-cols-[4fr_1fr] items-start"
+				aria-labelledby="budget-summary and category-list"
+			>
+				<div className="flex-center w-full">
 					<DonutChart data={budgetSummary} />
 				</div>
-				<div className="grid grid-cols-2 md:grid-cols-auto gap-4 w-full items-center">
-					{budgetSummary.slice(0, 8).map((summary) => (
-						<div
-							className="flex flex-col gap-1 w-full pl-4 relative"
-							key={summary.budget.id}
+				<ul
+					className="grid grid-cols-2 md:grid-cols-1 gap-4 w-full items-center"
+					aria-labelledby="Top 4 Budget Categories"
+				>
+					{budgetSummary.slice(0, 4).map(({ budget, spent }) => (
+						<li
+							className="flex-column gap-1 pl-4 relative"
+							key={budget.id}
+							aria-label={`Category: ${
+								budget.category.name
+							}, spent ${toLocaleStringWithCommas(spent, currency, 2)}`}
 						>
 							<span
-								className="h-full w-1 absolute top-0 left-0 rounded-8"
-								style={{ backgroundColor: summary.budget.theme.value }}
+								aria-hidden
+								className="absolute top-0 left-0 w-1 h-full rounded-8"
+								style={{ backgroundColor: budget.theme.value }}
 							/>
-
-							<p className="text-5 text-grey-500 leading-150 capitalize">
-								{summary.budget.category.name}
+							<p className="text-p5 text-muted capitalize">{budget.category.name}</p>
+							<p className="text-p4-bold">
+								{toLocaleStringWithCommas(spent, currency, 2)}
 							</p>
-							<p className="text-4 font-bold leading-150">
-								{toLocaleStringWithCommas(summary.spent, currency, 2)}{" "}
-							</p>
-						</div>
+						</li>
 					))}
-				</div>
-			</div>
+				</ul>
+			</section>
 		</aside>
 	);
 };

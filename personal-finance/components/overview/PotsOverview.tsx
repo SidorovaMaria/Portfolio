@@ -1,59 +1,61 @@
 'use client";';
 import { useRouter } from "next/navigation";
-import IconCaretLeft from "../svg/IconCaretLeft";
+
 import { useSelector } from "react-redux";
 import { RootState } from "../../lib/store";
 import IconPot from "../svg/IconPot";
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
+import OverviewHeader from "./OverviewHeader";
 
 const PotsOverview = () => {
 	const router = useRouter();
 	const { pots, currency } = useSelector((state: RootState) => state.finance);
 	const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0);
-
+	const handleNavigation = () => router.push("/pots");
 	return (
-		<section className="modal-content">
-			<div className="flex w-full items-center justify-between">
-				<h2 className="text-2 font-bold leading-120">Pots</h2>
-				<button
-					className="btn btn-tertiary group duration-300 transition-all"
-					onClick={() => router.push("/pots")}
+		<section className="modal-content" aria-labelledby="Top 4 Pots">
+			<OverviewHeader
+				title="Pots"
+				handleNavigation={handleNavigation}
+				ariaLabel="Navigate to all pots page"
+				ariaTitle="View All Pots"
+				text="View All"
+			/>
+
+			<div className="flex-column items-center justify-start gap-5 md:grid md:grid-cols-[2fr_3fr] ">
+				<div
+					className="flex w-full h-full items-center justify-start gap-4 bg-surface p-4 rounded-12"
+					aria-label="Total Saved across all pots"
 				>
-					See Details
-					<span className="ml-3 inline-flex">
-						<IconCaretLeft className=" duration-300 transition-all fill-grey-300 rotate-180 group-hover:fill-grey-900" />
-					</span>
-				</button>
-			</div>
-			<div className="flex flex-col items-center justify-start w-full gap-5 md:flex-row">
-				<aside className="flex gap-4 w-full items-center justify-start">
-					<IconPot className="w-10 h-10" />
-					<div className="flex flex-col gap-2.5 justify-between h-full">
-						<p className="text-4 leading-150 text-grey-500">Total Saved</p>
-						<h5 className="text-1 font-bold leading-120">
+					<IconPot className="w-10 h-10" aria-hidden="true" />
+					<div className="flex flex-col gap-2 justify-center h-full">
+						<p className="text-p4 text-muted ">Total Saved</p>
+						<h5 className="text-h1">
 							{toLocaleStringWithCommas(totalSaved, currency, 0)}
 						</h5>
 					</div>
-				</aside>
-				<div className="grid grid-cols-2 gap-4 w-full">
-					{pots.slice(0, 6).map((pot) => (
-						<section
-							key={pot.id}
-							className="flex flex-col gap-1 w-full pl-5 min-h-10 relative"
-						>
+				</div>
+				<ul
+					className="grid grid-cols-2 gap-4 w-full"
+					role="list"
+					aria-label="List of savings pots"
+				>
+					{pots.slice(0, 4).map((pot) => (
+						<li key={pot.id} className="flex-column gap-1 pl-5 min-h-10 relative">
 							<span
 								className="absolute h-full w-1 left-0 top-0 rounded-8"
+								aria-hidden="true"
 								style={{
 									backgroundColor: pot.theme.value,
 								}}
 							></span>
-							<p className="text-5 text-grey-500 leading-150 ">{pot.name}</p>
-							<p className="text-4 font-bold leading-150">
+							<p className="text-p5 text-muted">{pot.name}</p>
+							<p className="text-p4-bold text-fg">
 								{toLocaleStringWithCommas(pot.total, currency, 0)}
 							</p>
-						</section>
+						</li>
 					))}
-				</div>
+				</ul>
 			</div>
 		</section>
 	);

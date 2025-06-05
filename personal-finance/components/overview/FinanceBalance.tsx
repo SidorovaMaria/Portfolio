@@ -7,40 +7,40 @@ import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 
 const FinanceBalance = () => {
 	const { balance, currency } = useSelector((state: RootState) => state.finance);
-	console.log(balance);
+	const currentMonth = new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date());
 
 	return (
-		<section className="flex flex-col gap-3 w-full items-start justify-start md:flex-row md:gap-6">
-			<div className="bg-grey-900 text-white balance-card  ">
-				<p className="text-4 leading-150">Current Balance</p>
-				<p className="leading-120 text-1 font-bold">
-					{toLocaleStringWithCommas(balance.current, currency)}
-				</p>
-			</div>
-			<div className="balance-card bg-gradient-to-b  from-white to-secondary-green text-secondary-green ">
-				<p className="text-4 font-semibold leading-150">
-					Income{" "}
-					<span className="text-3 font-bold ">
-						({new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())})
-					</span>
-				</p>
-				<p className="leading-120 text-1 font-bold text-white">
-					{toLocaleStringWithCommas(balance.income, currency)}
-				</p>
-			</div>
-			<div className="balance-card   bg-gradient-to-b  from-white to-secondary-red text-secondary-red ">
-				<p className="text-4 leading-150">
-					Expenses{" "}
-					<span className="text-3 font-bold">
-						({new Intl.DateTimeFormat("en-US", { month: "long" }).format(new Date())})
-					</span>
-				</p>
-				<p className="leading-120 text-1 font-bold text-white">
-					{toLocaleStringWithCommas(balance.expenses, currency)}
-				</p>
-			</div>
+		<section className="flex-column gap-3  items-start justify-start md:flex-row md:gap-6">
+			<BalanceCard
+				className="bg-fg text-bg"
+				title="Current Balance"
+				value={toLocaleStringWithCommas(balance.current, currency)}
+			/>
+			<BalanceCard
+				className=" bg-accent text-bg dark:text-fg"
+				title={`Income (${currentMonth})`}
+				value={toLocaleStringWithCommas(balance.income, currency)}
+			/>
+			<BalanceCard
+				className=" bg-danger text-bg dark:text-fg"
+				title={`Expenses (${currentMonth})`}
+				value={toLocaleStringWithCommas(balance.expenses, currency)}
+			/>
 		</section>
 	);
 };
 
 export default FinanceBalance;
+
+interface BalanceCardProps {
+	title: string;
+	value: string;
+	className?: string;
+}
+
+const BalanceCard = ({ title, value, className = "" }: BalanceCardProps) => (
+	<article className={`balance-card ${className}`}>
+		<p className="text-p4">{title}</p>
+		<p className="text-h1">{value}</p>
+	</article>
+);

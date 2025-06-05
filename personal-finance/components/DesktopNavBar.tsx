@@ -18,8 +18,8 @@ const DesktopNavBar = () => {
 			animate={minimizeNavBar ? "minimized" : "full"}
 			variants={DesktopNavBarVariants}
 			className="hidden lg:flex flex-col min-h-screen
-    gap-6 pb-6 rounded-r-16
-     bg-grey-900 "
+    gap-6 pb-6 rounded-r-16 bg-fg dark:bg-bg border-r dark:border-fg
+    "
 		>
 			{/* Icon */}
 
@@ -71,20 +71,26 @@ const DesktopNavBar = () => {
 							key={link.title}
 							onClick={() => router.push(link.link)}
 							className={`cursor-pointer w-full rounded-r-12 flex gap-4 items-center justify-start transition-all duration-300 group py-4  ${
-								active && "bg-white"
+								active && "bg-bg"
 							}
                             ${minimizeNavBar ? "px-6 " : "px-8 "}  `}
 						>
 							<span className="flex items-center justify-center min-w-6 min-h-6 p-0.5">
 								<Icon
-									className={`fill-grey-300 w-full h-auto
-                                ${active ? "fill-secondary-green" : " group-hover:fill-grey-100"}`}
+									className={`fill-muted-alt dark:fill-muted w-full h-auto
+                                ${
+									active
+										? "fill-accent!"
+										: "group-hover:fill-bg dark:group-hover:fill-fg"
+								}`}
 								/>
 							</span>
 							<motion.p
 								variants={navText}
-								className={`hidden md:block text-3 font-bold  text-grey-300 ${
-									active ? "text-grey-900 " : " group-hover:text-grey-100"
+								className={`hidden md:block text-3 font-bold text-muted-alt dark:text-muted  ${
+									active
+										? "text-fg! "
+										: " group-hover:text-bg dark:group-hover:text-fg"
 								}`}
 							>
 								{link.title}
@@ -102,11 +108,11 @@ const DesktopNavBar = () => {
 				className="btn btn-tertiary w-full px-8 py-4 group rounded-r-12 flex items-center gap-4 justify-start transition-all duration-300"
 			>
 				<motion.span variants={MinimizeIconVariants}>
-					<IconMinimizeMenu className="fill-grey-300 min-w-5 min-h-5 group-hover:fill-grey-100" />
+					<IconMinimizeMenu className="fill-muted-alt dark:fill-muted min-w-5 min-h-5 group-hover:fill-bg dark:group-hover:fill-fg" />
 				</motion.span>
 				<motion.p
 					variants={navText}
-					className="text-3 font-bold text-grey-300 group-hover:text-grey-100 gap-4"
+					className="text-3 font-bold text-muted-alt dark:text-muted group-hover:text-bg dark:group-hover:text-fg"
 				>
 					Minimize Menu
 				</motion.p>
