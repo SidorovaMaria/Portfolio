@@ -137,16 +137,31 @@ export default function Transactions() {
 						/>
 					</div>
 				</div>
-				<section className="flex gap-2 flex-col  w-full ">
+
+				<section className="flex gap-2 flex-col w-full ">
 					{transactions.length > 0 ? (
 						paginatedTransactions.length > 0 ? (
-							paginatedTransactions.map((transaction) => (
-								<Transaction
-									key={transaction.id}
-									transaction={transaction}
-									edit={setTransactionToEdit}
-								/>
-							))
+							<>
+								<ul className="md:flex items-center justify-between text-p5 text-muted w-full pb-3 px-2 hidden">
+									<div className="grid grid-cols-[2fr_1fr] w-full ">
+										<p> Transaction Title</p>
+										<p className="pl-3">Category</p>
+									</div>
+									<div className="grid grid-cols-2 w-full">
+										<p className="text-right ">Transaction Date</p>
+										<p className="text-right">Amount</p>
+									</div>
+								</ul>
+								{paginatedTransactions.map((transaction) => (
+									<>
+										<Transaction
+											key={transaction.id}
+											transaction={transaction}
+											edit={setTransactionToEdit}
+										/>
+									</>
+								))}
+							</>
 						) : (
 							<p
 								className="text-p4 text-muted text-center"
