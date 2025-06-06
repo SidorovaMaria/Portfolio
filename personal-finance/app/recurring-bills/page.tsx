@@ -1,10 +1,10 @@
 "use client";
-import TotalBills from "@/components/recurring/TotalBills";
+import TotalBills from "@/app/recurring-bills/TotalBills";
 import Title from "@/components/Title";
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
-import RecurringTransaction from "@/components/recurring/RecurringTransaction";
+import RecurringTransaction from "@/app/recurring-bills/RecurringTransaction";
 import { sortByOptions } from "@/components/constants";
 import { useMemo, useState } from "react";
 import { sortRecurringTransactionsByFilter } from "@/lib/helperFunctions";
@@ -34,27 +34,24 @@ export default function RecurringBills() {
 			<Title title="Recurring Bills" />
 			<section className="grid grid-cols-1 gap-6 w-full lg:grid-cols-[1fr_2fr] justify-start items-start">
 				<TotalBills />
-				<div className="flex flex-col gap-6 px-5 py-6 bg-white rounded-12">
+				<div className="flex-column gap-6 px-5 py-6 bg-bg rounded-12">
 					{/* Search BAR */}
-					<div className="flex items-center justify-between gap-4 ">
-						<label
-							htmlFor="search"
-							className="flex gap-4 border rounded-8 px-5 py-3 flex-1  "
-						>
+					<div className="flex-between gap-4 ">
+						<label htmlFor="search" className="input-container flex-1 group">
 							<input
 								id="search"
-								className="w-full flex-1 outline-none text-4 leading-150"
+								className="w-full flex-1 outline-none text-p4"
 								type="text"
 								placeholder="Search Transactions"
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 							/>
-							<SearchIcon className="w-4 h-4 text-grey-900" />
+							<SearchIcon className="size-4 text-muted group-focus-within:text-fg" />
 						</label>
 
-						<div className="flex items-center gap-4">
+						<div className="flex-center gap-4">
 							<DropDown
-								icon={<IconSortMobile className="w-5 h-5 fill-grey-900" />}
+								icon={<IconSortMobile className="size-5 fill-fg" />}
 								label="Sort By"
 								options={sortByOptions}
 								selected={sortBy.sort}
@@ -69,12 +66,11 @@ export default function RecurringBills() {
 							/>
 						</div>
 					</div>
-					{/* Recurring Transactions List */}
 
 					{/* Larger Screen Columns */}
 					<aside
 						className="md:grid grid-cols-2 hidden
-                    text-5 text-grey-500 leading-150"
+                    text-p5 text-muted px-2"
 					>
 						<p className="">Bill Title</p>
 						<div className="grid grid-cols-2 justify-between">
@@ -82,7 +78,7 @@ export default function RecurringBills() {
 							<p className="text-right">Amount</p>
 						</div>
 					</aside>
-					<ul className="flex flex-col gap-5 w-full">
+					<ul className="flex-column gap-5 w-full">
 						{sortedTransactions.length > 0 ? (
 							sortedTransactions.map((transaction) => (
 								<RecurringTransaction
@@ -91,7 +87,7 @@ export default function RecurringBills() {
 								/>
 							))
 						) : (
-							<p className="text-5 text-grey-500">No recurring bills found.</p>
+							<p className="text-5 text-muted">No recurring bills found.</p>
 						)}
 					</ul>
 				</div>

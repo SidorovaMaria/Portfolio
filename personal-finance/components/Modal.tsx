@@ -1,11 +1,13 @@
 import { AnimatePresence, motion } from "motion/react";
 import { modalContentVariant, ModalOverlayVariant } from "./constants/motionVariants";
+import IconCloseModal from "./svg/IconCloseModal";
 interface ModalProps {
 	open: boolean;
 	close: () => void;
 	children: React.ReactNode;
+	title: string;
 }
-const Modal = ({ open, close, children }: ModalProps) => {
+const Modal = ({ open, close, children, title }: ModalProps) => {
 	return (
 		<AnimatePresence>
 			{open && (
@@ -22,6 +24,13 @@ const Modal = ({ open, close, children }: ModalProps) => {
 						variants={modalContentVariant}
 						className="modal-content w-full max-w-[560px] origin-top "
 					>
+						<div className="flex w-full items-center justify-between ">
+							<h2 className="text-h2-h1">{title}</h2>
+							<IconCloseModal
+								className="cursor-pointer w-8 h-8 fill-muted hover:fill-red-400 transition-colors duration-300"
+								onClick={close}
+							/>
+						</div>
 						{children}
 					</motion.div>
 				</motion.div>

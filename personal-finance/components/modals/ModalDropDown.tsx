@@ -11,6 +11,7 @@ interface ModalDropDownProps {
 	selected: CategoriesType | ThemeType;
 	setSelected: (value: CategoriesType | ThemeType) => void;
 	error?: string;
+	disabled?: boolean;
 }
 
 const ModalDropDown = ({
@@ -20,6 +21,7 @@ const ModalDropDown = ({
 	error,
 	setSelected,
 	optionType,
+	disabled = false,
 }: ModalDropDownProps) => {
 	const [open, setOpen] = useState(false);
 	const isTheme = optionType === "themes";
@@ -69,11 +71,16 @@ const ModalDropDown = ({
 					</p>
 				)}
 			</div>
-			<div className="input-container relative">
+			<div className="input-container relative has-disabled:opacity-80">
 				<div className="flex items-center gap-3 w-full">
 					{renderSelectedIcon()}
 					<p className="text-fg text-p4 flex-1">{selected.name} </p>
-					<button type="button" className="w-4 h-4" onClick={() => setOpen(!open)}>
+					<button
+						type="button"
+						className="w-4 h-4"
+						onClick={() => setOpen(!open)}
+						disabled={disabled}
+					>
 						<IconCaretLeft
 							className={` -rotate-90 fill-fg w-3 h-3 cursor-pointer transition-all duration-300 ${
 								open && "rotate-90"

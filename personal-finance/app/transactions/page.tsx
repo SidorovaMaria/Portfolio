@@ -19,7 +19,7 @@ export default function Transactions() {
 	const [openTransactionModal, setOpenTransactionModal] = useState({
 		isOpen: false,
 		type: "",
-		transaction: null as TransactionType | null, // for editing a specific transaction
+		transaction: null as TransactionType | null,
 	});
 	const { transactions, categories } = useSelector((state: RootState) => state.finance);
 	const setTransactionToEdit = (transaction: TransactionType | null) => {
@@ -89,7 +89,7 @@ export default function Transactions() {
 			/>
 			<section className="flex-column gap-6 px-5 min-h-[40vh]">
 				{/* Search and Filter */}
-				<div className="flex-between gap-4 ">
+				<div className="flex-between gap-4 group">
 					<label htmlFor="search" className="input-container flex-1 lg:max-w-[320px]">
 						<input
 							id="search"
@@ -99,7 +99,7 @@ export default function Transactions() {
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
 						/>
-						<SearchIcon className="w-4 h-4 text-grey-900" />
+						<SearchIcon className="size-4 text-muted group-focus-within:text-fg" />
 					</label>
 					<div className="flex gap-6 items-center justify-end">
 						<DropDown
@@ -143,23 +143,21 @@ export default function Transactions() {
 						paginatedTransactions.length > 0 ? (
 							<>
 								<ul className="md:flex items-center justify-between text-p5 text-muted w-full pb-3 px-2 hidden">
-									<div className="grid grid-cols-[2fr_1fr] w-full ">
+									<li className="grid grid-cols-[2fr_1fr] w-full ">
 										<p> Transaction Title</p>
 										<p className="pl-3">Category</p>
-									</div>
-									<div className="grid grid-cols-2 w-full">
+									</li>
+									<li className="grid grid-cols-2 w-full">
 										<p className="text-right ">Transaction Date</p>
 										<p className="text-right">Amount</p>
-									</div>
+									</li>
 								</ul>
 								{paginatedTransactions.map((transaction) => (
-									<>
-										<Transaction
-											key={transaction.id}
-											transaction={transaction}
-											edit={setTransactionToEdit}
-										/>
-									</>
+									<Transaction
+										key={transaction.id}
+										transaction={transaction}
+										edit={setTransactionToEdit}
+									/>
 								))}
 							</>
 						) : (
