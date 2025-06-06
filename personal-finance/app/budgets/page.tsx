@@ -49,11 +49,11 @@ export default function Budgets() {
 					}))
 				}
 			>
-				<Plus className="w-5 h-5 stroke-[4px] fill-white" />
+				<Plus className="w-5 h-5 stroke-[4px] fill-fg" />
 			</Title>
 			<section className=" gap-6 w-full ovefllow-y-auto grid grid-cols-1 lg:grid-cols-2 max-h-[calc(100vh-17vh)] ">
 				<SpendingSummary />
-				<section className="flex flex-col gap-6 w-full overflow-auto  lg:max-h-[calc(100vh-15vh)] lg:px-4">
+				<section className="flex flex-col gap-6 w-full overflow-auto lg:max-h-[calc(100vh-15vh)] lg:px-4">
 					{budgets.length > 0
 						? budgets.map((budget) => (
 								<Budget

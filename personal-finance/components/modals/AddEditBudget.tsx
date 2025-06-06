@@ -5,7 +5,6 @@ import { BudgetType } from "@/lib/features/financeSlice";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import IconCloseModal from "../svg/IconCloseModal";
 import ModalDropDown from "./ModalDropDown";
 import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +17,8 @@ interface AddEditBudgetProps {
 	budget: BudgetType | null;
 }
 const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
-	const { categories, currency } = useSelector((state: RootState) => state.finance);
+	const { categories, currency, budgets } = useSelector((state: RootState) => state.finance);
+
 	const budgetSchema = Yup.object({
 		category: Yup.object({
 			name: Yup.string().required("Category name is required"),
@@ -29,7 +29,15 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 				"theme-not-placeholder",
 				"Please choose a category",
 				(value) => value?.name !== "Choose Category"
-			),
+			)
+			.test("unique-budget", "Budget for this already exists", function (value) {
+				const existingBudget = budgets.find((b) => b.category.name === value?.name);
+
+				if (existingBudget && mode === "add") {
+					return false;
+				}
+				return true;
+			}),
 		//TODO CAN Not add Same catgory type
 		maximum: Yup.number()
 			.typeError("Must be a number")
@@ -78,7 +86,6 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 	};
 	const dispatch = useDispatch();
 	const handleSubmitBudget = (data: BudgetFormData) => {
-		console.log("Submitted Budget Data:", data);
 		if (mode === "add") {
 			dispatch({
 				type: "finance/addBudget",
@@ -121,17 +128,12 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 	}, [mode, budget, reset]);
 
 	return (
-		<Modal close={closeResetModal} open={open}>
-			<div className="flex w-full items-center justify-between ">
-				<h2 className="text-2 md:text-1 leading-120 font-bold">
-					{mode === "add" ? "Add New Budget" : "Edit Budget"}
-				</h2>
-				<IconCloseModal
-					className="cursor-pointer w-8 h-8 fill-grey-500 hover:fill-red-400 transition-colors duration-300"
-					onClick={closeResetModal}
-				/>
-			</div>
-			<p className="text-4 w-full text-grey-500 leading-150">
+		<Modal
+			close={closeResetModal}
+			open={open}
+			title={mode === "add" ? "Add New Budget" : "Edit Budget"}
+		>
+			<p className="text-p4 w-full text-muted">
 				{mode == "add"
 					? "Choose a category to set a spending budget. These categories can help you monitor spending."
 					: "As your budgets change, feel free to update your spending limits."}
@@ -146,6 +148,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 					optionType="categories"
 					label="Budget Category"
 					options={categories}
+					disabled={mode === "edit" ? true : false}
 					selected={watch("category")}
 					setSelected={(category) =>
 						setValue(
@@ -157,24 +160,21 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 						)
 					}
 				/>
-				<div className="flex flex-col gap-1 w-full">
-					<div className="flex w-full items-center justify-between">
-						<label
-							htmlFor="maximum"
-							className="text-5 font-bold leading-150 text-grey-500"
-						>
+				<div className="flex-column gap-1 ">
+					<div className="flex-between">
+						<label htmlFor="maximum" className="text-p5-bold text-muted">
 							Maximum Spend
 						</label>
 						{errors.maximum && (
 							<p className="error-message ">
-								<IconWarning className="inline-flex  fill-red-500 " />
+								<IconWarning className="inline-flex fill-red-500 " />
 
 								{errors.maximum.message}
 							</p>
 						)}
 					</div>
-					<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-						<span className=" text-grey-500">{currency}</span>
+					<div className="input-container">
+						<span className="text-border dark:text-muted-alt">{currency}</span>
 						<input
 							type="number"
 							id="maximum"

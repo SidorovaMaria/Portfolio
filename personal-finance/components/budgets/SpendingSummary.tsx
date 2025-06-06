@@ -21,31 +21,28 @@ const SpendingSummary = () => {
 	});
 
 	return (
-		<div className="flex flex-col gap-8 w-full px-5 py-6">
+		<div className="flex-column gap-8 px-5 py-6 md:flex-row md:items-center lg:flex-col">
 			{/* Circle */}
-			<div className="flex items-center justify-center w-full">
+			<div className="flex-center w-full">
 				<DonutChart data={budgetSummary} />
 			</div>
 			{/* Summary */}
-			<div className=" flex flex-col gap-6 w-full">
-				<h4 className="text-2 leading-120 font-bold">Spending Summary</h4>
+			<div className="flex-column gap-6">
+				<h4 className="text-h2 ">Spending Summary</h4>
 				{budgetSummary.length > 0 ? (
-					<div className="flex flex-col gap-4 w-full">
+					<div className="flex-column gap-4 ">
 						{budgetSummary.map((summary) => (
-							<div
-								className="flex items-center justify-between w-full relative pl-4"
-								key={summary.budget.id}
-							>
+							<div className="flex-between relative pl-4" key={summary.budget.id}>
 								<span
 									className="absolute left-0 top-0 w-[4px] h-full rounded-8 "
 									style={{ backgroundColor: summary.budget.theme.value }}
 								/>
-								<p className="text-4 leading-150 text-grey-500 capitalize">
+								<p className="text-p4 text-muted  capitalize">
 									{summary.budget.category.name}{" "}
 								</p>
-								<p className="text-3 leaing-120 font-bold  align-middle">
+								<p className="text-h3  align-middle">
 									{toLocaleStringWithCommas(summary.spent, currency, 2)}{" "}
-									<span className="text-5 font-normal leading-150 text-grey-500 inline-flex align-middle">
+									<span className="text-p5 text-muted inline-flex align-middle">
 										of{" "}
 										{toLocaleStringWithCommas(
 											summary.budget.maximum,

@@ -39,7 +39,7 @@
 .dark {
 	/* Dark Mode Colors */
 	--color-bg: #201f24;
-	--color-fg: #f2f2f2;
+	--color-fg: #e8e5e5;
 	--color-muted: #b3b3b3;
 	--color-muted-alt: #696868;
 	--color-surface: #2b2a30;
@@ -134,23 +134,23 @@
 	.btn {
 		@apply inline-flex items-center p-4 justify-center font-semibold rounded-8 transition-all duration-300 cursor-pointer;
 	}
-	.btn-fg {
+	.btn-primary {
 		@apply bg-fg text-bg hover:bg-muted transition-colors duration-300;
 	}
-	.btn-surface {
-		@apply bg-surface text-fg border border-transparent hover:border-surface hover:bg-bg;
+	.btn-secondary {
+		@apply bg-surface text-fg border border-transparent hover:border-muted;
 	}
 	.btn.btn-tertiary {
 		@apply text-muted hover:text-fg text-4 font-normal leading-150;
 	}
 	.btn-destroy {
-		@apply bg-danger text-bg hover:bg-danger/80;
+		@apply bg-danger text-white hover:bg-danger/80;
 	}
 	.input-state {
 		@apply flex flex-col items-center justify-start gap-4 px-5 py-3 rounded-8 border border-surface bg-bg placeholder:text-surface text-fg hover:border-muted has-focus:border-muted transition-all duration-300;
 	}
 	.error-message {
-		@apply text-5  text-red-500 font-bold leading-150 flex items-center gap-1;
+		@apply text-5  text-red-500/80 font-bold leading-150 flex items-center gap-1;
 	}
 	/* Overview */
 	.balance-card {
@@ -159,17 +159,14 @@
 
 	/* Modals */
 	.modal-overlay {
-		@apply fixed inset-0 bg-fg/50 flex items-center justify-center;
-	}
-	.dark .modal-overlay {
-		@apply bg-bg/50;
+		@apply fixed inset-0 bg-fg/50 dark:bg-bg/80 flex items-center backdrop-blur-[1px] justify-center;
 	}
 
 	.modal-content {
-		@apply flex flex-col items-center justify-start bg-bg px-5 py-6 rounded-12 gap-5;
+		@apply flex flex-col items-center border border-fg/50 justify-start bg-bg px-5 py-6 rounded-12 gap-5;
 	}
 	.input-container {
-		@apply px-5 text-4 leading-150 py-3 rounded-8 bg-bg border border-surface has-focus-within:border-fg  flex items-center gap-3;
+		@apply px-5 text-4 leading-150 py-3 rounded-8 bg-bg border border-muted-alt has-focus-within:border-fg  flex items-center gap-3;
 	}
 
 	/* Settings */

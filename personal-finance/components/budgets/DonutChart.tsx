@@ -76,7 +76,7 @@ const DonutChart = ({ data }: DonutChartProps) => {
 					.style("top", `${y + height / 2}px`).html(`
                     <div style="padding: 6px 12px; background: ${
 						d.data.color
-					}; color: white ; border-radius: 5px;
+					}; color: #fff;  border-radius: 5px;
                     font-family: 'Public Sans', sans-serif; font-size: 16px; display: flex; flex-direction: column; gap: 2px;">
                     <strong>${d.data.label}</strong>
               <p style="font-weight:500" >${toLocaleStringWithCommas(d.data.value, "USD", 2)}</p>
@@ -87,25 +87,17 @@ const DonutChart = ({ data }: DonutChartProps) => {
 				tooltip.style("display", "none");
 			});
 
-		g.append("circle")
-			.attr("cx", 0)
-			.attr("cy", 0)
-			.attr("r", Math.min(width, height) / 2.8)
+		const centerDonut = d3
+			.arc()
+			.innerRadius(innerRadius)
+			.outerRadius(Math.min(width, height) / 2.8) // slightly larger for the ring look
+			.startAngle(0)
+			.endAngle(2 * Math.PI);
+
+		g.append("path")
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			.attr("d", centerDonut as any)
 			.attr("fill", "rgba(255, 255, 255, 0.3)");
-		g.append("text")
-			.attr("text-anchor", "middle")
-			.attr("dy", "0em")
-			.style("font-size", "32px")
-			.style("font-family", "Public Sans, sans-serif")
-			.style("font-weight", "bold")
-			.text(`${toLocaleStringWithCommas(totalSpent, currency, 0)}`);
-		g.append("text")
-			.attr("text-anchor", "middle")
-			.attr("dy", "1.8em")
-			.style("font-size", "14px")
-			.style("font-family", "Public Sans, sans-serif")
-			.style("fill", "#696868")
-			.text(` of ${toLocaleStringWithCommas(totalBudget, currency, 0)} limit`);
 	});
 	return (
 		<div className="relative">
@@ -119,6 +111,14 @@ const DonutChart = ({ data }: DonutChartProps) => {
 					zIndex: 10,
 				}}
 			/>
+			<div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex flex-col gap-2">
+				<h1 className="text-fg text-h1">
+					{toLocaleStringWithCommas(totalSpent, currency, 0)}
+				</h1>
+				<p className="text-p5 text-muted text-center">
+					of ${toLocaleStringWithCommas(totalBudget, currency, 0)} limit
+				</p>
+			</div>
 		</div>
 	);
 };
