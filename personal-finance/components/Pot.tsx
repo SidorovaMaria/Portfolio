@@ -29,9 +29,9 @@ const Pot = ({ pot, open }: PotProps) => {
 	});
 
 	return (
-		<article className="flex flex-col w-full gap-8 px-5 py-6 rounded-12 bg-white ">
-			<div className="flex items-center justify-between w-full">
-				<h3 className="text-2 font-bold leading-120 text-grey-900 flex items-center gap-4 flex-1">
+		<article className="flex-column gap-8 px-5 py-6 rounded-12 bg-bg ">
+			<div className="flex-between">
+				<h3 className="text-h2 text-fg flex items-center gap-4 flex-1">
 					<span
 						className="size-4 inline-flex rounded-full"
 						style={{ backgroundColor: pot.theme.value }}
@@ -51,16 +51,14 @@ const Pot = ({ pot, open }: PotProps) => {
 					]}
 				/>
 			</div>
-			<div className="flex flex-col items-center gap-4 w-full">
+			<div className="flex-column gap-4 ">
 				<div className="flex items-center justify-between w-full">
-					<p className="text-4 leading-150 text-grey-500 capitalize">total saved</p>
-					<p className="text-1 font-bold leading-150 text-grey-900">
-						{toLocaleStringWithCommas(pot.total, currency, 2)}
-					</p>
+					<p className="text-p4 text-muted capitalize">total saved</p>
+					<p className="text-h1">{toLocaleStringWithCommas(pot.total, currency, 2)}</p>
 				</div>
 				{/* Progress Bar */}
-				<div className="flex flex-col gap-3 w-full">
-					<div className="relative w-full h-2 bg-gray-200 rounded-[4px] overflow-hidden">
+				<div className="flex-column gap-3">
+					<div className="relative w-full h-2 bg-surface-alt rounded-[4px] overflow-hidden">
 						<motion.div
 							className="h-full rounded-[4px]"
 							initial={false}
@@ -71,17 +69,17 @@ const Pot = ({ pot, open }: PotProps) => {
 							style={{ backgroundColor: pot.theme.value }}
 						/>
 					</div>
-					<div className="flex items-center justify-between w-full">
-						<p className="text-5 font-bold leading-150 text-grey-500">
+					<div className="flex-between">
+						<p className="text-p5-bold text-muted">
 							{((pot.total / pot.target) * 100).toFixed(2)}%
 						</p>
-						<p className="text-5 leading-150 text-grey-500">
+						<p className="text-p5 text-muted">
 							Target of {toLocaleStringWithCommas(pot.target, currency, 0)}
 						</p>
 					</div>
 				</div>
 			</div>
-			<div className="flex w-full gap-4 items-center">
+			<div className="flex-center gap-4">
 				<button
 					className="btn btn-secondary w-full p-4"
 					onClick={() => {

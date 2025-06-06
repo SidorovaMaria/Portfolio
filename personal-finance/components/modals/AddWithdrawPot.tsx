@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PotType } from "@/lib/features/financeSlice";
 import { motion } from "motion/react";
-
-import IconCloseModal from "../svg/IconCloseModal";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -40,7 +38,7 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 		register,
 		handleSubmit,
 		formState: { errors },
-
+		reset,
 		watch,
 	} = useForm<AddWithdrawFormData>({
 		resolver: yupResolver(addWithdrawSchema),
@@ -70,40 +68,38 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 			});
 		}
 		close();
+		reset();
 	};
+	useEffect(() => {
+		reset();
+	}, [mode, pot.id, reset]);
 
 	return (
-		<Modal close={close} open={open}>
-			<div className="flex w-full items-center justify-between ">
-				<h2 className="text-2 leading-120 font-bold">
-					{mode === "add" ? `Add to '${pot.name}'` : `Withdraw from '${pot.name}'`}
-				</h2>
-				<IconCloseModal
-					className="cursor-pointer w-8 h-8 fill-grey-500 hover:fill-red-400 transition-colors duration-300"
-					onClick={close}
-				/>
-			</div>
-			<p className="text-4 w-full text-grey-500 leading-150">
+		<Modal
+			close={close}
+			open={open}
+			title={mode === "add" ? `Add to '${pot.name}'` : `Withdraw from '${pot.name}'`}
+		>
+			<p className="text-p4 w-full text-muted">
 				{mode == "add"
 					? "Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance."
 					: "Withdraw from your pot to put money back in your main balance. This will reduce the amount you have in this pot."}
 			</p>
-			<section className="flex flex-col items-center w-full gap-4">
+			<section className="flex-column  gap-4">
 				{/* New Amount */}
-				<div className="flex items-center justify-between w-full mt-5">
-					<p className="text-4 text-grey-500 leading-150 capitalize">New Amount</p>
-					<p className="text-1 font-bold leading-120 text-grey-900">
+				<div className="flex-between mt-5">
+					<p className="text-p4 text-muted capitalize">New Amount</p>
+					<p className="text-h1">
 						{toLocaleStringWithCommas(newTotal ?? 0, currency, 2)}
 					</p>
 				</div>
 				{/* Progress Bar and Percentage */}
-				<div className="flex flex-col w-full gap-3">
-					<div className="relative w-full h-2 bg-gray-200 rounded-[4px] overflow-hidden">
+				<div className="flex-column gap-3">
+					<div className="relative w-full h-2 bg-surface-alt rounded-[4px] overflow-hidden">
 						<motion.div
-							className={`h-full rounded-[4px] absolute bg-grey-900 z-40
+							className={`h-full rounded-[4px] absolute bg-fg z-40
                                 ${
-									newTotal !== pot.total &&
-									" rounded-r-none border-r-2 border-white"
+									newTotal !== pot.total && " rounded-r-none border-r-2 border-bg"
 								}`}
 							initial={false}
 							animate={{
@@ -130,10 +126,10 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 							}}
 						/>
 					</div>
-					<div className="flex items-center justify-between w-full">
+					<div className="flex-between">
 						<p
-							className={`text-5 font-bold text-grey-900 ${
-								mode === "add" ? "text-secondary-green" : "text-secondary-red"
+							className={`text-p5-bold  ${
+								mode === "add" ? "text-accent" : "text-danger"
 							}`}
 						>
 							{percentage}%
@@ -141,40 +137,33 @@ const AddWithdrawPot = ({ pot, close, mode, open }: AddWithdrawPotProps) => {
 					</div>
 				</div>
 			</section>
-			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 w-full">
-				<div className="flex flex-col gap-1 w-full">
-					<div className="flex w-full items-center justify-between">
-						<label
-							htmlFor="potName"
-							className="text-5 font-bold leading-150 text-grey-500"
-						>
+			<form onSubmit={handleSubmit(onSubmit)} className=" flex-column gap-4 ">
+				<div className=" flex-column gap-1 ">
+					<div className="flex-between">
+						<label htmlFor="Amount Add/Widraw" className="text-p5-bold  text-muted">
 							Amount to {mode === "add" ? "Add" : "Withdraw"}
 						</label>
 						{errors?.amount && (
-							<p className="text-5  text-red-500 font-bold leading-150 flex items-center gap-1">
+							<p className="error-message ">
 								<IconWarning
 									className="
                                     inline-flex  fill-red-500 "
 								/>
-
 								{errors.amount.message}
 							</p>
 						)}
 					</div>
-					<div className="px-5 text-4 leading-150 py-3 rounded-8 bg-white border border-beige-500 has-focus-within:border-grey-900  flex items-center gap-3 relative">
-						<span className=" text-grey-500">{currency}</span>
+					<div className="input-container relative">
+						<span className="text-border dark:text-muted-alt">{currency}</span>
 						<input
 							type="number"
-							id="potTarget"
+							id="Amount Add/Widraw"
 							className="outline-none flex-1 w-full"
 							{...register("amount")}
 						/>
 					</div>
 				</div>
-				<button
-					type="submit"
-					className="btn btn-primary w-full text-4 font-bold leading-150"
-				>
+				<button type="submit" className="btn btn-primary w-full text-p4-bold">
 					{mode === "add" ? "Confirm Addition" : "Confirm Withdrawal"}
 				</button>
 			</form>

@@ -27,7 +27,7 @@ export type PotType = {
 	name: string;
 	target: number;
 	total: number;
-	theme: { id: string; name: string; value: string };
+	theme: ThemeType;
 	id: string;
 };
 export type BalanceType = {
@@ -48,12 +48,12 @@ const initialState = {
 	transactions: defaultTransactions,
 	budgets: [
 		{
-			category: { name: "Food", icon: "Apple" },
+			category: { name: "Bills", icon: "Wallet" },
 			maximum: 400,
 			theme: {
-				name: "Blue",
-				id: "blue",
-				value: "#3F82B2",
+				name: "Navy",
+				id: "navy",
+				value: "#626070",
 			},
 			id: "34",
 		},
@@ -61,9 +61,9 @@ const initialState = {
 			category: { name: "Transport", icon: "Bus" },
 			maximum: 100,
 			theme: {
-				name: "Green",
-				id: "green",
-				value: "#4CAF50",
+				name: "Yellow",
+				id: "yellow",
+				value: "#F2CDAC",
 			},
 			id: "340",
 		},
@@ -71,9 +71,9 @@ const initialState = {
 			category: { name: "Entertainment", icon: "Theater" },
 			maximum: 200,
 			theme: {
-				name: "Magenta",
-				id: "magenta",
-				value: "#934F6F",
+				name: "Green",
+				id: "green",
+				value: "#277C78",
 			},
 			id: "341",
 		},
@@ -179,7 +179,7 @@ const financeSlice = createSlice({
 				theme,
 				id: new Date().getTime().toString(),
 			};
-			state.pots.push(newPot);
+			state.pots.unshift(newPot);
 		},
 		editPot: (state, action) => {
 			const { potId, name, target, theme } = action.payload;
