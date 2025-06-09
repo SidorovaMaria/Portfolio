@@ -28,6 +28,7 @@ import {
 	Wallet,
 } from "lucide-react";
 import Home from "@/app/page";
+import IconSettings from "../svg/IconSettings";
 
 export type ThemeType = {
 	name: string;
@@ -413,7 +414,7 @@ export const navlinks: NavLink[] = [
 	{
 		title: "Settings",
 		link: "/settings",
-		icon: iconMap["Settings"],
+		icon: IconSettings,
 	},
 ];
 export type ProfileIconType = {
@@ -528,24 +529,29 @@ export const profileIcons: ProfileIconType[] = [
 
 export const updatedProfileIcons = [];
 
-export const currencyOptions = [
+export type CurrencyType = {
+	code: string;
+	name: string;
+	symbol: string;
+};
+export const currencyOptions: CurrencyType[] = [
 	{ code: "USD", name: "United States Dollar", symbol: "$" },
 	{ code: "EUR", name: "Euro", symbol: "€" },
 	{ code: "GBP", name: "British Pound", symbol: "£" },
 	{ code: "JPY", name: "Japanese Yen", symbol: "¥" },
-	{ code: "CNY", name: "Chinese Yuan", symbol: "¥" },
-	{ code: "AUD", name: "Australian Dollar", symbol: "$" },
-	{ code: "CAD", name: "Canadian Dollar", symbol: "$" },
+	{ code: "CNY", name: "Chinese Yuan", symbol: "CN¥" },
+	{ code: "AUD", name: "Australian Dollar", symbol: "A$" },
+	{ code: "CAD", name: "Canadian Dollar", symbol: "CA$" },
 	{ code: "CHF", name: "Swiss Franc", symbol: "CHF" },
 	{ code: "INR", name: "Indian Rupee", symbol: "₹" },
 	{ code: "KRW", name: "South Korean Won", symbol: "₩" },
 	{ code: "BRL", name: "Brazilian Real", symbol: "R$" },
-	{ code: "ZAR", name: "South African Rand", symbol: "R" },
-	{ code: "SEK", name: "Swedish Krona", symbol: "kr" },
-	{ code: "NOK", name: "Norwegian Krone", symbol: "kr" },
+	{ code: "ZAR", name: "South African Rand", symbol: "ZAR" },
+	{ code: "SEK", name: "Swedish Krona", symbol: "SEK" },
+	{ code: "NOK", name: "Norwegian Krone", symbol: "NOK" },
 	{ code: "DKK", name: "Danish Krone", symbol: "kr" },
 	{ code: "MXN", name: "Mexican Peso", symbol: "$" },
-	{ code: "RUB", name: "Russian Ruble", symbol: "₽" },
+	{ code: "RUB", name: "Russian Ruble", symbol: "RUB" },
 	{ code: "SGD", name: "Singapore Dollar", symbol: "S$" },
 	{ code: "HKD", name: "Hong Kong Dollar", symbol: "HK$" },
 	{ code: "NZD", name: "New Zealand Dollar", symbol: "$" },

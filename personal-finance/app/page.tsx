@@ -13,7 +13,7 @@ export default function Home() {
 		<>
 			<Title title="Overview" />
 			<FinanceBalance />
-			<div className="w-full  grid grid-cols-1 gap-4 xl:grid-cols-2 xl:grid-row-6 ">
+			<div className="w-full grid grid-cols-1 gap-4 xl:grid-cols-2 xl:grid-row-6 ">
 				<div className="xl:[grid-area:1/1/3/2]">
 					<PotsOverview />
 				</div>

@@ -13,7 +13,7 @@ const PotsOverview = () => {
 	const totalSaved = pots.reduce((acc, pot) => acc + pot.total, 0);
 	const handleNavigation = () => router.push("/pots");
 	return (
-		<section className="modal-content" aria-labelledby="Top 4 Pots">
+		<section className="overview-content" aria-labelledby="Top 4 Pots">
 			<OverviewHeader
 				title="Pots"
 				handleNavigation={handleNavigation}

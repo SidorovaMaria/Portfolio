@@ -71,7 +71,7 @@ const DesktopNavBar = () => {
 							key={link.title}
 							onClick={() => router.push(link.link)}
 							className={`cursor-pointer w-full rounded-r-12 flex gap-4 items-center justify-start transition-all duration-300 group py-4  ${
-								active && "bg-bg"
+								active && "bg-bg dark:bg-fg"
 							}
                             ${minimizeNavBar ? "px-6 " : "px-8 "}  `}
 						>
@@ -80,7 +80,7 @@ const DesktopNavBar = () => {
 									className={`fill-muted-alt dark:fill-muted w-full h-auto
                                 ${
 									active
-										? "fill-accent!"
+										? "fill-accent! "
 										: "group-hover:fill-bg dark:group-hover:fill-fg"
 								}`}
 								/>
@@ -89,7 +89,7 @@ const DesktopNavBar = () => {
 								variants={navText}
 								className={`hidden md:block text-3 font-bold text-muted-alt dark:text-muted  ${
 									active
-										? "text-fg! "
+										? "text-fg! dark:text-bg!"
 										: " group-hover:text-bg dark:group-hover:text-fg"
 								}`}
 							>
