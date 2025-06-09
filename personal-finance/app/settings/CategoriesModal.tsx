@@ -2,21 +2,30 @@ import { iconMap } from "@/components/constants";
 import Modal from "@/components/Modal";
 import { RootState } from "@/lib/store";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import CategoryEditDelete from "./CategoryEditDelete";
 import CategoryIconPick from "@/components/CategoryIconPick";
 import IconWarning from "@/components/svg/IconWarning";
+
+//CategoriesSchema
+
 const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) => {
 	const { categories } = useSelector((state: RootState) => state.finance);
 	const dispatch = useDispatch();
-	const newCategorySchema = Yup.object({
-		name: Yup.string().required("Category is required"),
+
+	const schema = Yup.object({
+		name: Yup.string()
+			.required("Category is required")
+			.test("unique", "Category already exists", (value) => {
+				return !categories.some((cat) => cat.name.toLowerCase() === value?.toLowerCase());
+			}),
 		icon: Yup.mixed<keyof typeof iconMap | "">().required(),
 	});
-	type NewCategoryType = Yup.InferType<typeof newCategorySchema>;
+	type CategoryForm = Yup.InferType<typeof schema>;
+
 	const {
 		register,
 		handleSubmit,
@@ -24,68 +33,59 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 		watch,
 		setValue,
 		reset,
-	} = useForm<NewCategoryType>({
-		resolver: yupResolver(newCategorySchema),
+	} = useForm<CategoryForm>({
+		resolver: yupResolver(schema),
 		defaultValues: {
 			name: "",
 			icon: "",
 		},
 	});
-	const [newCategory, setNewCategory] = useState({
-		show: false,
-		name: "",
-		icon: "",
-	});
+	const [isAdding, setIsAdding] = useState(false);
 	const [showIconPicker, setShowIconPicker] = useState(false);
-	const Icon = iconMap[watch("icon") as keyof typeof iconMap] || "";
-	const AddCategory = (data: NewCategoryType) => {
-		dispatch({
-			type: "finance/addCategory",
-			payload: {
-				name: data.name,
-				icon: data.icon || "",
-			},
-		});
-		setNewCategory((prev) => ({
-			...prev,
-			show: false,
-			name: "",
-			icon: "",
-		}));
-		reset();
-	};
+	const Icon = iconMap[watch("icon") as keyof typeof iconMap];
 
+	const onSubmit = useCallback(
+		(data: CategoryForm) => {
+			dispatch({
+				type: "finance/addCategory",
+				payload: {
+					name: data.name,
+					icon: data.icon,
+				},
+			});
+			setIsAdding(false);
+			setShowIconPicker(false);
+			reset();
+		},
+		[dispatch, reset]
+	);
 	return (
-		<Modal open={open} close={close}>
-			<div className="flex flex-col w-full gap-3">
-				<h2 className="text-2 leading-120 font-bold w-full">Manage Categories</h2>
-				<p className="text-5 leading-150 text-grey-500 w-full">
-					Here you can add new categories, rename existing ones, or delete the ones you no
-					longer need.
-					<br /> Deleting a category will remove it from all transactions that used it.
-					Any associated budget for that category will also be deleted.
-					<br /> The &quot;Other&quot; category is permanent and cannot be deleted, as
-					it&apos;s used for uncategorized or fallback transactions.
-				</p>
-			</div>
-			<div className=" flex items-center  w-full">
-				{newCategory.show ? (
+		<Modal open={open} close={close} title="Manage Categories">
+			<p className="text-p4 text-muted w-full">
+				Add, rename, or delete categories. <br />
+				<IconWarning className="inline pb-0.5 fill-red-500" /> Deleting a category will
+				remove it from all related transactions and associated budget.
+			</p>
+
+			<div className="flex-center-full">
+				{isAdding ? (
 					<form
-						onSubmit={handleSubmit(AddCategory)}
-						className="settings-option hover:bg-transparent group flex items-center py-1 w-full"
+						onSubmit={handleSubmit(onSubmit)}
+						className="settings-option hover:bg-transparent group flex-center-full py-1 "
 					>
-						<div className="cursor-default flex items-center gap-3 flex-1 ">
+						<div className="cursor-default flex-center gap-3 flex-1 ">
 							<div
-								className="relative flex items-center justify-center rounded-full border shrink-0 size-10 "
-								onClick={() => setShowIconPicker(!showIconPicker)}
+								className="relative flex-center rounded-full border shrink-0 size-10 "
+								onClick={() => setShowIconPicker((prev) => !prev)}
 							>
-								{Icon ? <Icon /> : <p>?</p>}
+								{Icon ? <Icon /> : <span>?</span>}
 								<CategoryIconPick
 									open={showIconPicker}
-									setIcon={(i: keyof typeof iconMap) => setValue("icon", i)}
+									setIcon={(icon) => setValue("icon", icon)}
+									close={() => setShowIconPicker(false)}
 								/>
 							</div>
-							<div className="text-3 leading-150 text-grey-900 border border-transparent bg-white rounded-md p-1 px-2 transition-all duration-200 has-focus:border-grey-900 w-full flex-between">
+							<div className="input-container text-p4 flex-1">
 								<input
 									type="text"
 									placeholder="Category Name"
@@ -101,8 +101,8 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 							</div>
 						</div>
 						<button
-							className="btn btn-primary bg-secondary-green py-1 disabled:opacity-50
-                            disbaled:pointer-events-none "
+							className="btn btn-primary bg-accent py-1 disabled:opacity-50 text-white
+                            disabled:pointer-events-none "
 							type="submit"
 							disabled={!watch("name")}
 						>
@@ -110,17 +110,11 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 						</button>
 						<button
 							type="button"
-							disabled={!newCategory.show}
+							disabled={!isAdding}
 							className="btn btn-destroy py-1"
 							onClick={() => {
-								setNewCategory((prev) => ({
-									...prev,
-									show: false,
-									name: "",
-									icon: "",
-								}));
+								setIsAdding(false);
 								reset();
-								console.log("Cancel adding category");
 							}}
 						>
 							Cancel
@@ -128,14 +122,7 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 					</form>
 				) : (
 					<button
-						onClick={() =>
-							setNewCategory((prev) => ({
-								...prev,
-								show: true,
-								name: "",
-								icon: "",
-							}))
-						}
+						onClick={() => setIsAdding(true)}
 						className="btn btn-secondary w-full py-2"
 					>
 						+ Add Category{" "}
@@ -143,7 +130,7 @@ const CategoriesModal = ({ open, close }: { open: boolean; close: () => void }) 
 				)}
 			</div>
 
-			<div className="flex flex-col gap-1 w-full p-0.5 max-h-[40vh] overflow-auto ">
+			<div className="flex-column  gap-1  p-0.5 max-h-[42vh] overflow-auto ">
 				{categories.length > 0
 					? categories.map((category) => (
 							<CategoryEditDelete key={category.name} category={category} />

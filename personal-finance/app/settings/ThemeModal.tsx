@@ -14,29 +14,27 @@ const ThemeModal = ({ open, close }: ThemeModalProps) => {
 	const fontOptions: FontType[] = ["sans", "serif", "mono"];
 
 	return (
-		<Modal open={open} close={close}>
-			<div className="flex flex-col w-full gap-3">
-				<h2 className="text-2 leading-120 font-bold w-full">Set Theme</h2>
-				<p className="text-4 leading-150 text-grey-500 w-full">
-					Select the theme you want to use for the application. This will change the
-					overall look and feel of the app.
-				</p>
-			</div>
-			<div className="flex flex-col w-full gap-2">
-				<p className="text-grey-500 text-4">Appearance</p>
-				<div className="flex flex-col w-full gap-1 md:flex-row md:justify-between">
+		<Modal open={open} close={close} title="Set Theme">
+			<p className="text-p4 text-muted w-full">
+				Select the theme you want to use for the application. This will change the overall
+				look and feel of the app.
+			</p>
+
+			<div className="flex-column gap-2">
+				<p className="text-p4-bold text-muted">Appearance</p>
+				<div className="flex-column gap-1 md:flex-row md:justify-between">
 					{["light", "dark", "system"].map((t) => (
 						<button
 							key={t}
-							className="settings-option hover:bg-secondary-green/20 group flex items-center py-2"
+							className="settings-option hover:bg-accent/20 group flex items-center py-2"
 							onClick={() => setTheme(t)}
 						>
 							<p className="capitalize">{t}</p>
 							<span
-								className={`size-6 ml-auto rounded-full flex items-center justify-center ${
+								className={`size-6 ml-auto rounded-full flex-center ${
 									theme === t
-										? "bg-secondary-green border-secondary-green"
-										: "bg-white border border-grey-300"
+										? "bg-accent border-acent"
+										: "bg-bg border border-grey-300"
 								}`}
 							>
 								{theme === t && <Check className="size-4 text-white" />}
@@ -45,21 +43,21 @@ const ThemeModal = ({ open, close }: ThemeModalProps) => {
 					))}
 				</div>
 			</div>
-			<div className="flex flex-col w-full gap-2">
-				<p className="text-grey-500 text-4">Font Family</p>
-				<div className="flex flex-col gap-1 md:flex-row md:justify-between">
+			<div className="flex-column gap-2">
+				<p className="text-p4-bold text-muted">Font Family</p>
+				<div className="flex-column gap-1 md:flex-row md:justify-between">
 					{fontOptions.map((f) => (
 						<button
 							key={f}
-							className="settings-option hover:bg-secondary-green/20 group flex items-center py-2"
+							className="settings-option hover:bg-accent/20 group py-2"
 							onClick={() => changeFont(f)}
 						>
 							<p className="capitalize">{f}</p>
 							<span
-								className={`size-6 ml-auto rounded-full flex items-center justify-center ${
+								className={`size-6 ml-auto rounded-full flex-center ${
 									font === f
-										? "bg-secondary-green border-secondary-green"
-										: "bg-white border border-grey-300"
+										? "bg-accent border-acent"
+										: "bg-bg border border-grey-300"
 								}`}
 							>
 								{font === f && <Check className="size-4 text-white" />}

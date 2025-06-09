@@ -1,57 +1,59 @@
 "use client";
 
-import React from "react";
-import { AnimatePresence } from "motion/react";
+import React, { useCallback, useState } from "react";
 import IconPicker from "./IconPicker";
 import Image from "next/image";
-interface IconPictureState {
-	isOpen: boolean;
-	picture: null | string;
-}
+import { CircleFadingPlus } from "lucide-react";
 
-const ProfileBoard: React.FC = () => {
-	const [iconPicture, setIconPicture] = React.useState<IconPictureState>({
-		isOpen: false,
-		picture: "",
-	});
+const ProfileBoard = () => {
+	const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
+	const [selectedIcon, setSelectedIcon] = useState<string>("/icons/growth.png");
+	const handleIconClick = useCallback(() => {
+		setIsIconPickerOpen((prev) => !prev);
+	}, []);
+	const handleClose = useCallback(() => {
+		setIsIconPickerOpen(false);
+	}, []);
+
+	const handleIconSelect = useCallback(
+		(icon: string) => {
+			setSelectedIcon(icon);
+			handleClose();
+		},
+		[handleClose]
+	);
+
 	return (
-		<div className="flex flex-col w-full ">
-			<div className="flex items-center w-full gap-4">
-				<div
-					className="size-20 rounded-full  border flex items-center justify-center"
-					onClick={() => setIconPicture({ isOpen: !iconPicture.isOpen, picture: null })}
-				>
+		<div className="flex-column ">
+			<div className="flex items-center gap-4">
+				<div className="size-24 rounded-full shrink-0 border flex-center relative opacity-80">
 					<Image
-						src={iconPicture.picture || "/icons/growth.png"}
+						src={selectedIcon}
 						alt="profile icon"
-						height={50}
-						className="text-white"
-						width={50}
+						height={64}
+						width={64}
+						className="filter dark:invert"
 					/>
+					<button
+						title="Change Icon"
+						className="absolute -right-1 -bottom-2 bg-grey-900 rounded-full p-0.5  cursor-pointer
+                        hover:bg-accent transition-colors duration-300 text-fg hover:text-white"
+						onClick={handleIconClick}
+					>
+						<CircleFadingPlus className="  " />
+					</button>
 				</div>
-				<div className="flex flex-col gap-0.5 justify-center">
-					<p className="text-3 font-bold leading-150 text-grey-900">John Doe</p>
-					<p className="text-3 leading-150 text-grey-500">johndoe@gmail.com</p>
+				<div className="flex-column gap-0.5 ">
+					<p className="text-h2">John Doe</p>
+					<p className="text-p4 text-muted">johndoe@gmail.com</p>
 				</div>
 			</div>
-			<AnimatePresence>
-				{iconPicture.isOpen && (
-					<IconPicker
-						close={() =>
-							setIconPicture((prev) => ({
-								...prev,
-								isOpen: false,
-							}))
-						}
-						setIcon={(icon: string) =>
-							setIconPicture((prev) => ({
-								...prev,
-								picture: icon,
-							}))
-						}
-					/>
-				)}
-			</AnimatePresence>
+			<IconPicker
+				open={isIconPickerOpen}
+				close={handleClose}
+				setIcon={handleIconSelect}
+				selected={selectedIcon}
+			/>
 		</div>
 	);
 };
