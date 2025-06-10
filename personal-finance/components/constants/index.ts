@@ -3,7 +3,6 @@ import IconOverview from "../svg/IconOverview";
 import IconPots from "../svg/IconPots";
 import IconRecurringBills from "../svg/IconRecurringBills";
 import IconTransactions from "../svg/IconTransactions";
-import { TransactionType } from "../../lib/features/financeSlice";
 import {
 	Activity,
 	Apple,
@@ -29,12 +28,14 @@ import {
 } from "lucide-react";
 import Home from "@/app/page";
 import IconSettings from "../svg/IconSettings";
-
-export type ThemeType = {
-	name: string;
-	id: string;
-	value: string;
-};
+import {
+	CategoriesType,
+	CurrencyType,
+	NavLink,
+	ProfileIconType,
+	ThemeType,
+	TransactionType,
+} from "./types";
 
 export const Themes: ThemeType[] = [
 	{
@@ -160,11 +161,6 @@ export const CategoryIcons: (keyof typeof iconMap)[] = [
 	"Dumbbell",
 	"TentTree",
 ] as (keyof typeof iconMap)[];
-
-export type CategoriesType = {
-	name: string;
-	icon: keyof typeof iconMap | "";
-};
 
 export const defaultCategories: CategoriesType[] = [
 	{ name: "Food", icon: "Apple" },
@@ -379,12 +375,6 @@ export const defaultTransactions: TransactionType[] = [
 
 export const sortByOptions = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
 
-export type NavLink = {
-	title: string;
-	link: string;
-	icon: React.FC<React.SVGProps<SVGSVGElement>>;
-};
-
 export const navlinks: NavLink[] = [
 	{
 		title: "Overview",
@@ -417,11 +407,6 @@ export const navlinks: NavLink[] = [
 		icon: IconSettings,
 	},
 ];
-export type ProfileIconType = {
-	iconSrc: string;
-	alt: string;
-	title: string;
-};
 
 export const profileIcons: ProfileIconType[] = [
 	{
@@ -529,11 +514,6 @@ export const profileIcons: ProfileIconType[] = [
 
 export const updatedProfileIcons = [];
 
-export type CurrencyType = {
-	code: string;
-	name: string;
-	symbol: string;
-};
 export const currencyOptions: CurrencyType[] = [
 	{ code: "USD", name: "United States Dollar", symbol: "$" },
 	{ code: "EUR", name: "Euro", symbol: "€" },

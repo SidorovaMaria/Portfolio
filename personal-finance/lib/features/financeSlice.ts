@@ -1,49 +1,23 @@
-import {
-	CategoriesType,
-	defaultCategories,
-	defaultTransactions,
-	ThemeType,
-} from "@/components/constants";
 import { createSlice } from "@reduxjs/toolkit";
 import { calculateMonthlyExpenses, calculateMonthlyIncome } from "../helperFunctions";
+import {
+	BalanceType,
+	BudgetType,
+	CategoriesType,
+	PotType,
+	TransactionType,
+} from "@/components/constants/types";
+import { defaultCategories, defaultTransactions } from "@/components/constants";
 
-export type TransactionType = {
-	title: string;
-	category: CategoriesType;
-	date: string;
-	amount: number;
-	type: "income" | "expense";
-	reccuring: boolean;
-	id: string;
-};
-export type BudgetType = {
-	category: CategoriesType;
-	maximum: number;
-	theme: ThemeType;
-	id: string;
-};
-
-export type PotType = {
-	name: string;
-	target: number;
-	total: number;
-	theme: ThemeType;
-	id: string;
-};
-export type BalanceType = {
-	current: number;
-	income: number;
-	expenses: number;
-};
 interface FinanceState {
 	transactions: TransactionType[];
 	budgets: BudgetType[];
 	pots: PotType[];
 	balance: BalanceType;
 	currency: string;
-
 	categories: CategoriesType[];
 }
+
 const initialState = {
 	transactions: defaultTransactions,
 	budgets: [
@@ -170,16 +144,22 @@ const financeSlice = createSlice({
 	name: "finance",
 	initialState,
 	reducers: {
+		// Pots
 		addPot: (state, action) => {
 			const { name, target, theme } = action.payload;
-			const newPot: PotType = {
+			// Check if a pot with the same name already exists
+			// const existingPot = state.pots.find((pot) => pot.name === name);
+			// if (existingPot) {
+			// 	console.warn(`Pot with name ${name} already exists.`);
+			// 	return; // Prevent adding a duplicate pot
+			// }
+			state.pots.unshift({
 				name,
 				target,
 				total: 0,
 				theme,
 				id: new Date().getTime().toString(),
-			};
-			state.pots.unshift(newPot);
+			});
 		},
 		editPot: (state, action) => {
 			const { potId, name, target, theme } = action.payload;
@@ -192,21 +172,17 @@ const financeSlice = createSlice({
 					target,
 					theme,
 				};
-			} else {
-				console.warn(`Pot with id ${potId} not found for editing.`);
 			}
 		},
 		deletePot: (state, action) => {
-			const potId = action.payload;
-			state.pots = state.pots.filter((pot) => pot.id !== potId);
-			console.log(`Pot with id ${potId} deleted.`);
+			state.pots = state.pots.filter((pot) => pot.id !== action.payload);
 		},
 		addMoneyToPot: (state, action) => {
 			const { potId, amount } = action.payload;
 			const pot = state.pots.find((p) => p.id === potId);
 			if (pot) {
 				pot.total += amount;
-				state.balance.current -= amount; // Update current balance
+				state.balance.current -= amount;
 			}
 		},
 		withdrawMoneyFromPot: (state, action) => {
@@ -217,78 +193,51 @@ const financeSlice = createSlice({
 				state.balance.current += amount; // Update current balance
 			}
 		},
+		// Transactions
 		addTransaction: (state, action) => {
 			const newTransaction: TransactionType = {
 				...action.payload,
 				id: new Date().getTime().toString(),
 			};
 			state.transactions.push(newTransaction);
-			if (newTransaction.type === "income") {
-				state.balance.current += newTransaction.amount;
-			} else if (newTransaction.type === "expense") {
-				state.balance.current -= newTransaction.amount;
-			}
+			state.balance.current +=
+				newTransaction.type === "income" ? newTransaction.amount : -newTransaction.amount;
 			state.balance.income = calculateMonthlyIncome(state.transactions);
 			state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 		},
 		editTransaction: (state, action) => {
-			const { id, title, category, date, amount, type, reccuring } = action.payload;
-			const transactionIndex = state.transactions.findIndex((t) => t.id === id);
-			if (transactionIndex !== -1) {
-				const oldTransaction = state.transactions[transactionIndex];
-				const oldAmount = oldTransaction.amount;
-				const oldType = oldTransaction.type;
-				state.transactions[transactionIndex] = {
-					id,
-					title,
-					category,
-					date: date,
-					amount,
-					type,
-					reccuring,
-				};
+			const { id, amount } = action.payload;
+			const index = state.transactions.findIndex((t) => t.id === id);
+			if (index !== -1) {
+				const old = state.transactions[index];
 				//Rmove old amount from balance
-				if (oldType === "income") {
-					state.balance.current -= oldAmount;
-				} else if (oldType === "expense") {
-					state.balance.current += oldAmount;
-				}
+				state.balance.current += old.type === "income" ? -old.amount : old.amount;
 				//Add new amount to balance
-				if (type === "income") {
-					state.balance.current += amount;
-				} else if (type === "expense") {
-					state.balance.current -= amount;
-				}
+				state.balance.current += action.payload.type === "income" ? amount : -amount;
+				state.transactions[index] = action.payload;
 				state.balance.income = calculateMonthlyIncome(state.transactions);
 				state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 			}
 		},
 		deleteTransaction: (state, action) => {
 			const transactionId = action.payload;
-			const transactionIndex = state.transactions.findIndex((t) => t.id === transactionId);
-			if (transactionIndex !== -1) {
-				const transaction = state.transactions[transactionIndex];
+			const index = state.transactions.findIndex((t) => t.id === transactionId);
+
+			if (index !== -1) {
+				const transaction = state.transactions[index];
 				// Adjust balance based on transaction type
-				if (transaction.type === "income") {
-					state.balance.current -= transaction.amount;
-				} else if (transaction.type === "expense") {
-					state.balance.current += transaction.amount;
-				}
+				state.balance.current +=
+					transaction.type === "income" ? -transaction.amount : transaction.amount;
 				// Remove the transaction from the list
-				state.transactions.splice(transactionIndex, 1);
+				state.transactions.splice(index, 1);
+				// Recalculate expenses and income
 				state.balance.income = calculateMonthlyIncome(state.transactions);
 				state.balance.expenses = calculateMonthlyExpenses(state.transactions);
 			}
 		},
+		// Budgets
 		addBudget: (state, action) => {
-			const { category, maximum, theme } = action.payload;
-			const newBudget: BudgetType = {
-				category,
-				maximum,
-				theme,
-				id: new Date().getTime().toString(),
-			};
-			state.budgets.push(newBudget);
+			state.budgets.unshift({ ...action.payload, id: Date.now().toString() });
 		},
 		editBudget: (state, action) => {
 			const { budgetId, category, maximum, theme } = action.payload;
@@ -301,68 +250,61 @@ const financeSlice = createSlice({
 					maximum,
 					theme,
 				};
-			} else {
-				console.warn(`Budget with id ${budgetId} not found for editing.`);
 			}
 		},
 		deleteBudget: (state, action) => {
-			const budgetId = action.payload;
-			state.budgets = state.budgets.filter((budget) => budget.id !== budgetId);
-			console.log(`Budget with id ${budgetId} deleted.`);
+			state.budgets = state.budgets.filter((budget) => budget.id !== action.payload.budgetId);
+		},
+		// Categories
+		addCategory: (state, action) => {
+			state.categories.unshift(action.payload);
 		},
 		updateCategory: (state, action) => {
 			const { oldCategory, newCategory } = action.payload;
 			const catgeoryIndex = state.categories.findIndex(
 				(c) => c.name === oldCategory.name && c.icon === oldCategory.icon
 			);
-			if (catgeoryIndex !== -1) {
-				state.categories[catgeoryIndex] = newCategory;
-			} else {
-				console.warn(`Category ${oldCategory.name} not found for updating.`);
-			}
+			// Update category in categories
+			state.categories = state.categories.map((category) =>
+				category.name === oldCategory.name && category.icon === oldCategory.icon
+					? newCategory
+					: category
+			);
 			// Update category in budgets
-			state.budgets = state.budgets.map((budget) =>
-				budget.category.name === oldCategory.name &&
-				budget.category.icon === oldCategory.icon
-					? { ...budget, category: newCategory }
-					: budget
+			state.budgets = state.budgets.map((b) =>
+				b.category.name === oldCategory.name && b.category.icon === oldCategory.icon
+					? { ...b, category: newCategory }
+					: b
 			);
 			// Update category in transactions
-			state.transactions = state.transactions.map((transaction) =>
-				transaction.category.name === oldCategory.name &&
-				transaction.category.icon === oldCategory.icon
-					? { ...transaction, category: newCategory }
-					: transaction
+			state.transactions = state.transactions.map((t) =>
+				t.category.name === oldCategory.name && t.category.icon === oldCategory.icon
+					? { ...t, category: newCategory }
+					: t
 			);
-		},
-		addCategory: (state, action) => {
-			const newCategory: CategoriesType = action.payload;
-			state.categories.unshift(newCategory);
 		},
 		deleteCategory: (state, action) => {
 			const categoryToDelete = action.payload;
 			state.categories = state.categories.filter(
-				(category) =>
-					category.name !== categoryToDelete.name ||
-					category.icon !== categoryToDelete.icon
+				(c) => c.name !== categoryToDelete.name || c.icon !== categoryToDelete.icon
 			);
 			// Remove category from budgets
 			state.budgets = state.budgets.filter(
-				(budget) =>
-					budget.category.name !== categoryToDelete.name ||
-					budget.category.icon !== categoryToDelete.icon
+				(b) =>
+					b.category.name !== categoryToDelete.name ||
+					b.category.icon !== categoryToDelete.icon
 			);
 			// Remove category from transactions
-			state.transactions = state.transactions.map((transaction) =>
-				transaction.category.name === categoryToDelete.name &&
-				transaction.category.icon === categoryToDelete.icon
-					? { ...transaction, category: { name: "Other", icon: "" } }
-					: transaction
+			state.transactions = state.transactions.map((t) =>
+				t.category.name === categoryToDelete.name &&
+				t.category.icon === categoryToDelete.icon
+					? { ...t, category: { name: "Other", icon: "" } }
+					: t
 			);
 		},
+		// Currency
 		setCurrency: (state, action) => {
-			const newCurrency = action.payload;
-			state.currency = newCurrency;
+			state.currency = action.payload;
 		},
 	},
 });
