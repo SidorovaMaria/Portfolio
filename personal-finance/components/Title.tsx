@@ -1,3 +1,4 @@
+"use cleint";
 import React from "react";
 interface TitleProps {
 	title: string;

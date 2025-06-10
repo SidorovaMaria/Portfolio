@@ -7,6 +7,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 
 import IconMinimizeMenu from "./svg/IconMinimizeMenu";
+import {
+	DesktopNavBarVariants,
+	LinkVariant,
+	MinimizeIconVariants,
+	navText,
+} from "./constants/motionVariants";
 
 const DesktopNavBar = () => {
 	const router = useRouter();
@@ -122,46 +128,3 @@ const DesktopNavBar = () => {
 };
 
 export default DesktopNavBar;
-const DesktopNavBarVariants = {
-	full: {
-		width: "300px",
-		transition: { duration: 0.3 },
-	},
-	minimized: {
-		width: "80px",
-		transition: { duration: 0.3 },
-	},
-};
-const LinkVariant = {
-	show: {
-		width: "100%",
-		transition: { duration: 0.3 },
-	},
-	hide: {
-		width: "60px",
-		transition: { duration: 0.3 },
-	},
-};
-const navText = {
-	hide: {
-		opacity: 0,
-
-		transition: {
-			duration: 0.3,
-		},
-	},
-	show: {
-		opacity: 1,
-		transition: { duration: 0.3 },
-	},
-};
-const MinimizeIconVariants = {
-	show: {
-		rotate: 0,
-		transition: { duration: 0.3 },
-	},
-	hide: {
-		rotate: 180,
-		transition: { duration: 0.3 },
-	},
-};

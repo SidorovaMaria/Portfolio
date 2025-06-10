@@ -1,3 +1,4 @@
+"use cleint";
 import React, { useRef } from "react";
 import IconCaretLeft from "./svg/IconCaretLeft";
 import { AnimatePresence, motion } from "motion/react";
