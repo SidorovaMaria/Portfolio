@@ -1,5 +1,5 @@
 "use client";
-import { BudgetType } from "@/lib/features/financeSlice";
+import { BudgetType } from "@/components/constants/types";
 import React, { useState } from "react";
 import OptionBtn from "../OptionBtn";
 import {

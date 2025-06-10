@@ -2,7 +2,7 @@
 import SpendingSummary from "@/components/budgets/SpendingSummary";
 import Title from "@/components/Title";
 import { useState } from "react";
-import { BudgetType } from "@/lib/features/financeSlice";
+import { BudgetType } from "@/components/constants/types";
 
 import AddEditBudget from "@/components/modals/AddEditBudget";
 import { useSelector } from "react-redux";

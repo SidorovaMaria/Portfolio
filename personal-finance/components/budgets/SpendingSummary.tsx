@@ -3,7 +3,7 @@ import { RootState } from "@/lib/store";
 import React from "react";
 import { useSelector } from "react-redux";
 import DonutChart from "./DonutChart";
-import { BudgetType } from "@/lib/features/financeSlice";
+import { BudgetType } from "@/components/constants/types";
 export type BudgetSummary = {
 	budget: BudgetType;
 	spent: number;
