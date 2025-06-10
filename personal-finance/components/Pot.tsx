@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { PotType } from "../lib/features/financeSlice";
+import { PotType } from "@/components/constants/types";
 
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import { RootState } from "../lib/store";

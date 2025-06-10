@@ -1,5 +1,5 @@
 "use cleint";
-import { TransactionType } from "@/lib/features/financeSlice";
+import { TransactionType } from "@/components/constants/types";
 import { toLocaleStringWithCommas } from "@/lib/helperFunctions";
 import React from "react";
 import { iconMap } from "./constants";

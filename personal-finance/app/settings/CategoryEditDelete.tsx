@@ -1,5 +1,7 @@
 import CategoryIconPick from "@/components/CategoryIconPick";
-import { CategoriesType, iconMap } from "@/components/constants";
+import { iconMap } from "@/components/constants";
+import { CategoriesType } from "@/components/constants/types";
+
 import IconCloseModal from "@/components/svg/IconCloseModal";
 import { Edit } from "lucide-react";
 import React, { useMemo, useState } from "react";

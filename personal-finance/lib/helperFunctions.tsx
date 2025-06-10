@@ -1,5 +1,4 @@
-import { CategoriesType } from "@/components/constants";
-import { BudgetType, TransactionType } from "./features/financeSlice";
+import { CategoriesType, TransactionType, BudgetType } from "@/components/constants/types";
 
 export const toLocaleStringWithCommas = (num: number, currency: string, afterComa: number = 2) => {
 	return num.toLocaleString("en-US", {

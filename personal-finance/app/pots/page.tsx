@@ -2,7 +2,7 @@
 import AddEditPotModal from "@/components/modals/AddEditPotModal";
 import Pot from "@/components/Pot";
 import Title from "@/components/Title";
-import { PotType } from "@/lib/features/financeSlice";
+import { PotType } from "@/components/constants/types";
 import { RootState } from "@/lib/store";
 import { Plus } from "lucide-react";
 import { useState } from "react";

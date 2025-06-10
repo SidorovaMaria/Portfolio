@@ -2,12 +2,12 @@
 import AddTransaction from "@/components/modals/AddTransaction";
 import Title from "@/components/Title";
 import Transaction from "@/components/Transaction";
-import { TransactionType } from "@/lib/features/financeSlice";
+import { CategoriesType, TransactionType } from "@/components/constants/types";
 import { RootState } from "@/lib/store";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { CategoriesType, sortByOptions } from "@/components/constants";
+import { sortByOptions } from "@/components/constants";
 import { Plus, SearchIcon } from "lucide-react";
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
 import DropDown from "@/components/DropDown";

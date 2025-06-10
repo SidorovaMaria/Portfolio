@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BudgetType, PotType } from "@/lib/features/financeSlice";
+import { BudgetType, PotType } from "@/components/constants/types";
 
 import { useDispatch } from "react-redux";
 import Modal from "../Modal";

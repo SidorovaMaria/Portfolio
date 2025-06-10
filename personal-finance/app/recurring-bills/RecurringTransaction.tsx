@@ -1,5 +1,5 @@
 "use client";
-import { TransactionType } from "@/lib/features/financeSlice";
+import { TransactionType } from "@/components/constants/types";
 import { iconMap } from "../../components/constants";
 import {
 	getOrdinal,

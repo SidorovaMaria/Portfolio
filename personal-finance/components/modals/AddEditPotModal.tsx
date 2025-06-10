@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Modal from "../Modal";
-import { PotType } from "@/lib/features/financeSlice";
+import { PotType } from "@/components/constants/types";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import * as Yup from "yup";

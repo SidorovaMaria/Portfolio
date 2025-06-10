@@ -1,4 +1,4 @@
-import { TransactionType } from "@/lib/features/financeSlice";
+import { TransactionType } from "@/components/constants/types";
 
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";

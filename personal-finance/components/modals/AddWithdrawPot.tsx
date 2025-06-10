@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { PotType } from "@/lib/features/financeSlice";
+import { PotType } from "@/components/constants/types";
 import { motion } from "motion/react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
