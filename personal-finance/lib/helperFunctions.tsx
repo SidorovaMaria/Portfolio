@@ -182,3 +182,7 @@ export const getOrdinal = (n: number) => {
 	if (mod10 === 3 && mod100 !== 13) return "rd";
 	return "th";
 };
+
+export const getUsedBudgetCategories = (budgets: BudgetType[]) => {
+	return budgets.map((budget) => budget.category.name);
+};

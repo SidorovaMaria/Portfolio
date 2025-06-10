@@ -2,8 +2,11 @@ import { useState } from "react";
 import IconCaretLeft from "../svg/IconCaretLeft";
 import { AnimatePresence, motion } from "motion/react";
 import { selectDropDownVariant } from "../constants/motionVariants";
-import { CategoriesType, iconMap, ThemeType } from "../constants";
+
 import IconWarning from "../svg/IconWarning";
+import { CategoriesType, ThemeType } from "../constants/types";
+import { iconMap } from "../constants";
+
 interface ModalDropDownProps {
 	label: string;
 	optionType: "categories" | "themes";
@@ -12,6 +15,7 @@ interface ModalDropDownProps {
 	setSelected: (value: CategoriesType | ThemeType) => void;
 	error?: string;
 	disabled?: boolean;
+	alreadyUsed?: string[];
 }
 
 const ModalDropDown = ({
@@ -20,6 +24,7 @@ const ModalDropDown = ({
 	selected,
 	error,
 	setSelected,
+	alreadyUsed,
 	optionType,
 	disabled = false,
 }: ModalDropDownProps) => {
@@ -71,7 +76,7 @@ const ModalDropDown = ({
 					</p>
 				)}
 			</div>
-			<div className="input-container relative has-disabled:opacity-80">
+			<div className="input-container relative has-disabled:opacity-80 ">
 				<div className="flex items-center gap-3 w-full">
 					{renderSelectedIcon()}
 					<p className="text-fg text-p4 flex-1">{selected.name} </p>
@@ -103,20 +108,31 @@ const ModalDropDown = ({
 							className="absolute top-full w-full left-0 max-h-[150px] overflow-auto bg-bg flex flex-col mt-1 shadow-[0px_4px_5px] shadow-fg/25 rounded-8 transition-colors duration-300 z-50"
 						>
 							{options.map((option) => (
-								<div
+								<button
+									type="button"
 									key={option.name}
-									className={`flex items-center gap-3 w-full cursor-pointer hover:bg-muted-alt rounded-8 transition-all duration-300 px-5 py-3 ${
+									className={`flex items-center gap-3 w-full cursor-pointer hover:bg-muted-alt rounded-8 transition-all duration-300 px-5 py-3 z-50 ${
 										selected.name === option.name &&
 										"font-bold bg-accent text-white"
+									}
+                                    ${
+										alreadyUsed?.some((used) => used === option.name) &&
+										"opacity-50 "
 									}`}
 									onClick={() => {
+										if (alreadyUsed?.some((used) => used === option.name)) {
+											return;
+										}
 										setSelected(option);
 										setOpen(false);
 									}}
 								>
 									{renderOptionIcon(option)}
-									<p className="flex-1">{option.name} </p>
-								</div>
+									<p className="flex-1 text-left">{option.name} </p>
+									{alreadyUsed?.some((used) => used === option.name) && (
+										<span className="text-red-500 text-xs">Already Used</span>
+									)}
+								</button>
 							))}
 						</motion.aside>
 					)}

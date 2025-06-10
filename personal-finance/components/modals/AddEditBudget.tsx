@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { iconMap, Themes } from "../constants";
 import * as Yup from "yup";
-import { BudgetType } from "@/lib/features/financeSlice";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -10,6 +10,8 @@ import { RootState } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import IconWarning from "../svg/IconWarning";
 import Modal from "../Modal";
+import { BudgetType } from "../constants/types";
+import { getUsedBudgetCategories } from "@/lib/helperFunctions";
 interface AddEditBudgetProps {
 	mode: string;
 	open: boolean;
@@ -18,6 +20,7 @@ interface AddEditBudgetProps {
 }
 const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 	const { categories, currency, budgets } = useSelector((state: RootState) => state.finance);
+	const usedBudgets = getUsedBudgetCategories(budgets);
 
 	const budgetSchema = Yup.object({
 		category: Yup.object({
@@ -147,6 +150,7 @@ const AddEditBudget = ({ mode, open, close, budget }: AddEditBudgetProps) => {
 					error={errors.category?.message}
 					optionType="categories"
 					label="Budget Category"
+					alreadyUsed={usedBudgets}
 					options={categories}
 					disabled={mode === "edit" ? true : false}
 					selected={watch("category")}

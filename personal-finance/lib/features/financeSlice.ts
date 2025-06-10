@@ -261,9 +261,6 @@ const financeSlice = createSlice({
 		},
 		updateCategory: (state, action) => {
 			const { oldCategory, newCategory } = action.payload;
-			const catgeoryIndex = state.categories.findIndex(
-				(c) => c.name === oldCategory.name && c.icon === oldCategory.icon
-			);
 			// Update category in categories
 			state.categories = state.categories.map((category) =>
 				category.name === oldCategory.name && category.icon === oldCategory.icon
