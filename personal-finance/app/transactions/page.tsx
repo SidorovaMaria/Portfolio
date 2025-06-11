@@ -1,27 +1,93 @@
 "use client";
+export const dynamic = "force-dynamic";
 import AddTransaction from "@/components/modals/AddTransaction";
 import Title from "@/components/Title";
 import Transaction from "@/components/Transaction";
-import { CategoriesType, TransactionType } from "@/components/constants/types";
-import { RootState } from "@/lib/store";
-import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 
+import { RootState } from "@/lib/store";
+import { useEffect, useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { sortByOptions } from "@/components/constants";
-import { Plus, SearchIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 import { sortTransactionsByFilter } from "@/lib/helperFunctions";
-import DropDown from "@/components/DropDown";
+
 import IconCaretLeft from "@/components/svg/IconCaretLeft";
-import IconSortMobile from "@/components/svg/IconSortMobile";
-import IconFilterMobile from "@/components/svg/IconFilterMobile";
-import { useSearchParams } from "next/navigation";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import SortingBlock from "./SortingBlock";
+import { TransactionType } from "@/components/constants/types";
 export default function Transactions() {
+	const router = useRouter();
+	const searchParams = useSearchParams();
+
+	// Read from URL params or fallback to defaults
+	const initialCategory = searchParams.get("category") || "All Transactions";
+	const initialSearch = searchParams.get("search") || "";
+	const initialSort = searchParams.get("sort") || sortByOptions[0];
+
+	// Keep filter/search/sort as state
+	const [filter, setFilter] = useState(initialCategory);
+	const [search, setSearch] = useState(initialSearch);
+	const [sortBy, setSortBy] = useState(initialSort);
+	useEffect(() => {
+		if (
+			!searchParams.has("category") &&
+			!searchParams.has("search") &&
+			!searchParams.has("sort")
+		) {
+			setFilter("All Transactions");
+			setSearch("");
+			setSortBy(sortByOptions[0]);
+		}
+	}, [searchParams]);
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+
+		if (filter && filter !== "All Transactions") {
+			params.set("category", filter);
+		}
+		if (search) {
+			params.set("search", search);
+		}
+		if (sortBy && sortBy !== sortByOptions[0]) {
+			params.set("sort", sortBy);
+		}
+
+		// Update URL without full page reload
+		router.replace(`/transactions?${params.toString()}`, { scroll: false });
+	}, [filter, search, sortBy, router]);
+
+	// Redux data
+	const { transactions, categories } = useSelector((state: RootState) => state.finance);
+
+	// Filter + sort transactions
+	const filteredTransactions = useMemo(() => {
+		return transactions
+			.filter((t) => t.title.toLowerCase().includes(search.toLowerCase()))
+			.filter((t) => filter === "All Transactions" || t.category.name === filter);
+	}, [transactions, filter, search]);
+
+	const sortedTransactions = useMemo(() => {
+		return sortTransactionsByFilter(filteredTransactions, sortBy);
+	}, [filteredTransactions, sortBy]);
+
+	// Pagination
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 8;
+	const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage);
+	const paginatedTransactions = useMemo(() => {
+		const start = (currentPage - 1) * itemsPerPage;
+		return sortedTransactions.slice(start, start + itemsPerPage);
+	}, [sortedTransactions, currentPage]);
+
+	// Transaction modal state
 	const [openTransactionModal, setOpenTransactionModal] = useState({
 		isOpen: false,
 		type: "",
 		transaction: null as TransactionType | null,
 	});
-	const { transactions, categories } = useSelector((state: RootState) => state.finance);
+
 	const setTransactionToEdit = (transaction: TransactionType | null) => {
 		setOpenTransactionModal({
 			isOpen: true,
@@ -29,38 +95,6 @@ export default function Transactions() {
 			transaction,
 		});
 	};
-
-	const [sortBy, setSortBy] = useState({
-		open: false,
-		sort: sortByOptions[0],
-	});
-	const searchParams = useSearchParams();
-	const initialCategory = searchParams.get("category") || "All Transactions";
-	const [filter, setFilter] = useState({
-		open: false,
-		filter: initialCategory as CategoriesType["name"] | string,
-	});
-	const [search, setSearch] = useState<string>("");
-
-	const sortedTransactions = useMemo(() => {
-		const filtered = transactions
-			.filter((t) => t.title.toLowerCase().includes(search.toLowerCase()))
-			.filter(
-				(t) => filter.filter === "All Transactions" || t.category.name === filter.filter
-			);
-
-		return sortTransactionsByFilter(filtered, sortBy.sort);
-	}, [transactions, search, filter.filter, sortBy.sort]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const itemsPerPage = 8; // You can change this to any number you want
-	// const [itemsPerPage, setItemsPerPage] = useState(8); //TODO
-	const totalPages = Math.ceil(sortedTransactions.length / itemsPerPage);
-	const paginatedTransactions = useMemo(() => {
-		const start = (currentPage - 1) * itemsPerPage;
-		const end = start + itemsPerPage;
-		return sortedTransactions.slice(start, end);
-	}, [sortedTransactions, currentPage, itemsPerPage]);
-	console.log(transactions);
 
 	return (
 		<>
@@ -79,6 +113,7 @@ export default function Transactions() {
 			>
 				<Plus className="w-5 h-5 stroke-[4px] fill-fg" />
 			</Title>
+
 			<AddTransaction
 				mode={openTransactionModal.type as "add" | "edit"}
 				open={openTransactionModal.isOpen}
@@ -89,54 +124,16 @@ export default function Transactions() {
 			/>
 			<section className="flex-column gap-6 px-5 min-h-[40vh]">
 				{/* Search and Filter */}
-				<div className="flex-between gap-4 group">
-					<label htmlFor="search" className="input-container flex-1 lg:max-w-[320px]">
-						<input
-							id="search"
-							className="w-full flex-1 outline-none text-p4"
-							type="text"
-							placeholder="Search Transactions"
-							value={search}
-							onChange={(e) => setSearch(e.target.value)}
-						/>
-						<SearchIcon className="size-4 text-muted group-focus-within:text-fg" />
-					</label>
-					<div className="flex gap-6 items-center justify-end">
-						<DropDown
-							icon={
-								<IconSortMobile className="w-5 h-5  fill-muted hover:fill-fg cursor-pointer" />
-							}
-							label="Sort By"
-							options={sortByOptions}
-							selected={sortBy.sort}
-							setSelected={(val) => {
-								setSortBy((prev) => ({
-									...prev,
-									sort: val,
-								}));
-							}}
-							open={sortBy.open}
-							setOpen={(val) => setSortBy((prev) => ({ ...prev, open: val }))}
-						/>
-						<DropDown
-							icon={
-								<IconFilterMobile className="w-5 h-5  fill-muted hover:fill-fg cursor-pointer" />
-							}
-							minWidth="min-w-[177px]"
-							label="Category"
-							options={["All Transactions", ...categories.map((c) => c.name)]}
-							selected={filter.filter}
-							setSelected={(val) => {
-								setFilter((prev) => ({ ...prev, filter: val }));
-								setCurrentPage(1);
-							}}
-							open={filter.open}
-							setOpen={(val) => {
-								setFilter((prev) => ({ ...prev, open: val }));
-							}}
-						/>
-					</div>
-				</div>
+				{/* <SortingBlock /> */}
+				<SortingBlock
+					search={search}
+					setSearch={setSearch}
+					filter={filter}
+					setFilter={setFilter}
+					sortBy={sortBy}
+					setSortBy={setSortBy}
+					categories={categories}
+				/>
 
 				<section className="flex gap-2 flex-col w-full ">
 					{transactions.length > 0 ? (

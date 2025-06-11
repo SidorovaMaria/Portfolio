@@ -5,29 +5,55 @@ import Title from "@/components/Title";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import RecurringTransaction from "@/app/recurring-bills/RecurringTransaction";
-import { sortByOptions } from "@/components/constants";
-import { useMemo, useState } from "react";
-import { sortRecurringTransactionsByFilter } from "@/lib/helperFunctions";
-import DropDown from "@/components/DropDown";
-import IconSortMobile from "@/components/svg/IconSortMobile";
-import { SearchIcon } from "lucide-react";
+import { sortByOptions, sortRecurringTransactionsFilter } from "@/components/constants";
+import { useEffect, useMemo, useState } from "react";
+import {
+	filterRecurringTransactionsByCategory,
+	sortRecurringTransactionsByFilter,
+} from "@/lib/helperFunctions";
+import { useRouter, useSearchParams } from "next/navigation";
+import SortingBlock from "../transactions/SortingBlock";
 
 export default function RecurringBills() {
+	const searchParams = useSearchParams();
+	const router = useRouter();
 	const { transactions } = useSelector((state: RootState) => state.finance);
 	const recurringTransactions = transactions.filter(
 		(transaction) => transaction.reccuring && transaction.type === "expense"
 	);
-	const [sortBy, setSortBy] = useState({
-		open: false,
-		sort: sortByOptions[0], //Newest First
-	});
-	const [search, setSearch] = useState<string>("");
+	const initialSort = searchParams.get("sort") || sortByOptions[0];
+	const initialSearch = searchParams.get("search") || "";
+	const initialCategory = searchParams.get("filter") || "All Transactions";
+	const [sortBy, setSortBy] = useState(initialSort);
+	const [search, setSearch] = useState(initialSearch);
+	const [filter, setFilter] = useState(initialCategory) || "All Transactions";
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+
+		if (search) {
+			params.set("search", search);
+		}
+		if (sortBy && sortBy !== sortByOptions[0]) {
+			params.set("sort", sortBy);
+		}
+		if (filter && filter !== "All") {
+			params.set("filter", filter);
+		}
+
+		// Update URL without full page reload
+		router.replace(`/recurring-bills?${params.toString()}`, { scroll: false });
+	}, [search, sortBy, router, filter]);
+	console.log(filter, filterRecurringTransactionsByCategory(recurringTransactions, filter));
+
 	const sortedTransactions = useMemo(() => {
-		const filtered = recurringTransactions.filter((t) =>
+		const searched = recurringTransactions.filter((t) =>
 			t.title.toLowerCase().includes(search.toLowerCase())
 		);
-		return sortRecurringTransactionsByFilter(filtered, sortBy.sort);
-	}, [recurringTransactions, search, sortBy.sort]);
+		const filtered = filterRecurringTransactionsByCategory(searched, filter);
+
+		return sortRecurringTransactionsByFilter(filtered, sortBy);
+	}, [recurringTransactions, search, sortBy, filter]);
 
 	return (
 		<>
@@ -36,36 +62,15 @@ export default function RecurringBills() {
 				<TotalBills />
 				<div className="flex-column gap-6 px-5 py-6 bg-bg rounded-12">
 					{/* Search BAR */}
-					<div className="flex-between gap-4 ">
-						<label htmlFor="search" className="input-container flex-1 group">
-							<input
-								id="search"
-								className="w-full flex-1 outline-none text-p4"
-								type="text"
-								placeholder="Search Transactions"
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
-							/>
-							<SearchIcon className="size-4 text-muted group-focus-within:text-fg" />
-						</label>
-
-						<div className="flex-center gap-4">
-							<DropDown
-								icon={<IconSortMobile className="size-5 fill-fg" />}
-								label="Sort By"
-								options={sortByOptions}
-								selected={sortBy.sort}
-								setSelected={(val) => {
-									setSortBy((prev) => ({
-										...prev,
-										sort: val,
-									}));
-								}}
-								open={sortBy.open}
-								setOpen={(val) => setSortBy((prev) => ({ ...prev, open: val }))}
-							/>
-						</div>
-					</div>
+					<SortingBlock
+						search={search}
+						setSearch={setSearch}
+						filter={filter}
+						setFilter={setFilter}
+						sortBy={sortBy}
+						setSortBy={setSortBy}
+						categories={sortRecurringTransactionsFilter}
+					/>
 
 					{/* Larger Screen Columns */}
 					<aside

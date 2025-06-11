@@ -1,3 +1,4 @@
+"use cleint";
 import { TransactionType } from "@/components/constants/types";
 
 import * as Yup from "yup";
