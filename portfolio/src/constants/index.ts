@@ -114,42 +114,42 @@ export const projects = [
 		inProgress: true,
 		images: [
 			{
-				src: "../../public/images/Project-3/Project-3-light-overview-desktop.png",
+				src: "/images/Project-3/Project-3-light-overview-desktop.png",
 				alt: "Project 2 Light Overview Desktop",
 				device: "desktop",
 			},
 			{
-				src: "../../public/images/Project-3/Preojct-3-dark-budgets-desktop.png",
+				src: "/images/Project-3/Preojct-3-dark-budgets-desktop.png",
 				alt: "Project 3 Dark Budgets Desktop",
 				device: "desktop",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-dark-addP-desktop.png",
+				src: "/images/Project-3/Project-3-dark-addP-desktop.png",
 				alt: "Project 3 Dark Add Pot Desktop",
 				device: "desktop",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-light-addT-desktop.png",
+				src: "/images/Project-3/Project-3-light-addT-desktop.png",
 				alt: "Project 3 Light Add Transaction Desktop",
 				device: "desktop",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-dark-overview-mobile.png",
+				src: "/images/Project-3/Project-3-dark-overview-mobile.png",
 				alt: "Project 3 Dark Overview Mobile",
 				device: "mobile",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-light-t-mobile.png",
+				src: "/images/Project-3/Project-3-light-t-mobile.png",
 				alt: "Project 3 Light Transactions  Mobile",
 				device: "mobile",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-dark-pots-mobile.png",
+				src: "/images/Project-3/Project-3-dark-pots-mobile.png",
 				alt: "Project 3 Dark Pots Mobile",
 				device: "mobile",
 			},
 			{
-				src: "../../public/images/Project-3/Project-3-light-recbills-mobile.png",
+				src: "/images/Project-3/Project-3-light-recbills-mobile.png",
 				alt: "Project 3 Light Recurring Bills Mobile",
 				device: "mobile",
 			},
