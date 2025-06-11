@@ -31,6 +31,7 @@ export const sortTransactionsByFilter = (transactions: TransactionType[], filter
 			return transactions;
 	}
 };
+
 export const sortRecurringTransactionsByFilter = (
 	transactions: TransactionType[],
 	filter: string
@@ -172,6 +173,14 @@ export const RecurringStatusTransaction = (transaction: TransactionType) => {
 	}
 
 	return "Paid";
+};
+export const filterRecurringTransactionsByCategory = (
+	transactions: TransactionType[],
+	sort: string
+) => {
+	return transactions.filter((transaction) => {
+		return RecurringStatusTransaction(transaction) === sort || sort === "All Transactions";
+	});
 };
 export const getOrdinal = (n: number) => {
 	const mod10 = n % 10;

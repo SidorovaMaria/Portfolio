@@ -5,7 +5,7 @@ import Title from "@/components/Title";
 import Transaction from "@/components/Transaction";
 
 import { RootState } from "@/lib/store";
-import { use, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { sortByOptions } from "@/components/constants";
 import { Plus } from "lucide-react";
@@ -13,13 +13,12 @@ import { sortTransactionsByFilter } from "@/lib/helperFunctions";
 
 import IconCaretLeft from "@/components/svg/IconCaretLeft";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SortingBlock from "./SortingBlock";
 import { TransactionType } from "@/components/constants/types";
 export default function Transactions() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const pathname = usePathname();
 
 	// Read from URL params or fallback to defaults
 	const initialCategory = searchParams.get("category") || "All Transactions";
@@ -42,7 +41,6 @@ export default function Transactions() {
 		}
 	}, [searchParams]);
 
-	// Update URL when filter/search/sort change
 	useEffect(() => {
 		const params = new URLSearchParams();
 

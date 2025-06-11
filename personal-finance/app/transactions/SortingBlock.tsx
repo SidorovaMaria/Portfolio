@@ -8,11 +8,11 @@ import { useState } from "react";
 interface SortingBlockProps {
 	search: string;
 	setSearch: (val: string) => void;
-	filter: string;
-	setFilter: (val: string) => void;
+	filter?: string;
+	setFilter?: (val: string) => void;
 	sortBy: string;
 	setSortBy: (val: string) => void;
-	categories: { name: string }[];
+	categories?: { name: string }[];
 }
 export default function SortingBlock({
 	search,
@@ -51,21 +51,23 @@ export default function SortingBlock({
 					open={openSort} // Optionally, you can lift open state up as well
 					setOpen={() => setOpenSort(!openSort)}
 				/>
-				<DropDown
-					icon={
-						<IconFilterMobile className="w-5 h-5 fill-muted hover:fill-fg cursor-pointer" />
-					}
-					minWidth="min-w-[177px]"
-					label="Category"
-					options={["All Transactions", ...categories.map((c) => c.name)]}
-					selected={filter}
-					setSelected={(val) => {
-						setFilter(val);
-						// If you want to reset page or other state, do it in parent
-					}}
-					open={openfilter}
-					setOpen={() => setOpenFilter(!openfilter)}
-				/>
+				{filter && setFilter && categories && (
+					<DropDown
+						icon={
+							<IconFilterMobile className="w-5 h-5 fill-muted hover:fill-fg cursor-pointer" />
+						}
+						minWidth="min-w-[177px]"
+						label="Category"
+						options={["All Transactions", ...categories.map((c) => c.name)]}
+						selected={filter}
+						setSelected={(val) => {
+							setFilter(val);
+							// If you want to reset page or other state, do it in parent
+						}}
+						open={openfilter}
+						setOpen={() => setOpenFilter(!openfilter)}
+					/>
+				)}
 			</div>
 		</div>
 	);

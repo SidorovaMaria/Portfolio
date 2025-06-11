@@ -374,6 +374,11 @@ export const defaultTransactions: TransactionType[] = [
 ];
 
 export const sortByOptions = ["Latest", "Oldest", "A to Z", "Z to A", "Highest", "Lowest"];
+export const sortRecurringTransactionsFilter = [
+	{ name: "Unpaid" },
+	{ name: "Paid" },
+	{ name: "Due Soon" },
+];
 
 export const navlinks: NavLink[] = [
 	{
