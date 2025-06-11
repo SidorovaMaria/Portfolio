@@ -8,6 +8,7 @@ interface ProjectProps {
 		tags: string[];
 		link: string;
 		github: string;
+		inProgress?: boolean;
 	};
 	clasName?: string;
 }
@@ -26,6 +27,12 @@ const Project = ({ project }: ProjectProps) => {
 				<p className="text-center text-secondary/70 text-sm italic tracking-wide ">
 					{project.description}
 				</p>
+				{project.inProgress && (
+					<p className="text-center text-red-500! text-xs italic tracking-wide">
+						<span className="font-bold">In Progress</span> - this project is still in
+						progress to be better.
+					</p>
+				)}
 			</div>
 			<div className="flex justify-end items-center gap-2 mr-12">
 				{project.tags.map((tag, index) => (

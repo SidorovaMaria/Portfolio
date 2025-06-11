@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "motion/react";
 const DURATION = 0.25;
 const STAGGER = 0.03;

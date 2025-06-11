@@ -7,7 +7,7 @@ import * as THREE from "three";
 
 import { Text, useGLTF } from "@react-three/drei";
 import type { GLTF } from "three-stdlib";
-
+import type { JSX } from "react";
 type GLTFResult = GLTF & {
 	nodes: {
 		JS_text001_0: THREE.Mesh;
@@ -93,11 +93,12 @@ type GLTFResult = GLTF & {
 		["Material.002"]: THREE.MeshStandardMaterial;
 		["Material.003"]: THREE.MeshStandardMaterial;
 	};
-	animations: GLTFAction[];
 };
-
-export function Laptop(props: JSX.IntrinsicElements["group"], customText?: string) {
-	const { nodes, materials } = useGLTF("/models/frontend-laptop.glb") as GLTFResult;
+type LaptopProps = JSX.IntrinsicElements["group"] & {
+	customText?: string;
+};
+export function Laptop({ customText, ...props }: LaptopProps) {
+	const { nodes, materials } = useGLTF("/models/frontend-laptop.glb") as unknown as GLTFResult;
 	return (
 		<group {...props} dispose={null}>
 			<group scale={0.01} position={[0, -1.5, 0]}>
@@ -188,7 +189,7 @@ export function Laptop(props: JSX.IntrinsicElements["group"], customText?: strin
 							textAlign="center"
 							rotation={[Math.PI / 2.8, 0, 0]}
 						>
-							{props.customText}
+							{customText}
 						</Text>
 					</mesh>
 				</group>

@@ -111,6 +111,7 @@ export const projects = [
 	},
 	{
 		project: "Budgets  - A Simple Budget Tracker.",
+		inProgress: true,
 		images: [
 			{
 				src: "../../public/images/Project-3/Project-3-light-overview-desktop.png",
