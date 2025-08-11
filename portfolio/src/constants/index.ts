@@ -170,7 +170,7 @@ export const projects = [
         device: "desktop",
       },
       {
-        src: "/images/Project-4/intro.png",
+        src: "images/Project-4/Intro.png",
         alt: "Project 4 Intro Screen",
         device: "desktop",
       },
@@ -195,7 +195,7 @@ export const projects = [
         device: "mobile",
       },
       {
-        src: "/images/Project-4/mobile-mood",
+        src: "/images/Project-4/mobile-mood.png",
         alt: "Project 4 Dashboard",
         device: "mobile",
       },
