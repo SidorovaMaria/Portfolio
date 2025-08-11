@@ -160,4 +160,62 @@ export const projects = [
     link: "https://budget-tracker-flame-eight.vercel.app/",
     github: "",
   },
+  {
+    project: "MoodBowl  - Track Nutrition & Mood",
+    inProgress: true,
+    images: [
+      {
+        src: "/images/Project-4/dashboard.png",
+        alt: "Project 4 Dashboard",
+        device: "desktop",
+      },
+      {
+        src: "/images/Project-4/intro.png",
+        alt: "Project 4 Intro Screen",
+        device: "desktop",
+      },
+      {
+        src: "/images/Project-4/meals.png",
+        alt: "Project 4 Meal Tracking",
+        device: "desktop",
+      },
+      {
+        src: "/images/Project-4/signUp.png",
+        alt: "Project 4 Sign Up",
+        device: "desktop",
+      },
+      {
+        src: "/images/Project-4/mobile-intro.png",
+        alt: "Project 4 Intro",
+        device: "mobile",
+      },
+      {
+        src: "/images/Project-4/mobile-meals.png",
+        alt: "Project 4 Track Meals",
+        device: "mobile",
+      },
+      {
+        src: "/images/Project-4/mobile-mood",
+        alt: "Project 4 Dashboard",
+        device: "mobile",
+      },
+      {
+        src: "/images/Project-4/mobile-signup.png",
+        alt: "Project 4 SignUp",
+        device: "mobile",
+      },
+    ],
+    description:
+      "Track your moods, log meals, and capture your thoughts in a simple, intuitive diary built for self-awareness and growth. Next.js applcaition with integrated Mongodb",
+    tags: [
+      "Next.js",
+      "MongoDB",
+      "FramerMotion",
+      "TailwindCSS",
+      "Shadcn",
+      "Mongoose",
+    ],
+    link: "https://mood-bowl.vercel.app/",
+    github: "",
+  },
 ];
