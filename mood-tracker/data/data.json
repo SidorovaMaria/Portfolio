@@ -99,7 +99,7 @@
       "sleepHours": 3.5
     },
     {
-      "createdAt": "2025-07-29T11:00:00Z",
+      "createdAt": "2025-08-28T11:00:00Z",
       "mood": 2,
       "feelings": ["Grateful", "Optimistic"],
       "journalEntry": "Woke up early and finally tackled a big project!",
@@ -142,5 +142,10 @@
       "Trust your journey; you're in a beautiful place right now.",
       "Let your happiness ripple out and inspire others."
     ]
+  },
+  "user": {
+    "name": "Lisa",
+    "image": "/images/avatar-lisa.jpg",
+    "email": "lisa@mail.com"
   }
 }

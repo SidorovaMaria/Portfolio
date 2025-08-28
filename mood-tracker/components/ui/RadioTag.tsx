@@ -3,11 +3,12 @@ import React from "react";
 interface RadioTagProps {
   id: string;
   label: string;
-  value: string;
+  value: string | number;
   name: string;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
+  icon?: React.ReactNode;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
 }
@@ -19,15 +20,15 @@ const RadioTag = ({
   onChange,
   name,
   disabled,
+  icon,
   className,
   ...props
 }: RadioTagProps) => {
   return (
     <label
       htmlFor={id}
-      className={`px-5 py-3 relative  rounded-[10px] border-2 border-blue-100 flex items-end flex-row-reverse gap-2.5 cursor-pointer has-checked:border-blue-600 ${className} `}
+      className={`px-5 py-3 relative  rounded-[10px] border-2 border-blue-100 flex items-center flex-row gap-2.5 cursor-pointer has-checked:border-blue-600 ${className} `}
     >
-      <p className="text-preset-5 text-neutral-900 ">{label}</p>
       <div className="relative w-5 h-5">
         <input
           {...props}
@@ -60,6 +61,8 @@ const RadioTag = ({
             `}
         />
       </div>
+      <p className="text-preset-5 text-neutral-900 ">{label}</p>
+      {icon && <div className="ml-auto">{icon}</div>}
     </label>
   );
 };

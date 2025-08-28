@@ -56,7 +56,7 @@ body {
   @apply text-[24px] leading-140 font-normal;
 }
 @utility text-preset-5 {
-  @apply text-[20px] leading-140 font-semibold;
+  @apply text-[20px] leading-140 font-bold;
 }
 @utility text-preset-6 {
   @apply text-lg leading-120 font-medium;

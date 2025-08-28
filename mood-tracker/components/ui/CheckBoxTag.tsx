@@ -4,6 +4,7 @@ interface CheckBoxTagProps {
   id: string;
   label: string;
   name?: string;
+  value: string;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -14,6 +15,7 @@ const CheckBoxTag = ({
   id,
   label,
   checked,
+  value,
   defaultChecked,
   onChange,
   name,
@@ -37,6 +39,7 @@ const CheckBoxTag = ({
           checked={checked}
           defaultChecked={defaultChecked}
           disabled={disabled}
+          value={value}
           onChange={onChange}
         />
         <span
