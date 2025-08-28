@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Reddit_Sans } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/NavBar";
 
 const redditSans = Reddit_Sans({
   variable: "--reddit-sans",
@@ -20,7 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${redditSans.variable}  antialiased`}>{children}</body>
+      <body className={`${redditSans.variable}  antialiased`}>
+        <main className="mx-4 mt-8 mb-20 md:mt-10 md:mx-8 lg:max-w-[1170px] lg:mx-auto">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
