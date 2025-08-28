@@ -1,6 +1,9 @@
 import FlipText from "../motionComponents/FlipText";
-import { Coffee } from "lucide-react";
+import { Coffee, ThumbsUp } from "lucide-react";
 import { motion } from "motion/react";
+import { Links } from "../constants";
+import IconLink from "../components/IconLink";
+
 const AboutMe = () => {
   return (
     <section
@@ -53,8 +56,9 @@ const AboutMe = () => {
             with ongoing adventures into TypeScript and Next.js. I’m confident
             in <span className="accent">Figma</span>— this website was
             originally designed there! — making it easy for me to bridge the gap
-            beGitHub also use <span className="accent">GitHub</span> daily to
-            manage and share my work.
+            between design and development. I also use{" "}
+            <span className="accent">GitHub</span> daily to manage and share my
+            work.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -65,7 +69,9 @@ const AboutMe = () => {
           >
             I’m detail-obsessed (some may say stubborn!) when it comes to
             solving problems — I don’t stop until I find a clean, accessible,
-            and efficient solution. At the same time, I thrive in team settings
+            and efficient solution. At the same time, I’m always eager to learn,
+            adapt, and improve my skills, whether that’s exploring new
+            technologies or refining existing ones. I thrive in team settings
             and genuinely care about making people around me feel safe,
             supported, and inspired.
           </motion.p>
@@ -82,6 +88,19 @@ const AboutMe = () => {
           </motion.p>
         </div>
       </div>
+      <section className="mt-10">
+        <h2 className="flex items-center gap-2.5 group mb-8">
+          <FlipText className="text-xl lg:text-[40px] uppercase font-bold py-0 leading-[140%]">
+            Bean There, Linked That
+          </FlipText>
+          <ThumbsUp className="size-7 lg:size-10 text-coffe-light group-hover:text-secondary transition-all duration-900 ease-linear " />
+        </h2>
+        <div className="flex gap-4 w-full justify-center">
+          {Links.map((link) => (
+            <IconLink key={link.name} link={link} />
+          ))}
+        </div>
+      </section>
     </section>
   );
 };

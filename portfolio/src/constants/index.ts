@@ -219,3 +219,36 @@ export const projects = [
     github: "",
   },
 ];
+
+export type Link = {
+  name: string;
+  devicon: boolean;
+  icon: string;
+  url: string;
+  desc: string;
+};
+
+export const Links: Link[] = [
+  {
+    name: "Github",
+    devicon: true,
+    icon: "devicon-github-original",
+    url: "https://github.com/SidorovaMaria",
+    desc: "My GitHub profile showcasing my projects",
+  },
+
+  {
+    devicon: true,
+    name: "LinkedIn",
+    icon: "devicon-linkedin-plain",
+    url: "https://www.linkedin.com/in/maria-sidorova-935947277/",
+    desc: "My LinkedIn profile",
+  },
+  {
+    devicon: false,
+    name: "FrontEndMentor",
+    icon: "/icons/front-end-mentor.svg",
+    url: "https://www.frontendmentor.io/profile/SidorovaMaria",
+    desc: "My Frontend Mentor profile showcasing my solutions to design challenges.",
+  },
+];
