@@ -22,6 +22,7 @@
   --leading-130: 130%;
   --tracking-2: -2px;
   --tracking-03: -0.3px;
+  --radiuss-10: 10px;
 }
 body {
   @apply font-reddit-sans;
