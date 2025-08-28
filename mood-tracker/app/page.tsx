@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
-  return <div>Initial Commit</div>;
+  return <h1 className="text-preset-1-mobile">Initial Commit</h1>;
 }
