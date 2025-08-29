@@ -28,9 +28,9 @@ interface MoodEntry {
   journalEntry: string;
   sleepHours: number;
 }
-interface MoodQuotes {
-  [key: Mood]: string[];
-}
+type MoodQuotes = {
+  [key in Mood]: string[];
+};
 interface User {
   name: string;
   image: string;

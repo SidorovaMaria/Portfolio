@@ -80,5 +80,5 @@ body {
 }
 
 html {
-  @apply light-gradient h-screen text-neutral-900;
+  @apply light-gradient  text-neutral-900;
 }

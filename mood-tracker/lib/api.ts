@@ -74,3 +74,7 @@ export async function getMoodinFives(): Promise<MoodEntry[][] | null> {
     return [sorted.slice(0, 5), sorted.slice(5, 10)];
   }
 }
+
+export async function getMoodQuotes(): Promise<MoodQuotes> {
+  return api<MoodQuotes>("/moodQuotes");
+}
