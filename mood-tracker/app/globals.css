@@ -83,3 +83,22 @@ body {
 html {
   @apply light-gradient  text-neutral-900;
 }
+
+@layer components {
+  .arrow-right {
+    @apply absolute left-[99%] z-50;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-left: 15px solid white;
+    margin: 0 auto;
+    bottom: calc(var(--sleepHeight) - 30px);
+  }
+  .arrow-left {
+    @apply absolute right-[99%] z-50;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 15px solid white;
+    margin: 0 auto;
+    bottom: calc(var(--sleepHeight) - 30px);
+  }
+}

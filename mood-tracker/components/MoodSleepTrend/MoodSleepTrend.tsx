@@ -25,9 +25,9 @@ const MoodSleepTrend = ({ entries }: { entries: MoodEntry[] }) => {
             <SleepTag key={tag} tag={tag} />
           ))}
         </div>
-        <div className="overflow-x-auto overflow-y-hidden flex flex-row h-full gap-4 lg:gap-6  xl:gap-4 border w-full xl:max-w-[627px] items [direction:rtl]">
-          {entries.map((entry) => (
-            <EntryTrend key={entry.createdAt} entry={entry} />
+        <div className="overflow-x-auto overflow-y-hidden flex flex-row h-full gap-4 lg:gap-6  xl:gap-4  w-full xl:max-w-[627px] items [direction:rtl]">
+          {entries.map((entry, index) => (
+            <EntryTrend key={entry.createdAt} index={index} entry={entry} />
           ))}
           {emptyData.map((entry) => (
             <EmptyTrend key={entry.createdAt} entry={entry} />
