@@ -30,7 +30,7 @@ export default async function Home() {
       )}
       <section className="grid grid-cols-1 xl:grid-cols-[4fr_7fr] gap-8 w-full">
         <Average />
-        <MoodSleepTrend entry={sortedEntries.slice(0, 11)} />
+        <MoodSleepTrend entries={sortedEntries.slice(0, 11)} />
       </section>
     </section>
   );

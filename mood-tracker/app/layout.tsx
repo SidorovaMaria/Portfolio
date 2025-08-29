@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Reddit_Sans } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/components/NavBar";
 
 const redditSans = Reddit_Sans({
   variable: "--reddit-sans",
@@ -20,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${redditSans.variable}  antialiased `}>
         <main className="mx-4 mt-8 mb-20 md:mt-10 md:mx-8 xl:max-w-[1170px] xl:mx-auto ">
           {children}
