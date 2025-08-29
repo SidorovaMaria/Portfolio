@@ -10,7 +10,7 @@ const Average = async () => {
     last5Entries && last5Entries.length > 1 ? last5Entries[1] : null;
 
   return (
-    <div className="flex flex-col gap-6 bg-neutral-0 rounded-[16px] border border-blue-100 px-4 py-5">
+    <div className="flex flex-col gap-6 bg-neutral-0 rounded-[16px] border border-blue-100 px-4 py-5 w-full ">
       <AverageMood current={current} previous={previous} />
       <AverageSleep current={current} previous={previous} />
     </div>

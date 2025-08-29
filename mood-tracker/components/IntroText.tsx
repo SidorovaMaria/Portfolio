@@ -7,7 +7,6 @@ const IntroText = async () => {
   const currentUser = await getUser();
   const date = new Date();
   const formattedDate = format(date, "EEEE, MMMM do, yyyy");
-  console.log(formattedDate);
 
   return (
     <section className="flex flex-col justify-center items-center w-full gap-4 text-center ">
