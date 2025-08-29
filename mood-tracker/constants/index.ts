@@ -26,8 +26,6 @@ export const FEELINGS = [
 export type Feeling = (typeof FEELINGS)[number];
 
 // (Optional) runtime constant for moods
-export const MOODS = ["-2", "-1", "0", "1", "2"] as const;
-export type MoodValue = (typeof MOODS)[number];
 
 export const formStepTitles = {
   0: "How was your mood today?",

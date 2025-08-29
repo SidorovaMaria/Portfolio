@@ -1,33 +1,29 @@
 "use client";
-import React, { use, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { set, z, infer as zodInfer } from "zod";
 import {
   FEELINGS,
   formStepTitles,
-  MOODS,
-  MoodValue,
   StepCheckValue,
   totalFormSteps,
 } from "@/constants";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../ui/Button";
-
-import RadioTag from "../ui/RadioTag";
-
 import JournalEntry from "./steps/JournalEntry";
 import MoodStep from "./steps/MoodStep";
 import FeelingTags from "./steps/FeelingTags";
 import SleepHoursStep from "./steps/SleepHoursStep";
 import { IconClose, IconHint } from "../svg";
+import { createNewMoodEntry } from "@/lib/api";
 const formSchema = z.object({
   mood: z
     .string()
     .min(1, "Please select a mood before continuing.")
     .refine(
-      (v) => MOODS.includes(v as MoodValue),
+      (val) => [-2, -1, 0, 1, 2].includes(Number(val)),
       "Please select a valid mood."
     ),
   feelings: z
@@ -89,14 +85,21 @@ const FormLayout = () => {
   const PrevStep = () => {
     setFormStep((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
   };
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const result = await createNewMoodEntry({
+      mood: Number(data.mood) as unknown as Mood,
+      feelings: data.feelings as Feelings[],
+      journalEntry: data.journalEntry,
+      sleepHours: Number(data.sleepHours),
+    });
+    onClose();
+    form.reset();
+    console.log(result);
   };
 
   return (
     <>
       <Button onClick={openMoodForm}> Log today&apos;s mood</Button>
-
       <AnimatePresence mode="wait">
         {MoodFormOpen && (
           <motion.div
@@ -111,7 +114,7 @@ const FormLayout = () => {
               opacity: 0,
             }}
             transition={{ duration: 0.4, type: "tween" }}
-            className="fixed w-screen h-screen inset-0 bg-black/50 z-10 px-5
+            className="fixed w-screen h-screen inset-0 bg-neutral-900/70 z-10 px-5
         flex items-center justify-between md:px-21"
           >
             <motion.div

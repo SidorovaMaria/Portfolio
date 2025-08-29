@@ -21,8 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${redditSans.variable}  antialiased`}>
-        <main className="mx-4 mt-8 mb-20 md:mt-10 md:mx-8 lg:max-w-[1170px] lg:mx-auto">
+      <body className={`${redditSans.variable}  antialiased `}>
+        <main className="mx-4 mt-8 mb-20 md:mt-10 md:mx-8 lg:max-w-[1170px] lg:mx-auto ">
           {children}
         </main>
       </body>
