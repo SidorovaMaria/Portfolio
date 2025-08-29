@@ -3,124 +3,179 @@
     {
       "createdAt": "2025-08-18T09:00:00Z",
       "mood": 2,
-      "feelings": ["Joyful", "Motivated", "Hopeful"],
+      "feelings": [
+        "Joyful",
+        "Motivated",
+        "Hopeful"
+      ],
       "journalEntry": "Had an amazing morning run and feel full of energy!",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "90af"
     },
     {
       "createdAt": "2025-08-19T10:30:00Z",
       "mood": 1,
-      "feelings": ["Grateful", "Calm"],
+      "feelings": [
+        "Grateful",
+        "Calm"
+      ],
       "journalEntry": "Spent time with family, feeling relaxed and thankful.",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "7888"
     },
     {
-      "createdAt": "2025-08-20T08:15:00Z",
+      "createdAt": "2025-07-29T08:15:00Z",
       "mood": 0,
-      "feelings": ["Peaceful"],
+      "feelings": [
+        "Peaceful"
+      ],
       "journalEntry": "Routine day at work, nothing too exciting or stressful.",
-      "sleepHours": 5.5
+      "sleepHours": 5.5,
+      "id": "9ec9"
     },
     {
-      "createdAt": "2025-08-21T07:50:00Z",
+      "createdAt": "2025-07-30T07:50:00Z",
       "mood": -1,
-      "feelings": ["Down", "Tired"],
+      "feelings": [
+        "Down",
+        "Tired"
+      ],
       "journalEntry": "Tough day. Didn't sleep well and felt drained at work.",
-      "sleepHours": 3.5
+      "sleepHours": 3.5,
+      "id": "b70e"
     },
     {
-      "createdAt": "2025-08-22T11:00:00Z",
+      "createdAt": "2025-07-31T11:00:00Z",
       "mood": -1,
-      "feelings": ["Disappointed", "Frustrated"],
+      "feelings": [
+        "Disappointed",
+        "Frustrated"
+      ],
       "journalEntry": "Got some bad news. Trying to process my emotions.",
-      "sleepHours": 5.5
+      "sleepHours": 5.5,
+      "id": "8217"
     },
     {
       "createdAt": "2025-08-20T12:05:00Z",
       "mood": 1,
-      "feelings": ["Excited", "Content"],
+      "feelings": [
+        "Excited",
+        "Content"
+      ],
       "journalEntry": "A good friend visited, which lifted my spirits a lot.",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "72ef"
     },
     {
       "createdAt": "2025-08-16T09:15:00Z",
       "mood": -2,
-      "feelings": ["Overwhelmed", "Lonely"],
+      "feelings": [
+        "Overwhelmed",
+        "Lonely"
+      ],
       "journalEntry": "Feeling isolated. Need to talk to someone soon.",
-      "sleepHours": 3.5
+      "sleepHours": 3.5,
+      "id": "5bd0"
     },
     {
-      "createdAt": "2025-08-18T19:45:00Z",
+      "createdAt": "2025-08-21T19:45:00Z",
       "mood": 0,
-      "feelings": ["Irritable"],
+      "feelings": [
+        "Irritable"
+      ],
       "journalEntry": "Woke up in a grouchy mood but it got better by evening.",
-      "sleepHours": 5.5
+      "sleepHours": 5.5,
+      "id": "7f32"
     },
     {
-      "createdAt": "2025-08-10T10:55:00Z",
+      "createdAt": "2025-07-30T10:55:00Z",
       "mood": 1,
-      "feelings": ["Optimistic", "Confident"],
+      "feelings": [
+        "Optimistic",
+        "Confident"
+      ],
       "journalEntry": "Good progress on personal goals today, feeling proud.",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "cad3"
     },
     {
-      "createdAt": "2025-08-17T07:30:00Z",
+      "createdAt": "2025-08-23T07:30:00Z",
       "mood": 2,
-      "feelings": ["Joyful", "Excited", "Grateful"],
+      "feelings": [
+        "Joyful",
+        "Excited",
+        "Grateful"
+      ],
       "journalEntry": "Slept well and woke up ready to tackle new challenges.",
-      "sleepHours": 9
+      "sleepHours": 9,
+      "id": "e99d"
     },
     {
-      "createdAt": "2025-08-15T08:30:00Z",
+      "createdAt": "2025-08-24T08:30:00Z",
       "mood": -1,
-      "feelings": ["Lonely", "Anxious"],
+      "feelings": [
+        "Lonely",
+        "Anxious"
+      ],
       "journalEntry": "Feeling a bit off. Hoping tomorrow is better.",
-      "sleepHours": 3.5
+      "sleepHours": 3.5,
+      "id": "4acf"
     },
     {
-      "createdAt": "2025-08-06T08:00:00Z",
+      "createdAt": "2025-08-25T08:00:00Z",
       "mood": 0,
-      "feelings": ["Calm"],
+      "feelings": [
+        "Calm"
+      ],
       "journalEntry": "Quiet day at home, reading and resting.",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "1ebb"
     },
     {
-      "createdAt": "2025-07-31T09:00:00Z",
+      "createdAt": "2025-08-26T09:00:00Z",
       "mood": 1,
-      "feelings": ["Optimistic", "Confident"],
+      "feelings": [
+        "Optimistic",
+        "Confident"
+      ],
       "journalEntry": "Had a productive morning cleaning and organizing.",
-      "sleepHours": 7.5
+      "sleepHours": 7.5,
+      "id": "c8fa"
     },
     {
-      "createdAt": "2025-07-30T10:00:00Z",
+      "createdAt": "2025-08-27T10:00:00Z",
       "mood": -2,
-      "feelings": ["Down", "Tired"],
+      "feelings": [
+        "Down",
+        "Tired"
+      ],
       "journalEntry": "Rough night of sleep. Need support and rest.",
-      "sleepHours": 3.5
+      "sleepHours": 3.5,
+      "id": "3ced"
     },
     {
       "createdAt": "2025-08-28T11:00:00Z",
       "mood": 2,
-      "feelings": ["Grateful", "Optimistic"],
+      "feelings": [
+        "Grateful",
+        "Optimistic"
+      ],
       "journalEntry": "Woke up early and finally tackled a big project!",
-      "sleepHours": 9
+      "sleepHours": 9,
+      "id": "5461"
+    },
+    {
+      "id": "4068",
+      "createdAt": "2025-08-29T11:21:33.666Z",
+      "mood": 2,
+      "feelings": [
+        "Frustrated"
+      ],
+      "journalEntry": "Today",
+      "sleepHours": 7.5
     }
   ],
   "moodQuotes": {
-    "-2": [
-      "You are stronger than you think; the storm will pass.",
-      "It's okay to cry. Healing begins when you let your feelings flow.",
-      "Even in darkness, a spark of hope can shine bright.",
-      "This moment is tough, but you've overcome challenges before.",
-      "A gentle step forward, no matter how small, is still progress."
-    ],
-    "-1": [
-      "Pain is temporary, brighter days lie ahead.",
-      "Each setback is a chance to grow and learn.",
-      "One small positive thought can change your entire day.",
-      "It's okay to rest; self-care isn't selfish.",
-      "Healing takes time - be patient and kind to yourself."
-    ],
     "0": [
       "A calm mind can find opportunity in every moment.",
       "Sometimes the greatest triumph is simply finding peace.",
@@ -141,6 +196,20 @@
       "Joy multiplies when spread among friends.",
       "Trust your journey; you're in a beautiful place right now.",
       "Let your happiness ripple out and inspire others."
+    ],
+    "-2": [
+      "You are stronger than you think; the storm will pass.",
+      "It's okay to cry. Healing begins when you let your feelings flow.",
+      "Even in darkness, a spark of hope can shine bright.",
+      "This moment is tough, but you've overcome challenges before.",
+      "A gentle step forward, no matter how small, is still progress."
+    ],
+    "-1": [
+      "Pain is temporary, brighter days lie ahead.",
+      "Each setback is a chance to grow and learn.",
+      "One small positive thought can change your entire day.",
+      "It's okay to rest; self-care isn't selfish.",
+      "Healing takes time - be patient and kind to yourself."
     ]
   },
   "user": {

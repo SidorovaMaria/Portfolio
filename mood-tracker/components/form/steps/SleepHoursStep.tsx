@@ -35,7 +35,7 @@ const SleepHoursStep = ({
         {...form.register("sleepHours")}
       />
       <RadioTag
-        value={1.5}
+        value={1}
         id="sleep-0-2"
         label={"0-2 hours"}
         {...form.register("sleepHours")}

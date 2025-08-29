@@ -1,4 +1,9 @@
 "use server";
+
+import { b } from "motion/react-m";
+import { revalidatePath } from "next/cache";
+import { nanoid } from "zod";
+
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3001";
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
@@ -34,4 +39,38 @@ export async function getMoodEntryByDate(
   const all = await getMoodEntries();
 
   return all.find((entry) => entry.createdAt.split("T")[0] === date) ?? null;
+}
+
+export async function createNewMoodEntry(
+  data: Omit<MoodEntry, "id" | "createdAt">
+): Promise<MoodEntry> {
+  revalidatePath("/");
+
+  return api<MoodEntry>("/moodEntries", {
+    method: "POST",
+    body: JSON.stringify({
+      createdAt: new Date().toISOString(),
+      ...data,
+    }),
+  });
+}
+
+export const deleteMoodById = async (id: number): Promise<void> => {
+  await api<void>(`/moodEntries`, {
+    method: "DELETE",
+  });
+};
+
+export async function getMoodinFives(): Promise<MoodEntry[][] | null> {
+  const all = await getMoodEntries();
+  const sorted = all.sort((a, b) =>
+    a.createdAt > b.createdAt ? -1 : b.createdAt > a.createdAt ? 1 : 0
+  );
+  if (sorted.length < 5) {
+    return null;
+  } else if (sorted.length < 10) {
+    return [sorted.slice(0, 5)];
+  } else {
+    return [sorted.slice(0, 5), sorted.slice(5, 10)];
+  }
 }
