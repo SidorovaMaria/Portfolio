@@ -1,8 +1,8 @@
 "use client";
 import { getMoodByNumber } from "@/lib/utils";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MoodCard from "./MoodCard";
-import { getMoodQuotes } from "@/lib/api";
+
 import SleepCard from "./SleepCard";
 import ReflectionCard from "./ReflectionCard";
 
@@ -14,9 +14,11 @@ const MoodOverview = ({
   quotes: string[];
 }) => {
   const MoodDetails = getMoodByNumber(mood.mood)!;
-  const randomMoodQuote = useMemo(() => {
+  const [randomMoodQuote, setRandomMoodQuote] = useState<string>("");
+
+  useEffect(() => {
     const random = Math.floor(Math.random() * quotes.length);
-    return quotes[random];
+    setRandomMoodQuote(quotes[random]);
   }, [quotes]);
 
   return (
