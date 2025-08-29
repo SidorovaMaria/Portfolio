@@ -11,6 +11,7 @@ import {
   IconNeutralColor,
   IconHappyColor,
 } from "../components/svg/index"; // Update the path as needed
+import { subDays } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -96,4 +97,11 @@ export const getSleepByNumber = (number: number | null) => {
     sleepTitle = "Unknown";
   }
   return sleepTitle !== "Unknown" ? sleepTitle : null;
+};
+
+export const heightMap: Record<number, string> = {
+  1: "60px",
+  3.5: "110px",
+  5.5: "155px",
+  7.5: "210px",
 };

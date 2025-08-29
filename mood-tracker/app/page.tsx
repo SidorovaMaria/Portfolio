@@ -28,9 +28,9 @@ export default async function Home() {
       ) : (
         <FormLayout />
       )}
-      <section className="grid grid-cols-1 xl:grid-cols-[4fr_7fr] gap-8 w-full">
+      <section className="grid grid-cols-1 xl:grid-cols-[3fr_6fr] gap-8 w-full">
         <Average />
-        <MoodSleepTrend entries={sortedEntries.slice(0, 11)} />
+        <MoodSleepTrend entries={sortedEntries.slice(0, 17)} />
       </section>
     </section>
   );
