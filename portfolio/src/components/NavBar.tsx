@@ -7,9 +7,9 @@ const NavBar = () => {
     scroll: window.scrollY,
     scrolledDirection: "",
   });
-  const cvFileUrl = "CV.pdf";
+  const cvFileUrl = "Maria_Sidorova-CV.pdf"; // Replace with the actual URL of your CV file
   // Replace with your desired CV filename
-  const cvFileName = "MAriaSidorova_CV.pdf";
+  const cvFileName = "Maria_Sidorova_CV.pdf";
 
   const handleDownload = () => {
     const link = document.createElement("a");
